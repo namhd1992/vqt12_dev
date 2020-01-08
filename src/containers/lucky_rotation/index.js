@@ -15,6 +15,8 @@ import {
 	getVinhDanh,
 	getCountBonus,
 	getKeys,
+	openItem,
+	exchangeItem
 } from '../../modules/lucky'
 import {
 	getData
@@ -67,6 +69,14 @@ import prev_icon from './images/prev-icon.png';
 import ruong_icon from './images/ruong-icon.png';
 import ruong_icons from './images/ruong-icons.png';
 import khobau from './images/khobau.gif';
+
+
+import black from './images/black.jpg';
+import canh from './images/canh.jpg';
+import chao from './images/chao.jpg';
+import don from './images/don.jpg';
+import tet from './images/tet.jpg';
+import ty from './images/ty.jpg';
 // import img_thongbao from './images/img-thongbao.png';
 
 import ReactResizeDetector from 'react-resize-detector'
@@ -92,9 +102,12 @@ class Lucky_Rotation extends React.Component {
 			stop:true,
 			auto: false,
 			userTurnSpin:{},
-			itemOfSpin:[],
+			itemOfUser:[],
 			luckySpin:{},
+			luckySpinGifts:[],
+
 			turnsFree:0,
+			numberWordChange:0,
 			isLogin:false,
 			day:'00',
 			hour:'00', 
@@ -125,6 +138,7 @@ class Lucky_Rotation extends React.Component {
 			listCountBonus:[],
 			width:0,
 			height:0,
+
 			code:false,
 			scoinCard:false,
 			inputValue: '',
@@ -146,6 +160,9 @@ class Lucky_Rotation extends React.Component {
 			turnsBuyInfo:[],
 			soinValue:0,
 			hideNav:false,
+			listChu:[],
+			oneWord:'',
+			showOneWord:false,
 		};
 	}
 	componentWillMount(){
@@ -156,12 +173,12 @@ class Lucky_Rotation extends React.Component {
 	componentDidMount(){
 		var user = JSON.parse(localStorage.getItem("user"));
 		if (user !== null) {
-			this.props.getRotationDetailDataUser(user.access_token, 120).then(()=>{
+			this.props.getRotationDetailDataUser(user.access_token, 119).then(()=>{
 				var data=this.props.dataRotationWithUser;
 				if(data!==undefined){
 					if(data.status==='01'){
 						this.getStatus(data.data.luckySpin);
-						this.setState({userTurnSpin:data.data.userTurnSpin, user:user, itemOfSpin:data.data.itemOfSpin, luckySpin:data.data.luckySpin, turnsFree:(data.data.userTurnSpin.turnsFree+data.data.userTurnSpin.turnsBuy), turnsBuyInfo:data.data.userTurnSpin.turnsBuyInfo, isLogin:true})
+						this.setState({userTurnSpin:data.data.userTurnSpin, user:user, itemOfUser:data.data.itemOfUser, luckySpinGifts: data.data.luckySpinGifts, luckySpin:data.data.luckySpin, turnsFree:(data.data.userTurnSpin.turnsFree+data.data.userTurnSpin.turnsBuy), turnsBuyInfo:data.data.userTurnSpin.turnsBuyInfo, isLogin:true})
 					}else{
 						$('#myModal11').modal('show');
 						this.setState({message_error:'Không lấy được dữ liệu người dùng. Vui lòng tải lại trang.'})
@@ -173,15 +190,15 @@ class Lucky_Rotation extends React.Component {
 				
 			});
 		} else {
-			this.props.getRotationDetailData(120).then(()=>{
+			this.props.getRotationDetailData(119).then(()=>{
 				var data=this.props.dataRotation;
 				if(data!==undefined){
 					if(data.status==='01'){
 						this.getStatus(data.data.luckySpin);
-						this.setState({userTurnSpin:data.data.userTurnSpin, itemOfSpin:data.data.itemOfSpin, luckySpin:data.data.luckySpin, turnsFree:(data.data.userTurnSpin.turnsFree+data.data.userTurnSpin.turnsBuy), isLogin:false})
+						this.setState({userTurnSpin:data.data.userTurnSpin, itemOfUser:data.data.itemOfUser, luckySpinGifts: data.data.luckySpinGifts, luckySpin:data.data.luckySpin, turnsFree:(data.data.userTurnSpin.turnsFree+data.data.userTurnSpin.turnsBuy), isLogin:false})
 					}else{
 						$('#myModal11').modal('show');
-						this.setState({message_error:'Không lấy được dữ liệu.  Vui lòng tải lại trang.'})
+						this.setState({message_error:'Không lấy được dữ liệu. Vui lòng tải lại trang.'})
 					}
 				}else{
 					// $('#myModal12').modal('show');
@@ -247,21 +264,21 @@ class Lucky_Rotation extends React.Component {
 			} else {
 				console.log("Trình duyệt không hỗ trợ localStorage");
 			}
-			window.location.replace(`http://graph.vtcmobile.vn/oauth/authorize?client_id=58306439627cac03c8e4259a87e2e1ca&redirect_uri=${window.location.protocol}//${window.location.host}/login&agencyid=0`)
-			// window.location.replace(`http://sandbox.graph.vtcmobile.vn/oauth/authorize?client_id=4e7549789b14693eda4e019faaa0c446&agencyid=0&redirect_uri=${window.location.protocol}//${window.location.host}/`);
+			// window.location.replace(`http://graph.vtcmobile.vn/oauth/authorize?client_id=58306439627cac03c8e4259a87e2e1ca&redirect_uri=${window.location.protocol}//${window.location.host}/login&agencyid=0`)
+			window.location.replace(`http://sandbox.graph.vtcmobile.vn/oauth/authorize?client_id=4e7549789b14693eda4e019faaa0c446&agencyid=0&redirect_uri=${window.location.protocol}//${window.location.host}/`);
 		}else{
 			$('#myModal12').modal('show');
 		}
 	}
 	logoutAction = () => {
 		localStorage.removeItem("user");
-		window.location.replace(
-			`https://graph.vtcmobile.vn/oauth/authorize?client_id=58306439627cac03c8e4259a87e2e1ca&redirect_uri=${window.location.protocol}//${window.location.host}&action=logout&agencyid=0`,
-		);
-
 		// window.location.replace(
-		// 	`http://sandbox.graph.vtcmobile.vn/oauth/authorize?client_id=4e7549789b14693eda4e019faaa0c446&redirect_uri=${window.location.protocol}//${window.location.host}&action=logout&agencyid=0`,
+		// 	`https://graph.vtcmobile.vn/oauth/authorize?client_id=58306439627cac03c8e4259a87e2e1ca&redirect_uri=${window.location.protocol}//${window.location.host}&action=logout&agencyid=0`,
 		// );
+
+		window.location.replace(
+			`http://sandbox.graph.vtcmobile.vn/oauth/authorize?client_id=4e7549789b14693eda4e019faaa0c446&redirect_uri=${window.location.protocol}//${window.location.host}&action=logout&agencyid=0`,
+		);
 	}
 
 	start=()=>{
@@ -711,19 +728,65 @@ class Lucky_Rotation extends React.Component {
 	openPopup1Word=()=>{
 		$('#mo1chu').modal('show');
 		this.get1Word();
+		setTimeout(()=>{
+			this.setState({showOneWord:true})
+		}, 1000)
 	}
 
 	openPopup10Word=()=>{
 		$('#mo10chu').modal('show');
-		this.get1Word();
+		var n=this.getRandomInt()
+		this.get10Word(n);
 	}
 
 	get1Word=()=>{
-
+		const {user}=this.state
+		const words=[{name:'chao', img:chao}, {name:'don', img:don},{name:'canh', img:canh},{name:'ti', img:ty},{name:'tet',img:tet}]
+		this.props.openItem(119,1, user.access_token).then(()=>{
+			var data=this.props.dataOpenItem;
+			if(data.status==='01'){
+				console.log(data)
+				var pos = words.map(function(e) { return e.name; }).indexOf(data.data[0].item.keyName);
+				this.setState({oneWord:words[pos].img, showOneWord:false})
+			}
+			
+		})
+		// var word=this.getRandomWord();
+		
 	}
 
-	get10Word=()=>{
-		
+	getRandomWord=()=> {
+		const words=[chao, don, tet, canh, ty]
+		var min = 0;
+		var max = 4;
+		var n=Math.floor(Math.random() * (max - min + 1)) + min
+		return words[n];
+	}
+	getRandomInt=()=> {
+		var min = 1;
+		var max = 9;
+		var n=Math.floor(Math.random() * (max - min + 1)) + min
+		return n;
+	}
+
+	get10Word=(n)=>{
+		var listWord=[];
+		for (let i = 0; i < n; i++) {
+			listWord.push(black)
+			this.setState({listChu:listWord})
+		}
+		var k=0
+		var myVar=setInterval(()=>{
+			var word=this.getRandomWord();
+			
+			if(n > k){
+				listWord[k]=word;
+				this.setState({listChu:listWord})
+				k=k+1;
+			}else{
+				clearInterval(myVar)
+			}
+		}, 1000)
 	}
 
 
@@ -732,7 +795,7 @@ class Lucky_Rotation extends React.Component {
 
 
 	render() {
-		const {soinValue,listCountBonus, listKey, activeKey, turnsBuyInfo,status_sukien, xacthuc, scoinCard,height, width, dialogLoginOpen, dialogBonus, auto, dialogWarning, textWarning, isLogin, userTurnSpin, day, hour, minute, second, code,numberPage, message_status, data_auto,message_error,
+		const {showOneWord, oneWord, listChu, soinValue,listCountBonus, listKey, activeKey, turnsBuyInfo,status_sukien, xacthuc, scoinCard,height, width, dialogLoginOpen, dialogBonus, auto, dialogWarning, textWarning, isLogin, userTurnSpin, day, hour, minute, second, code,numberPage, message_status, data_auto,message_error,
 			activeRuong, activeHistory, activeBonus, activeVinhDanh, limit, countCodeBonus, countRuong, countKey, countVinhDanh, listHistory, listCodeBonus, listRuong, listVinhDanh,itemBonus, turnsFree, noti_mdt, noti_tudo, hour_live, minute_live, second_live, user}=this.state;
 		const { classes } = this.props;
 		const notification_tudo=noti_tudo?(<span className="badge badge-pill badge-danger position-absolute noti-tudo">!</span>):(<span></span>);
@@ -1442,12 +1505,17 @@ class Lucky_Rotation extends React.Component {
 			</div>
 
 			{/* Mở 1 chữ */}
-			<div className="modal fade" id="mo1chu">
-				<div className="modal-dialog">
-					<div className="modal-content popup-phanthuong">
-
-					<div className="modal-body">
-					
+			<div class="modal fade" data-keyboard="false" data-backdrop="static" id="mo1chu">
+				<div class="modal-dialog">
+					<div class="modal-content bg-modal-content border-0" style={{marginTop: 60}}>
+					<div class="modal-header border-bottom-0">
+						<button type="button" class="close" data-dismiss="modal"><img src={close_icon} class="img-fluid" /></button>
+					</div>
+					<div class="modal-body font16">
+						{(showOneWord)?(<img src={oneWord} class="img-fluid" style={{margin:5}} />):(
+							<img src={black} class="img-fluid" style={{margin:5}} />
+						)}
+						
 					</div>
 
 					</div>
@@ -1455,11 +1523,21 @@ class Lucky_Rotation extends React.Component {
 			</div>
 
 			{/* Mở 10 chữ */}
-			<div className="modal fade" id="mo10chu">
-				<div className="modal-dialog">
-					<div className="modal-content popup-phanthuong">
-					<div className="modal-body">
-						
+			<div class="modal fade" data-keyboard="false" data-backdrop="static" id="mo10chu">
+				<div class="modal-dialog">
+					<div class="modal-content bg-modal-content border-0" style={{marginTop: 60}}>
+					<div class="modal-header border-bottom-0">
+						<button type="button" class="close" data-dismiss="modal"><img src={close_icon} class="img-fluid" /></button>
+					</div>
+					<div class="modal-body font16">
+						{listChu.map((obj, key)=>{
+							return(
+								<div key={key}>
+									<img src={obj} class="img-fluid" style={{margin:5}} />
+								</div>
+							)
+							
+						})}
 					</div>
 
 					</div>
@@ -1501,6 +1579,8 @@ class Lucky_Rotation extends React.Component {
 
 const mapStateToProps = state => ({
 	dataProfile: state.profile.data,
+	dataOpenItem:state.lucky.dataOpenItem,
+	dataExchangeItem:state.lucky.dataExchangeItem,
 	dataRotation:state.lucky.dataRotation,
 	dataRotationWithUser:state.lucky.dataRotationWithUser,
 	dataPick: state.lucky.dataPick,
@@ -1529,6 +1609,8 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 	getCodeBonus,
 	getVinhDanh,
 	getKeys,
+	exchangeItem,
+	openItem
 }, dispatch)
 
 

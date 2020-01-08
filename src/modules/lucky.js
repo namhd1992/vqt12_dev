@@ -16,6 +16,8 @@ export const LUCKY_VINH_DANH='lucky/LUCKY_VINH_DANH';
 export const LUCKY_CODE_BONUS='lucky/LUCKY_CODE_BONUS';
 export const LUCKY_COUNT_BONUS='lucky/LUCKY_COUNT_BONUS';
 export const LUCKY_LIST_KEY='lucky/LUCKY_LIST_KEY';
+export const LUCKY_OPEN_ITEM='lucky/LUCKY_OPEN_ITEM';
+export const LUCKY_EXCHANGE_ITEM='lucky/LUCKY_EXCHANGE_ITEM';
 
 const initialState = {
 	data: [], 
@@ -113,6 +115,18 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				dataListKey: action.data,
+				waiting: false
+			}
+		case LUCKY_OPEN_ITEM:
+			return {
+				...state,
+				dataOpenItem: action.data,
+				waiting: false
+			}
+		case LUCKY_EXCHANGE_ITEM:
+			return {
+				...state,
+				dataExchangeItem: action.data,
 				waiting: false
 			}
 		default:
@@ -471,6 +485,67 @@ export const getCodeBonus = (token, id, type) => {
 		return axios.get(url, header).then(function (response) {
 			dispatch({
 				type: LUCKY_CODE_BONUS,
+				data: response.data
+			})
+		}).catch(function (error) {
+			dispatch({
+				type: SERVER_ERROR
+			})
+		})
+	}
+}
+
+export const openItem = (id, turn_number, token) => {
+	var header = {
+		headers: {
+			"Content-Type": "application/json",
+			"Authorization": "bearer " + token,
+		}
+	}
+	var body = {
+		lucky_spin_id: +id,
+		turn_number: turn_number,
+	}
+	return dispatch => {
+		dispatch({
+			type: LUCKY_REQUEST
+		})
+		var url = Ultilities.base_url() + "lucky-spin/open-item";
+		return axios.post(url, body, header).then(function (response) {
+			console.log(response.data)
+			dispatch({
+				type: LUCKY_OPEN_ITEM,
+				data: response.data
+			})
+		}).catch(function (error) {
+			dispatch({
+				type: SERVER_ERROR
+			})
+		})
+	}
+}
+
+export const exchangeItem = (id, gift_id,  turn_number) => {
+	var header = {
+		headers: {
+			"Content-Type": "application/json",
+			// "Authorization": "bearer " + token,
+		}
+	}
+	var body = {
+		lucky_spin_id: +id,
+		lucky_spin_gift_id: gift_id,
+		turn_number: turn_number,
+	}
+	return dispatch => {
+		dispatch({
+			type: LUCKY_REQUEST
+		})
+		var url = Ultilities.base_url() + "lucky-spin/exchange-item";
+		return axios.post(url, body, header).then(function (response) {
+			console.log(response.data)
+			dispatch({
+				type: LUCKY_EXCHANGE_ITEM,
 				data: response.data
 			})
 		}).catch(function (error) {

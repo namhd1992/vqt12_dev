@@ -525,11 +525,11 @@ export const openItem = (id, turn_number, token) => {
 	}
 }
 
-export const exchangeItem = (id, gift_id,  turn_number) => {
+export const exchangeItem = (id, gift_id,  turn_number, token) => {
 	var header = {
 		headers: {
 			"Content-Type": "application/json",
-			// "Authorization": "bearer " + token,
+			"Authorization": "bearer " + token,
 		}
 	}
 	var body = {

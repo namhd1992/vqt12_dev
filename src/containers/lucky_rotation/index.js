@@ -71,12 +71,19 @@ import ruong_icons from './images/ruong-icons.png';
 import khobau from './images/khobau.gif';
 
 
-import black from './images/black.jpg';
-import canh from './images/canh.jpg';
-import chao from './images/chao.jpg';
-import don from './images/don.jpg';
-import tet from './images/tet.jpg';
-import ty from './images/ty.jpg';
+import back from './images/back.png';
+import canh from './images/canh.png';
+import chao from './images/chao.png';
+import don from './images/don.png';
+import tet from './images/tet.png';
+import ty from './images/ti.png';
+
+import canh_gif from './images/canh.gif';
+import chao_gif from './images/chao.gif';
+import don_gif from './images/don.gif';
+import tet_gif from './images/tet.gif';
+import ty_gif from './images/ti.gif';
+
 // import img_thongbao from './images/img-thongbao.png';
 
 import ReactResizeDetector from 'react-resize-detector'
@@ -108,6 +115,14 @@ class Lucky_Rotation extends React.Component {
 
 			turnsFree:0,
 			numberWordChange:0,
+			max:0,
+			luckySpinGiftId: 0,
+			scoinPlus:0,
+			number_chao:0,
+			number_don:0,
+			number_tet:0,
+			number_canh:0,
+			number_ti:0,
 			isLogin:false,
 			day:'00',
 			hour:'00', 
@@ -178,7 +193,30 @@ class Lucky_Rotation extends React.Component {
 				if(data!==undefined){
 					if(data.status==='01'){
 						this.getStatus(data.data.luckySpin);
-						this.setState({userTurnSpin:data.data.userTurnSpin, user:user, itemOfUser:data.data.itemOfUser, luckySpinGifts: data.data.luckySpinGifts, luckySpin:data.data.luckySpin, turnsFree:(data.data.userTurnSpin.turnsFree+data.data.userTurnSpin.turnsBuy), turnsBuyInfo:data.data.userTurnSpin.turnsBuyInfo, isLogin:true})
+						var itemOfUser=data.data.itemOfUser;
+						var number_chao=0, number_don=0, number_tet=0, number_canh=0, number_ti=0;
+						var chao=itemOfUser.map(function(e) { return e.luckySpinItem.keyName; }).indexOf('chao');
+						if(chao !==-1){
+							number_chao=itemOfUser[chao].quantity
+						}
+						var don=itemOfUser.map(function(e) { return e.luckySpinItem.keyName; }).indexOf('don');
+						if(don !==-1){
+							number_don=itemOfUser[don].quantity
+						}
+						var tet=itemOfUser.map(function(e) { return e.luckySpinItem.keyName; }).indexOf('tet');
+						if(tet !==-1){
+							number_tet=itemOfUser[tet].quantity
+						}
+						var canh=itemOfUser.map(function(e) { return e.luckySpinItem.keyName; }).indexOf('canh');
+						if(canh !==-1){
+							number_canh=itemOfUser[canh].quantity
+						}
+						var ti=itemOfUser.map(function(e) { return e.luckySpinItem.keyName; }).indexOf('ti');
+						if(ti !==-1){
+							number_ti=itemOfUser[ti].quantity
+						}
+
+						this.setState({userTurnSpin:data.data.userTurnSpin, user:user, itemOfUser:data.data.itemOfUser, luckySpinGifts: data.data.luckySpinGifts, luckySpin:data.data.luckySpin, turnsFree:(data.data.userTurnSpin.turnsFree+data.data.userTurnSpin.turnsBuy), turnsBuyInfo:data.data.userTurnSpin.turnsBuyInfo, isLogin:true, number_chao: number_chao, number_don: number_don, number_tet: number_tet, number_canh:number_canh, number_ti:number_ti})
 					}else{
 						$('#myModal11').modal('show');
 						this.setState({message_error:'Không lấy được dữ liệu người dùng. Vui lòng tải lại trang.'})
@@ -412,22 +450,34 @@ class Lucky_Rotation extends React.Component {
 	getDetailData=()=>{
 		const {auto}=this.state;
 		var user = JSON.parse(localStorage.getItem("user"));
-		this.props.getRotationDetailDataUser(user.access_token, 120).then(()=>{
+		this.props.getRotationDetailDataUser(user.access_token, 119).then(()=>{
 			var data=this.props.dataRotationWithUser;
 			if(data!==undefined){
 				var turnsFree=data.data.userTurnSpin.turnsFree+data.data.userTurnSpin.turnsBuy;
 				if(data.status==='01'){
-					if(turnsFree>0){
-						if(auto){
-							var timeout =setTimeout(() => {
-								this.start();
-							}, 2000);
-							this.setState({timeout: timeout});	
-						}
-					}else{
-						$('#myModal6').modal('show');
+					var itemOfUser=data.data.itemOfUser;
+					var number_chao=0, number_don=0, number_tet=0, number_canh=0, number_ti=0;
+					var chao=itemOfUser.map(function(e) { return e.luckySpinItem.keyName; }).indexOf('chao');
+					if(chao !==-1){
+						number_chao=itemOfUser[chao].quantity
 					}
-					this.setState({turnsFree:turnsFree})
+					var don=itemOfUser.map(function(e) { return e.luckySpinItem.keyName; }).indexOf('don');
+					if(don !==-1){
+						number_don=itemOfUser[don].quantity
+					}
+					var tet=itemOfUser.map(function(e) { return e.luckySpinItem.keyName; }).indexOf('tet');
+					if(tet !==-1){
+						number_tet=itemOfUser[tet].quantity
+					}
+					var canh=itemOfUser.map(function(e) { return e.luckySpinItem.keyName; }).indexOf('canh');
+					if(canh !==-1){
+						number_canh=itemOfUser[canh].quantity
+					}
+					var ti=itemOfUser.map(function(e) { return e.luckySpinItem.keyName; }).indexOf('ti');
+					if(ti !==-1){
+						number_ti=itemOfUser[ti].quantity
+					}
+					this.setState({turnsFree:turnsFree, number_chao: number_chao, number_don: number_don, number_tet: number_tet, number_canh:number_canh, number_ti:number_ti})
 				}else if(data.status ==="04"){
 					$('#myModal13').modal('show');
 				}else{
@@ -735,19 +785,20 @@ class Lucky_Rotation extends React.Component {
 
 	openPopup10Word=()=>{
 		$('#mo10chu').modal('show');
-		var n=this.getRandomInt()
-		this.get10Word(n);
+		this.get10Word();
 	}
 
 	get1Word=()=>{
 		const {user}=this.state
-		const words=[{name:'chao', img:chao}, {name:'don', img:don},{name:'canh', img:canh},{name:'ti', img:ty},{name:'tet',img:tet}]
+		const words=[{name:'chao', img:chao_gif}, {name:'don', img:don_gif},{name:'canh', img:canh_gif},{name:'ti', img:ty_gif},{name:'tet',img:tet_gif}]
+
 		this.props.openItem(119,1, user.access_token).then(()=>{
 			var data=this.props.dataOpenItem;
 			if(data.status==='01'){
 				console.log(data)
 				var pos = words.map(function(e) { return e.name; }).indexOf(data.data[0].item.keyName);
 				this.setState({oneWord:words[pos].img, showOneWord:false})
+				this.getDetailData();
 			}
 			
 		})
@@ -755,47 +806,132 @@ class Lucky_Rotation extends React.Component {
 		
 	}
 
-	getRandomWord=()=> {
-		const words=[chao, don, tet, canh, ty]
-		var min = 0;
-		var max = 4;
-		var n=Math.floor(Math.random() * (max - min + 1)) + min
-		return words[n];
-	}
-	getRandomInt=()=> {
-		var min = 1;
-		var max = 9;
-		var n=Math.floor(Math.random() * (max - min + 1)) + min
-		return n;
-	}
+	// getRandomWord=()=> {
+	// 	const words=[chao, don, tet, canh, ty]
+	// 	var min = 0;
+	// 	var max = 4;
+	// 	var n=Math.floor(Math.random() * (max - min + 1)) + min
+	// 	return words[n];
+	// }
+	// getRandomInt=()=> {
+	// 	var min = 1;
+	// 	var max = 9;
+	// 	var n=Math.floor(Math.random() * (max - min + 1)) + min
+	// 	return n;
+	// }
 
-	get10Word=(n)=>{
+	get10Word=()=>{
+		const {user}=this.state
+		const words=[{name:'chao', img:chao}, {name:'don', img:don},{name:'canh', img:canh},{name:'ti', img:ty},{name:'tet',img:tet}]
+		const word_gif=[{name:'chao', img:chao_gif}, {name:'don', img:don_gif},{name:'canh', img:canh_gif},{name:'ti', img:ty_gif},{name:'tet',img:tet_gif}]
 		var listWord=[];
-		for (let i = 0; i < n; i++) {
-			listWord.push(black)
-			this.setState({listChu:listWord})
-		}
-		var k=0
-		var myVar=setInterval(()=>{
-			var word=this.getRandomWord();
-			
-			if(n > k){
-				listWord[k]=word;
-				this.setState({listChu:listWord})
-				k=k+1;
-			}else{
-				clearInterval(myVar)
+
+		this.props.openItem(119,10, user.access_token).then(()=>{
+			var data=this.props.dataOpenItem;
+			var k=0;
+			var old_pos=0;
+			if(data.status==='01'){
+				var len= data.data.length;
+				this.getDetailData();
+				for (let i = 0; i < len; i++) {
+					listWord.push(back)
+					this.setState({listChu:listWord})
+				}
+				var myVar=setInterval(()=>{
+					if(len > k){
+						var pos = word_gif.map(function(e) { return e.name; }).indexOf(data.data[k].item.keyName);
+						var word=word_gif[pos].img;
+						listWord[k]=word;
+						if(k>0){
+							var word_statis=words[old_pos].img;
+							listWord[k-1]=word_statis;
+						}
+						
+						this.setState({listChu:listWord})
+						k=k+1;
+						old_pos=pos
+					}else{
+						clearInterval(myVar)
+					}
+				}, 925)				
 			}
-		}, 1000)
+			
+		});
+
+		// for (let i = 0; i < n; i++) {
+		// 	listWord.push(black)
+		// 	this.setState({listChu:listWord})
+		// }
+		// var k=0
+		// var myVar=setInterval(()=>{
+		// 	var word=this.getRandomWord();
+			
+		// 	if(n > k){
+		// 		listWord[k]=word;
+		// 		this.setState({listChu:listWord})
+		// 		k=k+1;
+		// 	}else{
+		// 		clearInterval(myVar)
+		// 	}
+		// }, 1000)
 	}
 
+	changePlus=()=>{
+		const {numberWordChange, max}=this.state;
+		if(numberWordChange <max){
+			this.setState({numberWordChange:this.state.numberWordChange+1})
+		}
+		
+	}
+	changeMinus=()=>{
+		const {numberWordChange, max}=this.state;
+		if(numberWordChange > 0){
+			this.setState({numberWordChange:this.state.numberWordChange-1})
+		}
+		
+	}
 
+	changeNumberWordMax=()=>{
+		const {max}=this.state;
+		this.setState({numberWordChange:max})
+	}
 
+	openExchangeWord=(n)=>{
+		const {luckySpinGifts}=this.state;
+		var item=luckySpinGifts[n];
+		console.log(item)
+		this.setState({max: item.maxQuantity, luckySpinGiftId: item.luckySpinGiftId},()=>{
+			$('#doithuong').modal('show');
+		})
 
+	}
+
+	exchangeWord=()=>{
+		const {luckySpinGiftId, user, numberWordChange}=this.state;
+		this.props.exchangeItem(119,luckySpinGiftId, numberWordChange, user.access_token).then(()=>{
+			var data=this.props.dataExchangeItem;
+			if(data.status==='01'){
+				this.setState({scoinPlus:data.data.value, numberWordChange:0},()=>{
+					$('#doithuong').modal('hide');
+					$('#changeSuccess').modal('show');
+				})
+				console.log(data)
+				this.getDetailData();
+			}
+			
+		})
+	}
+
+	closeModalOneWord=()=>{
+		this.setState({oneWord:''})
+	}
+	closeModalTenWord=()=>{
+		this.setState({listChu:[]})
+	}
 
 
 	render() {
-		const {showOneWord, oneWord, listChu, soinValue,listCountBonus, listKey, activeKey, turnsBuyInfo,status_sukien, xacthuc, scoinCard,height, width, dialogLoginOpen, dialogBonus, auto, dialogWarning, textWarning, isLogin, userTurnSpin, day, hour, minute, second, code,numberPage, message_status, data_auto,message_error,
+		const {number_chao, number_don, number_tet, number_canh, number_ti, scoinPlus, numberWordChange, showOneWord, oneWord, listChu, soinValue,listCountBonus, listKey, activeKey, turnsBuyInfo,status_sukien, xacthuc, scoinCard,height, width, dialogLoginOpen, dialogBonus, auto, dialogWarning, textWarning, isLogin, userTurnSpin, day, hour, minute, second, code,numberPage, message_status, data_auto,message_error,
 			activeRuong, activeHistory, activeBonus, activeVinhDanh, limit, countCodeBonus, countRuong, countKey, countVinhDanh, listHistory, listCodeBonus, listRuong, listVinhDanh,itemBonus, turnsFree, noti_mdt, noti_tudo, hour_live, minute_live, second_live, user}=this.state;
 		const { classes } = this.props;
 		const notification_tudo=noti_tudo?(<span className="badge badge-pill badge-danger position-absolute noti-tudo">!</span>):(<span></span>);
@@ -814,6 +950,9 @@ class Lucky_Rotation extends React.Component {
 					</ul>)}
 					<div id="logo" class="logo"><img src={logo} class="img-fluid" /></div>
 					<div>
+						<div>
+							<p>Số chữ còn lại: {turnsFree}</p>
+						</div>
 						<div style={{border:'2px solid #fff', marginBottom:10, padding:10, width:150}} onClick={this.openPopup1Word}>
 							<span style={{color: "#fff", fontSize:20, fontWeight:'bold'}}>Mở 1 chữ</span>
 						</div>
@@ -822,6 +961,21 @@ class Lucky_Rotation extends React.Component {
 						</div>
 						<div style={{border:'2px solid #fff', marginBottom:10, padding:10, width:150}}>
 							<span style={{color: "#fff", fontSize:20, fontWeight:'bold'}}>Đổi Thưởng</span>
+						</div>
+
+						<div>
+							<p>CHỮ CỦA TÔI</p>
+		 					<p><span>CHÀO {number_chao} |</span><span> ĐÓN {number_don} |</span><span> TẾT {number_tet} |</span><span> CANH {number_canh} |</span><span> TÍ {number_ti} |</span></p>
+						</div>
+
+						<div>
+							<p>ĐỔI CHỮ</p>
+							<p style={{border:'1px solid', padding:5, marginTop:10}} onClick={()=>this.openExchangeWord(0)}>CHÀO ĐÓN</p>
+							<p style={{border:'1px solid', padding:5, marginTop:5}} onClick={()=>this.openExchangeWord(1)}>CANH TÍ</p>
+							<p style={{border:'1px solid', padding:5, marginTop:5}} onClick={()=>this.openExchangeWord(2)}>CHÀO CANH TÍ</p>
+							<p style={{border:'1px solid', padding:5, marginTop:5}} onClick={()=>this.openExchangeWord(3)}>ĐÓN CANH TÍ</p>
+							<p style={{border:'1px solid', padding:5, marginTop:5}} onClick={()=>this.openExchangeWord(4)}>CHÀO ĐÓN CANH TÍ</p>
+							<p style={{border:'1px solid', padding:5, marginTop:5}} onClick={()=>this.openExchangeWord(5)}>CHÀO ĐÓN TẾT CANH TÍ</p>
 						</div>
 					</div>
 				</div>
@@ -1509,11 +1663,11 @@ class Lucky_Rotation extends React.Component {
 				<div class="modal-dialog">
 					<div class="modal-content bg-modal-content border-0" style={{marginTop: 60}}>
 					<div class="modal-header border-bottom-0">
-						<button type="button" class="close" data-dismiss="modal"><img src={close_icon} class="img-fluid" /></button>
+						<button type="button" class="close" data-dismiss="modal" onClick={this.closeModalOneWord}><img src={close_icon} class="img-fluid" /></button>
 					</div>
 					<div class="modal-body font16">
 						{(showOneWord)?(<img src={oneWord} class="img-fluid" style={{margin:5}} />):(
-							<img src={black} class="img-fluid" style={{margin:5}} />
+							<img src={back} class="img-fluid" style={{margin:5}} />
 						)}
 						
 					</div>
@@ -1527,12 +1681,12 @@ class Lucky_Rotation extends React.Component {
 				<div class="modal-dialog">
 					<div class="modal-content bg-modal-content border-0" style={{marginTop: 60}}>
 					<div class="modal-header border-bottom-0">
-						<button type="button" class="close" data-dismiss="modal"><img src={close_icon} class="img-fluid" /></button>
+						<button type="button" class="close" data-dismiss="modal" onClick={this.closeModalTenWord}><img src={close_icon} class="img-fluid" /></button>
 					</div>
 					<div class="modal-body font16">
 						{listChu.map((obj, key)=>{
 							return(
-								<div key={key}>
+								<div key={key} style={{float:'left'}}>
 									<img src={obj} class="img-fluid" style={{margin:5}} />
 								</div>
 							)
@@ -1562,6 +1716,46 @@ class Lucky_Rotation extends React.Component {
 							</div>
 							<button type="button" className="btn btn-xacnhan text-white btn-block text-center py-4" onClick={this.napThe}>Nạp thẻ Scoin</button>
 						
+						</div>
+					</div>	  
+					</div>
+				</div>
+			</div>
+
+			<div class="modal fade" id="doithuong" style={{zIndex:10001}}>
+				<div class="modal-dialog">
+					<div class="modal-content bg-modal-content border-0">
+					<div class="modal-header border-bottom-0">
+						<button type="button" class="close" data-dismiss="modal"><img src={close_icon} class="img-fluid" /></button>
+					</div>
+					<div class="modal-body font16">
+						<div class="w-75 mx-auto">
+							<h3 class="font-iCielPantonBlack text-brown pt-5">Xác nhận ghép đổi thưởng như sau:</h3>
+							<div>
+								<p><span>SL Giải thưởng cần đổi <span style={{border:"1px solid", padding:"5px 10px", margin:'0px 10px', cursor:'pointer'}} onClick={this.changeMinus}>-</span> <span>{numberWordChange}</span> <span style={{border:"1px solid", padding:"5px 10px", margin:'0px 10px', cursor:'pointer'}} onClick={this.changePlus}>+</span> <span style={{border:"1px solid", padding:"5px 10px", cursor:'pointer'}} onClick={this.changeNumberWordMax}>MAX</span></span></p>
+							</div>
+							<button type="button" className="btn btn-xacnhan btn-block text-center py-4" onClick={this.exchangeWord}>XÁC NHẬN ĐỔI THƯỞNG</button>
+						
+						</div>
+					</div>	  
+					</div>
+				</div>
+			</div>
+
+			<div class="modal fade" id="changeSuccess" style={{zIndex:10001}}>
+				<div class="modal-dialog">
+					<div class="modal-content bg-modal-content border-0">
+					<div class="modal-header border-bottom-0">
+						<button type="button" class="close" data-dismiss="modal"><img src={close_icon} class="img-fluid" /></button>
+					</div>
+					<div class="modal-body font16">
+						<div class="w-75 mx-auto">
+							<h3 class="font-iCielPantonBlack text-brown pt-5">Chúc mừng {user.username} đổi thành công:</h3>
+							<div>
+								<p>{scoinPlus} <img src={logo_scoin} width="20" class="img-fluid" /></p>
+								<p>Scoin đã được cộng trực tiếp vào ví, vui lòng truy cập Scoin.vn để kiểm tra</p>
+								<span className="text-center">Xem <a className="underline" style={{color:"#2d9bf0", cursor:'pointer'}} onClick={()=>this.showModalCodeBonus(1)}>Xem lịch sử đổi thưởng tại đây</a></span><br></br>
+							</div>
 						</div>
 					</div>	  
 					</div>

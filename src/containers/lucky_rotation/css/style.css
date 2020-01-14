@@ -16,7 +16,7 @@ body {background-image: url(../images/bg-page.png); background-size: cover; back
 .col-left, .col-right {width: 20%;}
 .w-60 {width: 60% !important}
 .w-40 {width: 40% !important}
-.float-left {position:fixed; left:0; top: 20%; background:url(../images/bg-float-left.png) no-repeat; width: 84px; height: 347px; z-index: 9999}
+.float-left {position:fixed; left:0; top: 30%; background:url(../images/bg-float-left.png) no-repeat; width: 84px; height: 347px; z-index: 9999}
 .text-float-left li a {width: 60px; height: 60px; display:block; margin-left: 10px;}
 .box-time {background-image:url(../images/bg-sukien-dienra.png); background-size: 100% 100%; max-width:100%; height: auto;}
 .display-5 {font-size: 2.5vw;}
@@ -34,6 +34,9 @@ body {background-image: url(../images/bg-page.png); background-size: cover; back
 {
     -webkit-filter: drop-shadow(0 0 20px rgba(254, 200, 16, 1));
      filter: drop-shadow(0 0 20px rgba(254, 200, 16, 1));
+}
+.logout{
+  margin-left: 30% !important;
 }
 .shake-effect:hover {
   /* Start the shake animation and make the animation last for 0.5 seconds */
@@ -66,15 +69,17 @@ body {background-image: url(../images/bg-page.png); background-size: cover; back
 .bg-acc.h6 {font-size: 2vw}
 
 }
-@media (max-width: 800px) {
+@media (max-width: 576px) {
 .logo {padding-top: 10%;}
 .d-mobile-none {display: none}
-.d-pc-none {display: inline-flex;}
+.float-left {top:35%}
+.d-pc-none {display: inline-flex !important;}
 body {background-image: url(../images/bg-page-m.png); background-size: cover; background-repeat: no-repeat; background-position: top center; max-height: 1000px; background-color: #ba1a31}
 .img-doithuong {padding-top: 0}
 .float-bottom {position:fixed; bottom: 5%; background:url(../images/menu-float-bottom-m.png) no-repeat; width: 320px; height: 112px; z-index: 9999; font-size:11px}
 
 }
+
 @media (max-width: 480px) {
 .logo .w-60 {width: 90% !important}
 .content.w-50 {width: 80% !important}
@@ -84,4 +89,5 @@ body {background-image: url(../images/bg-page-m.png); background-size: cover; ba
 .text-float-left li a {width: 30px; height: 40px; display:block; margin-left: 10px;}
 .text-float-left li.mt-5 {margin-top: 1.6rem !important}
 .text-float-bottom li a {font-size: 1vw}
+.float-bottom {bottom: 2%;}
 }

@@ -965,14 +965,17 @@ class Lucky_Rotation extends React.Component {
 							<div class="col-3 display-5 text-white mt-n2 py-1"> {second} </div>
 						</div>
 					</div>
-					{(isLogin)?(<div class="row d-mobile-none">
-								<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-white text-nowrap">Xin chào <span class="text-warning"> {this.getUsername(userTurnSpin.currName)}</span></div>
-								<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-nowrap" style={{cursor:"pointer"}} onClick={this.logoutAction}><a title="Đăng xuất"><span class="text-warning">Đăng xuất</span></a></div>
-							</div>):(
-								<div class="row d-mobile-none">
-							<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-nowrap" style={{cursor:"pointer"}} onClick={this.loginAction}><a title="Đăng nhập"><span class="text-warning">Đăng nhập</span></a></div>
-							</div>
-					)}
+					<div class="d-mobile-none">
+						{(isLogin)?(<div class="row">
+									<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-white text-nowrap">Xin chào <span class="text-warning"> {this.getUsername(userTurnSpin.currName)}</span></div>
+									<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-nowrap" style={{cursor:"pointer"}} onClick={this.logoutAction}><a title="Đăng xuất"><span class="text-warning">Đăng xuất</span></a></div>
+								</div>):(
+									<div class="row logout">
+								<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-nowrap" style={{cursor:"pointer"}} onClick={this.loginAction}><a title="Đăng nhập"><span class="text-warning">Đăng nhập</span></a></div>
+								</div>
+						)}
+					</div>
+					
 					<div class="row mt-2">
 						<div class="col-6 px-0 text-center"><a href="#" title="Mở 1 chữ"><img src={mo_1_chu} class="img-fluid img-shadow" /></a></div>
 						<div class="col-6 px-0 text-center"><a href="#" title="Mở 10 chữ"><img src={mo_10_chu} class="img-fluid img-shadow" /></a></div>
@@ -981,14 +984,18 @@ class Lucky_Rotation extends React.Component {
 				<div class="col-lg-6 text-left"><a href="#" title="Đổi thưởng"><img src={btn_doithuong} class="img-fluid img-doithuong img-shadow shake-effect" /></a></div>
 					
 				</div>
-				{(isLogin)?(<div class="container row d-pc-none pl-5">
-							<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-white text-nowrap">Xin chào <span class="text-warning"> {this.getUsername(userTurnSpin.currName)}</span></div>
-							<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-nowrap" style={{cursor:"pointer"}} onClick={this.logoutAction}><a title="Đăng xuất"><span class="text-warning">Đăng xuất</span></a></div>
-						</div>):(
-						<div class="container row d-pc-none pl-5">
-							<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-nowrap" style={{cursor:"pointer"}} onClick={this.loginAction}><a title="Đăng nhập"><span class="text-warning">Đăng nhập</span></a></div>
-						</div>
-				)}
+
+				<div class="container d-pc-none pl-5">
+					{(isLogin)?(<div class="row col-12">
+								<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-white text-nowrap">Xin chào <span class="text-warning"> {this.getUsername(userTurnSpin.currName)}</span></div>
+								<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-nowrap" style={{cursor:"pointer"}} onClick={this.logoutAction}><a title="Đăng xuất"><span class="text-warning">Đăng xuất</span></a></div>
+							</div>):(
+							<div class="row col-12">
+								<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-nowrap" style={{cursor:"pointer", marginLeft:"25%"}} onClick={this.loginAction}><a title="Đăng nhập"><span class="text-warning">Đăng nhập</span></a></div>
+							</div>
+					)}
+				</div>
+				
 			{/* <!--End container--> */}
 				<div class="float-left">
 					<ul class="nav flex-column text-float-left">

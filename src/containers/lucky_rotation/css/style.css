@@ -81,13 +81,29 @@ body {background-image: url(../images/bg-page-m.png); background-size: cover; ba
 }
 
 @media (max-width: 480px) {
-.logo .w-60 {width: 90% !important}
-.content.w-50 {width: 80% !important}
-.display-5 {font-size: 5vw;}
-.bg-acc.h6 {font-size: 3vw}
-.float-left {background-size: 90%; width: 60px; height: 200px; z-index: 9999}
-.text-float-left li a {width: 30px; height: 40px; display:block; margin-left: 10px;}
-.text-float-left li.mt-5 {margin-top: 1.6rem !important}
-.text-float-bottom li a {font-size: 1vw}
-.float-bottom {bottom: 2%;}
-}
+  body {height: 720px;}
+  .logo .w-60 {width: 90% !important}
+  .content.w-50 {width: 80% !important}
+  .display-5 {font-size: 5vw;}
+  .bg-acc.h6 {font-size: 3vw}
+  .float-left {background-size: 90%; width: 60px; height: 200px; z-index: 9999; top: 30%;}
+  .text-float-left li a {width: 30px; height: 40px; display:block; margin-left: 10px;}
+  .text-float-left li.mt-5 {margin-top: 1.6rem !important}
+  .text-float-bottom li a {font-size: 1vw}
+  .float-bottom {bottom: 2%;}
+  }
+@media (max-width: 380px) {
+  body {height: 670px;}
+  .logo .w-60 {width: 90% !important}
+  .content.w-50 {width: 80% !important}
+  .display-5 {font-size: 5vw;}
+  .bg-acc.h6 {font-size: 3vw}
+  .float-left {background-size: 90%; width: 60px; height: 200px; z-index: 9999; top: 30%;}
+  .text-float-left li a {width: 30px; height: 40px; display:block; margin-left: 10px;}
+  .text-float-left li.mt-5 {margin-top: 1.6rem !important}
+  .text-float-bottom li a {font-size: 1vw}
+  .float-bottom {bottom: 2%;}
+  }
+  @media (max-width: 360px) {
+  body {height: 560px;}
+  }

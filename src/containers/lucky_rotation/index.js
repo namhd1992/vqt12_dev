@@ -22,69 +22,36 @@ import {
 	getData
 } from '../../modules/profile'
 
-import arrow_down from './images/arrow-down.png'
+import close_icon from './images/close-icon.png'
 import backtotop from './images/backtotop.png'
-import banner_slider_1 from './images/banner-slider-1.png'
-import banner_slider_2 from './images/banner-slider-2.png'
-import banner_slider_3 from './images/banner-slider-3.png'
-import bg_acc from './images/bg-acc.png'
-import bg_bang_vinh_danh from './images/bg-bang-vinh-danh.png'
-import bg_cloud from './images/bg-cloud.png';
-// import bg_float_left from './images/bg-float-left.gif';
-import bg_float_right from './images/bg-float-right.png';
-import bg_footer from './images/bg-footer.png';
-import bg_header from './images/bg-header.png';
-import bg_popup_giaithuong from './images/bg-popup-giaithuong.png';
-import bg_step from './images/bg-step.png';
-import bg_the_le from './images/bg-the-le.png';
-import bg_the_le_mobile from './images/bg-the-le-mobile.png';
-import bg_time from './images/bg-time.png';
-import btn_hotline_hotro from './images/btn-hotline-hotro.png';
-import btn_huong_dan_mua_the from './images/btn-huong-dan-mua-the.png';
-import btn_mo_tu_dong from './images/btn-mo-tu-dong.png';
-import btn_mo_x1 from './images/btn-mo-x1.png';
-import btn_mua_chia_khoa from './images/btn-mua-chia-khoa.png';
-import btn_nap_game from './images/btn-nap-game.png';
-import btn_nap_scoin from './images/btn-nap-scoin.png';
-import btn_nhan_tb_sk from './images/btn-nhan-tb-sk.png';
-import btn_them_luot from './images/btn-them-luot.png';
-import btn_xac_nhan_mua from './images/btn-xac-nhan-mua.png';
-import btn_xem_kho_bau from './images/btn-xem-kho-bau.png';
-import close_icon from './images/close-icon.png';
-import header_bang_vinh_danh from './images/header-bang-vinh-danh.png';
-import header_giaithuong from './images/header-giaithuong.png';
+import bg_account from './images/bg-account.png'
+import bg_float_left from './images/bg-float-left.png'
+import bg_page from './images/bg-page.png';
+import bg_page_m from './images/bg-page-m.png';
+import bg_sukien_dienra from './images/bg-sukien-dienra.png';
+import btn_chudangco from './images/btn-chudangco.png';
+import btn_doithuong from './images/btn-doithuong.png';
 import icon_noti from './images/icon-noti.png';
-import img_step1 from './images/img-step1.png';
-import img_step2 from './images/img-step2.png';
-import img_step3 from './images/img-step3.png';
-import key_brown_icon from './images/key-brown-icon.png';
-import key_icon from './images/key-icon.png';
-import key_yellow_icon from './images/key-yellow-icon.png';
 import logo from './images/logo.png';
 import logo_scoin from './images/logo-scoin.png';
 import logo_splay from './images/logo-splay.png';
 import logo_vtcmobile from './images/logo-vtcmobile.png';
-import next_icon from './images/next-icon.png';
-import prev_icon from './images/prev-icon.png';
-import ruong_icon from './images/ruong-icon.png';
-import ruong_icons from './images/ruong-icons.png';
-import khobau from './images/khobau.gif';
-
-
+import menu_float_bottom from './images/menu-float-bottom.png';
+import menu_float_bottom_m from './images/menu-float-bottom-m.png';
+import mo_1_chu from './images/mo-1-chu.png';
+import mo_10_chu from './images/mo-10-chu.png';
+import su_kien_dang_dien_ra_con from './images/su-kien-dang-dien-ra-con.png';
 import back from './images/back.png';
 import canh from './images/canh.png';
 import chao from './images/chao.png';
 import don from './images/don.png';
 import tet from './images/tet.png';
 import ty from './images/ti.png';
-
 import canh_gif from './images/canh.gif';
 import chao_gif from './images/chao.gif';
 import don_gif from './images/don.gif';
 import tet_gif from './images/tet.gif';
 import ty_gif from './images/ti.gif';
-
-// import img_thongbao from './images/img-thongbao.png';
 
 import ReactResizeDetector from 'react-resize-detector'
 // import spin from './images/spin.gif';
@@ -936,12 +903,12 @@ class Lucky_Rotation extends React.Component {
 		const { classes } = this.props;
 		const notification_tudo=noti_tudo?(<span className="badge badge-pill badge-danger position-absolute noti-tudo">!</span>):(<span></span>);
 
-		return (<div style={{backgroundColor:'#f5e4b9'}}>
-			<a href="#logo" id="button"><img src={backtotop} alt="Back to Top" width="16" /></a>
-			<div id="top" class="container-fluid header">
+		return (<div>
+			{/* <a href="#logo" id="button"><img src={backtotop} alt="Back to Top" width="16" /></a> */}
+			{/* <div id="top" class="container-fluid header">
 				<div class="container position-relative h-100 w-100">
 				{(isLogin)?(<ul class="box-account nav font-iCielPantonLight">
-		<li class="bg-acc nav-item text-center"><a class="d-block pt-03 text-orange" href="#" title={this.titleName(userTurnSpin.currName)}><span class="text-white">Xin chào</span> {this.getUsername(userTurnSpin.currName)}</a></li>
+						<li class="bg-acc nav-item text-center"><a class="d-block pt-03 text-orange" href="#" title={this.titleName(userTurnSpin.currName)}><span class="text-white">Xin chào</span> {this.getUsername(userTurnSpin.currName)}</a></li>
 						<li class="bg-acc nav-item text-center" onClick={this.logoutAction}><a class="d-block pt-03 font-italic text-orange" href="#" title="Đăng xuất">Đăng Xuất</a></li>
 						
 						
@@ -979,165 +946,99 @@ class Lucky_Rotation extends React.Component {
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> */}
 			{/* End p1 */}
 
-			<div class="container thele" id="TheLe">
-				<h2 class="font-iCielPantonBlack text-brown-shadow text-uppercase text-center">Thể lệ sự kiện</h2>
-				
-				<div class="content-thele text-center mx-auto pt-4">
-					<h4 class="font18 font-iCielPantonLight font-weight-bold">I. Đối tượng tham gia</h4>
-					<p>Khách hàng có tài khoản Scoin. Nếu chưa có, đăng ký <a href="https://scoin.vn/" title="Đăng ký" target="_blank">tại đây</a>. <br /> Thời gian SK diễn ra từ 10:00 ngày 20.12.2019 - hết ngày 20.01.2020.</p>
-					<h4 class="font18 font-iCielPantonLight font-weight-bold">II. Cách tham gia:</h4>
-					<div class="box-thele">
-						<div class="step-thele mx-auto">
-							<img src={bg_the_le_mobile} class="img-fluid bg-the-le-mobile" />
-							<div class="card-deck mx-auto pt-5">
-							<div class="card ml-4 bg-transparent border-0">
-								<div class="card-body text-center">
-									<h4><img src={img_step1} class="img-fluid" alt="Bước 1" /></h4>
-									<p class="card-text font-iCielPantonBlack text-brown-shadow pt-3 font18">Nạp Game từ ví Scoin</p>
-									<p class="py-2"><img src={arrow_down} alt="" /></p>
-									<p class="card-text font-iCielPantonBlack text-brown-shadow font18">Nhận chìa khóa mở rương báu</p>
-									<p class="card-text">Hoặc dùng thẻ Scoin mua <br />(giới hạn lượt/ngày)</p>
-								</div>
-							</div>
-							<div class="card mx-0 bg-transparent border-0">
-								<div class="card-body text-center">
-									<h4><img src={img_step2} class="img-fluid" alt="Bước 2" /></h4>
-									<p class="card-text font-iCielPantonBlack text-brown-shadow pt-3 font18">Truy cập trang sự kiện <br /><a title="Kho báu Scoin" class="font-iCielPantonBlack text-brown-shadow">www.khobauscoin.splay.vn</a></p>
-									<p class="py-2"><img src={arrow_down} alt="" /></p>
-									<p class="card-text font-iCielPantonBlack text-brown-shadow font18">Mở rương báu Scoin</p>
-								</div>
-							</div>
-							<div class="card mr-4 bg-transparent border-0">
-								<div class="card-body text-center">
-									<h4><img src={img_step3} class="img-fluid"  alt="Bước 3" /></h4>
-									<p class="card-text font-iCielPantonBlack text-brown-shadow pt-3 font18">Nhận thưởng Scoin</p>
-									<p class="py-2"><img src={arrow_down} alt="" /></p>
-									<p class="card-text font-iCielPantonBlack text-brown-shadow font18">Ví <a class="font-iCielPantonBlack text-brown-shadow" href="https://scoin.vn/" title="Scoin" target="_blank">www.scoin.vn</a></p>
-								</div>
-							</div>         
-							</div>
+
+			<div id="top" class="container-fluid mx-auto">
+				<div class="container position-relative mx-auto text-center">
+					<div id="logo" class="logo"><img src={logo} class="img-fluid w-60" /></div>
+				</div>
+				<div class="row mx-auto container content w-50">
+				<div class="col-lg-6 text-right align-top box-left">
+					<h2 class="mb-0"><img src={su_kien_dang_dien_ra_con} class="img-fluid" /></h2>        
+					<div class="box-time">
+						<div class="row m-0">
+							<div class="col-3 display-5 text-white mt-n2 py-1"> {day} </div>
+							<div class="col-3 display-5 text-white mt-n2 py-1"> {hour} </div>
+							<div class="col-3 display-5 text-white mt-n2 py-1"> {minute} </div>
+							<div class="col-3 display-5 text-white mt-n2 py-1"> {second} </div>
 						</div>
 					</div>
-					<h4 class="font18 font-iCielPantonLight font-weight-bold pt-3">Bảng quy đổi chìa khóa</h4>
-					<h4 class="font16 font-iCielPantonLight pt-2">Cách 1: Nạp Game từ ví Scoin (không giới hạn số lần nạp) <br /><span class="font-iCielPantonBlack font16">Nạp ví Scoin -> Game: cứ 50.000 Scoin sẽ nhận 1 Chìa khóa mở rương báu</span></h4>
-					<h4 class="font16 font-iCielPantonLight font-weight-bold pt-3">Cách 2: Dùng thẻ Scoin mua trực tiếp Chìa khóa <br />Mỗi tài khoản Scoin chỉ được mua 10 Chìa khóa/ngày</h4>
-					<p class="font-iCielPantonBlack font16">Thẻ Scoin 10k > 1 Chìa khóa <br />
-					Thẻ Scoin 20k > 2 Chìa khóa <br />
-					Thẻ Scoin 50k > 5 Chìa khóa</p>
-					<p><a href="#" title="Thêm chìa khóa" class="font-iCielPantonLight font16" data-toggle="modal" onClick={this.openThemLuot}>Thêm chìa khóa <img src={key_yellow_icon} width="20" class="img-fluid" /></a></p>
-        			<p id="VinhDanh"><a href="#" title="Xem kho báu" data-toggle="modal" onClick={this.openGiaiThuong}><img src={btn_xem_kho_bau} width="150" class="img-fluid seeBonus" /></a></p>
+					{(isLogin)?(<div class="row d-mobile-none">
+								<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-white text-nowrap">Xin chào <span class="text-warning"> {this.getUsername(userTurnSpin.currName)}</span></div>
+								<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-nowrap" style={{cursor:"pointer"}} onClick={this.logoutAction}><a title="Đăng xuất"><span class="text-warning">Đăng xuất</span></a></div>
+							</div>):(
+								<div class="row d-mobile-none">
+							<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-nowrap" style={{cursor:"pointer"}} onClick={this.loginAction}><a title="Đăng nhập"><span class="text-warning">Đăng nhập</span></a></div>
+							</div>
+					)}
+					<div class="row mt-2">
+						<div class="col-6 px-0 text-center"><a href="#" title="Mở 1 chữ"><img src={mo_1_chu} class="img-fluid img-shadow" /></a></div>
+						<div class="col-6 px-0 text-center"><a href="#" title="Mở 10 chữ"><img src={mo_10_chu} class="img-fluid img-shadow" /></a></div>
+					</div>        
+				</div>
+				<div class="col-lg-6 text-left"><a href="#" title="Đổi thưởng"><img src={btn_doithuong} class="img-fluid img-doithuong img-shadow shake-effect" /></a></div>
 					
 				</div>
-			</div>
-			{/* End p2 */}
-
-
-			<div class="container-fluid bang-vinh-danh-mobile mt-5">
-				<h2 class="font-iCielPantonBlack text-brown-shadow text-uppercase text-center"><img src={header_bang_vinh_danh} class="img-fluid" alt="Bảng vinh danh" /></h2>
-				<div class="table-responsive">
-					<table class="table mx-auto tbl-bang-vinh-danh-mobile">
-						<thead class="font18 font-iCielPantonLight font-weight-bold">
-							<tr>
-								<th><p class="card-text font-iCielPantonBlack text-brown-shadow font18">Tên/Giải thưởng/Thời gian trúng</p></th>
-							</tr>
-						</thead>
-						<tbody>
-							{listVinhDanh.map((obj, key) => (
-								<tr key={key}>
-									{(obj.itemName!=='...')?(<td><strong>{obj.userName}</strong> <br />{obj.itemName} <img src={ruong_icons} width={20} height={20}/><br />{obj.date}</td>):(
-										<td><strong>{obj.userName}</strong> <br />{obj.itemName} <br />{obj.date}</td>
-									)}
-									
-								</tr>
-							))}
-						</tbody>
-					</table>
-					<ul class="pagination justify-content-center pag-custom mt-4">
-						<Pagination
-							activePage={activeVinhDanh}
-							itemsCountPerPage={10}
-							totalItemsCount={countVinhDanh}
-							pageRangeDisplayed={numberPage}
-							lastPageText={'Trang cuối'}
-							firstPageText={'Trang đầu'}
-							itemClass={"page-item"}
-							linkClass={"page-link"}
-							onChange={(v) => this.handlePageChangeVinhDanh(v)}
-						/>
-					</ul> 
+				{(isLogin)?(<div class="container row d-pc-none pl-5">
+							<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-white text-nowrap">Xin chào <span class="text-warning"> {this.getUsername(userTurnSpin.currName)}</span></div>
+							<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-nowrap" style={{cursor:"pointer"}} onClick={this.logoutAction}><a title="Đăng xuất"><span class="text-warning">Đăng xuất</span></a></div>
+						</div>):(
+						<div class="container row d-pc-none pl-5">
+							<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-nowrap" style={{cursor:"pointer"}} onClick={this.loginAction}><a title="Đăng nhập"><span class="text-warning">Đăng nhập</span></a></div>
+						</div>
+				)}
+			{/* <!--End container--> */}
+				<div class="float-left">
+					<ul class="nav flex-column text-float-left">
+						<li class="mt-5"><a href="#" title="Thể lệ">&nbsp;</a></li>
+						<li class="mt-1"><a href="#" title="Vinh danh">&nbsp;</a></li>
+						<li class="mt-1"><a href="#" title="Thông báo">&nbsp;</a></li>
+					</ul>
 				</div>
+				
 			</div>
+
+			<div class="float-bottom centered pt-1 d-mobile-none">
+				<table class="table table-borderless mt-5">
+					<tbody>
+					<tr>
+						<td width="26%">&nbsp;</td>
+						<td width="11%" class="text-center text-white small"> {number_chao} </td>
+						<td width="11%" class="text-center text-white small"> {number_don} </td>
+						<td width="11%" class="text-center text-white small"> {number_tet} </td>
+						<td width="11%" class="text-center text-white small"> {number_canh} </td>
+						<td width="12%" class="text-center text-white small"> {number_ti} </td>
+						<td width="18%" class="text-center p-0"><a href="#" title="Nhận chữ" class="d-block" style={{width:"100%", lineHeight: "300%"}}>&nbsp;</a></td>
+					</tr>     
+					</tbody>
+				</table>
+			</div>
+			<div class="float-bottom centered pt-1 d-pc-none">
+				<table class="table table-borderless mt-5">
+					<tbody>
+					<tr>
+						<td width="60px" class="text-center text-white small pl-3 pr-0 pt-4"> {number_chao} </td>
+						<td width="60px" class="text-center text-white small px-0 pt-4"> {number_don} </td>
+						<td width="60px" class="text-center text-white small px-0 pt-4"> {number_tet} </td>
+						<td width="60px" class="text-center text-white small pl-0 pt-4"> {number_canh} </td>
+						<td width="60px" class="text-center text-white small pl-0 pt-4"> {number_ti} </td>
+						<td width="95px" class="text-center p-0"><a href="#" title="Nhận chữ" class="d-block" style={{width:"100%", lineHeight: "300%"}}>&nbsp;</a></td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+
 			
-			<div class="container-fluid bang-vinh-danh">
-				<div class="container pt-5 box-bang-vinh-danh">
-					<div class="mt-5 bg-bang-vinh-danh mx-auto">
-						<table class="table table-borderless tbl-bang-vinh-danh">
-							<thead>
-								<tr>
-									<th><p class="font-iCielPantonBlack text-brown-shadow font18">Tên</p></th>
-									<th><p class="font-iCielPantonBlack text-brown-shadow font18">Giải thưởng</p></th>
-									<th><p class="font-iCielPantonBlack text-brown-shadow font18">Thời gian trúng</p></th>
-								</tr>
-							</thead>
-							<tbody>
-								{listVinhDanh.map((obj, key) => (
-									<tr key={key}>
-										<td className="border-right-0">{obj.userName}</td>
-										{(obj.itemName!=='...')?(<td className="border-left-0 border-right-0">{obj.itemName} <img src={ruong_icons} width={25} height={25} /></td>):(
-											<td className="border-left-0 border-right-0">{obj.itemName}</td>
-										)}
-										
-										<td className="border-left-0">{obj.date}</td>
-									</tr>
-								))}
-							</tbody>
-						</table>
-					</div>  
-					<ul class="pagination justify-content-center pag-custom mt-4">
-						<Pagination
-							activePage={activeVinhDanh}
-							itemsCountPerPage={10}
-							totalItemsCount={countVinhDanh}
-							pageRangeDisplayed={numberPage}
-							lastPageText={'Trang cuối'}
-							firstPageText={'Trang đầu'}
-							itemClass={"page-item"}
-							linkClass={"page-link"}
-							onChange={(v) => this.handlePageChangeVinhDanh(v)}
-						/>
-					</ul>   	
-				</div>
-			</div>
-
-
-			<div class="container-fluid footer text-center">
-				<div class="container pt-3">
-					<a href="https://daily.scoin.vn/huong-dan-mua-the/" title="Hướng dẫn mua thẻ" target="_blank"><img src={btn_huong_dan_mua_the} class="img-fluid img-mobile first-img" alt="Hướng dẫn mua thẻ" /></a>
-					{/* <a href="https://www.facebook.com/scoinvtcmobile/" title="Nhận thông báo sự kiện" target="_blank"><img src={btn_nhan_tb_sk} class="img-fluid img-mobile" alt="Nhận thông báo sự kiện" /></a> */}
-					<a onClick={this.subNotification}><img src={btn_nhan_tb_sk} class="img-fluid img-mobile" alt="Nhận thông báo sự kiện" /></a>
-					<a href="https://scoin.vn/nap-game" title="Nạp Game" target="_blank"><img src={btn_nap_scoin} class="img-fluid img-mobile" alt="Nạp Game" /></a>
-					<a href="tel:19001104" title="Hotline" target="_blank"><img src={btn_hotline_hotro} class="img-fluid img-mobile" alt="Hotline" /></a>
-				</div>
-				<div class="container mt-5">
-					<div class="logo-footer">
-						<a title="VTC Mobile" target="_blank"><img src={logo_vtcmobile} width="150" alt="VTC Mobile" /></a>
-						<a title="Splay" target="_blank"><img class="pl-3" src={logo_splay} width="100" alt="Splay" /></a>
-						<p class="text-center pt-3 font16"><span class="text-uppercase">CÔNG TY CỔ PHẦN VTC DỊCH VỤ DI ĐỘNG</span> <br />VTC Mobile - Thành viên của Tổng Công ty Truyền thông đa phương tiện Viêt Nam VTC <br /> Tầng 11, tòa nhà VTC Online, số 18 Tam Trinh, phường Minh Khai, quận Hai Bà Trưng, Hà Nội.
-			<br />Tel: (84-4).39877470 <br />Fax: 84-4).39877210<br /> <a href="mailto:vtcmobile@vtc.vn">vtcmobile@vtc.vn</a>
-				</p>
-					</div>
-				</div>
-			</div>
+			{/* End p2 */}
 
 			{/* The Modal Phần thưởng */}
 			<div class="modal fade" data-keyboard="false" data-backdrop="static" id="GiaiThuong">
 				<div class="modal-dialog">
 					<div class="modal-content bg-modal-content border-0" style={{marginTop: 60}}>
 					<div class="modal-header border-bottom-0">
-						<h4 class="modal-title"><img src={header_giaithuong} class="img-fluid header-giaithuong" /></h4>
+						{/* <h4 class="modal-title"><img src={header_giaithuong} class="img-fluid header-giaithuong" /></h4> */}
 						<button type="button" class="close" data-dismiss="modal"><img src={close_icon} class="img-fluid" /></button>
 					</div>
 					<div class="modal-body font16">
@@ -1146,7 +1047,7 @@ class Lucky_Rotation extends React.Component {
 						{listCountBonus.map((obj, key) => (
 							<div class="alert alert-giaithuong row mx-0 py-0 pl-0 mb-2" key={key}>
 								<div class="col-md-2 col-6 pl-0">
-									<img src={ruong_icon} class="img-fluid" />
+									{/* <img src={ruong_icon} class="img-fluid" /> */}
 								</div>
 								<div class="col-md-3 col-6 px-1 text-center pt-3">
 									{this.getNameScoin(obj.itemName)} <img src={logo_scoin} width="60" class="img-fluid" /> <br /> <span class="font-italic d-pc-none">Còn {obj.itemQuantityExist ? obj.itemQuantityExist.toLocaleString() :0} giải</span>
@@ -1166,63 +1067,8 @@ class Lucky_Rotation extends React.Component {
 			</div>
 
 			{/* The Modal them luot */}
-			<div class="modal fade" id="ThemLuot" style={{zIndex:10001}}>
-				<div class="modal-dialog">
-					<div class="modal-content bg-modal-content border-0">
-						<div class="modal-header border-bottom-0">
-							<button type="button" class="close" data-dismiss="modal"><img src={close_icon} class="img-fluid" /></button>
-						</div>
-						<div class="modal-body font16">
-							<div class="w-75 mx-auto">
-								<p class="font-iCielPantonBlack text-brown pt-5">Bạn muốn nhận thêm Chìa khóa mở rương báu Scoin?</p>
-								<p class="font-iCielPantonBlack text-brown">Nạp game từ ví Scoin được tặng Chìa khóa:
-						Cứ 50.000 Scoin sẽ nhận 1 Chìa khóa mở rương báu</p>
-								<p style={{color:'red'}}>(không giới hạn giá trị nạp & số lần nạp)</p>
-								<div class="alert alert-giaithuong">
-									<p class="font-iCielPantonBlack text-brown">Scoin đã nạp từ ví vào Game: <span class="text-dark font-iCielPantonBlack">{turnsBuyInfo.scoinTopupWallet ? turnsBuyInfo.scoinTopupWallet.toLocaleString() : 0} Scoin</span></p>
-									<p class="font-iCielPantonBlack text-brown">Chìa khóa đã nhận: <span class="text-dark font-iCielPantonBlack">{turnsBuyInfo.turnTopupWallet ? turnsBuyInfo.turnTopupWallet.toLocaleString() : 0} Chìa khóa</span> <img src={key_yellow_icon} width="20" class="img-fluid" /></p>
-									<p class="font-iCielPantonBlack text-brown">Nạp thêm <span class="text-dark font-iCielPantonBlack">{turnsBuyInfo.scoinBalanceRounding ? turnsBuyInfo.scoinBalanceRounding.toLocaleString(): 0} Scoin</span> từ ví -> Game để nhận <span class="text-dark font-iCielPantonBlack">1 Chìa khóa</span> <img src={key_yellow_icon} width="20" class="img-fluid" /></p>
-								</div>
-								<p class="text-center w-75 mx-auto mt-4 mb-0"><a href="https://scoin.vn/nap-game" title="Nạp Game" target="_blank"><img src={btn_nap_game} class="img-fluid napGame" /></a></p>
-								<p class="text-center w-75 mx-auto mt-2"><a href="" title="Mua chìa khóa dùng thẻ Scoin" data-toggle="modal" data-target="#MuaChiaKhoa"><img src={btn_mua_chia_khoa} class="img-fluid buyKey" /></a></p>
-							</div>
-						</div>	  
-					</div>
-				</div>
-			</div>
 
 			{/* The Modal chia khoa */}
-			<div class="modal fade" id="MuaChiaKhoa" style={{zIndex:10002}}>
-				<div class="modal-dialog">
-					<div class="modal-content bg-modal-content border-0">
-						<div class="modal-header border-bottom-0">
-							<button type="button" class="close" data-dismiss="modal"><img src={close_icon} class="img-fluid" /></button>
-						</div>
-						<div class="modal-body">
-							<p class="font-iCielPantonBlack text-brown pt-3">Mua chìa khóa bằng thẻ Scoin các mệnh giá:</p>
-							<p class="font-iCielPantonBlack font16 text-center my-2">Thẻ Scoin 10k > 1 Chìa khóa <img src={key_yellow_icon} width="20" class="img-fluid" /></p>
-							<p class="font-iCielPantonBlack font16 text-center my-2">Thẻ Scoin 20k > 2 Chìa khóa <img src={key_yellow_icon} width="20" class="img-fluid" /> </p>
-							<p class="font-iCielPantonBlack font16 text-center my-2">Thẻ Scoin 50k > 5 Chìa khóa <img src={key_yellow_icon} width="20" class="img-fluid" /></p>
-							<div class="alert alert-giaithuong font16 mt-4">
-								<div class="row">
-									<div class="col-7 px-2">
-									<p class="m-0 font-iCielPantonBlack text-brown">Hôm nay có thể mua:</p>
-									</div>
-									<div class="col-5 px-1 text-right">
-										<p class="p-0 m-0"><span class="font-iCielPantonBlack text-dark">{turnsBuyInfo.turnCanBuy} Chìa khóa</span> <img src={key_yellow_icon} width="20" class="img-fluid" /></p>
-									</div> 
-								</div>           
-							</div>        
-							<div class="mx-auto pt-2">
-								<p style={{color:'red', textAlign:"center", marginBottom:10}}>Khi mua vượt quá giới hạn trong ngày, Scoin thừa sẽ được cộng vào ví</p>
-								<p class="text-center w-50 mx-auto mt-3"><a href="https://scoin.vn/nap-vao-game?GameId=330335" target="_blank" title="Xác nhận mua"><img src={btn_xac_nhan_mua} class="img-fluid xacNhan" /></a></p>
-							</div>
-						</div>	  
-					</div>
-				</div>
-				</div>
-			
-
 
 			{/* The Modal Lich su */}
 			<div class="modal fade" id="LichSu" data-keyboard="false" data-backdrop="static" style={{zIndex:100001}}>
@@ -1389,7 +1235,7 @@ class Lucky_Rotation extends React.Component {
 										<tbody>
 											{listKey.map((obj, key) => (
 												<tr key={key}>
-													<td class="font16"><strong>{obj.sourceTurn}</strong> <br />{obj.receivedTurn} <img src={key_yellow_icon} width="20" class="img-fluid" /><br />{obj.date}</td>
+													<td class="font16"><strong>{obj.sourceTurn}</strong> <br />{obj.receivedTurn} <br />{obj.date}</td>
 												</tr>
 											))}
 										
@@ -1422,7 +1268,7 @@ class Lucky_Rotation extends React.Component {
 											{listKey.map((obj, key) => (
 												<tr key={key}>
 													<td className="border-right-0">{obj.sourceTurn}</td>
-													<td className="border-left-0 border-right-0">{obj.receivedTurn} <img src={key_yellow_icon} width="20" class="img-fluid" /></td>
+													{/* <td className="border-left-0 border-right-0">{obj.receivedTurn} <img src={key_yellow_icon} width="20" class="img-fluid" /></td> */}
 													<td className="border-left-0">{obj.date}</td>
 												</tr>
 											))}
@@ -1521,18 +1367,6 @@ class Lucky_Rotation extends React.Component {
 			</div>
 
 			{/* <!-- The Modal Kho bau--> */}
-			<div className="modal fade" id="Khobau" >
-				<div className="modal-dialog">
-					<div className="modal-content  bg-transparent border-0 center-screen">
-
-
-					<div className="modal-body text-center">
-						<img src={khobau} class="img-khobau" />
-					</div>
-
-					</div>
-				</div>
-			</div>
 
 			{/* <!-- The Modal Xác thực sdt--> */}
 			<div className="modal fade" id="myModal8">

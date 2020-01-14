@@ -16,7 +16,7 @@ class App extends React.Component {
 
 	render() {
 		return (
-			<div style={{ backgroundColor: this.state.backgroundColor }}>
+			<div>
 				{/* <div style={{maxWidth:"1200px", margin:"auto", background: this.state.backgroundColor }}> */}
 				<div>
 				<MenuAppBar isMobile={this.state.isMobile} pathname={document.location.pathname} compact={this.state.compact} scrolling={this.state.scrolling}

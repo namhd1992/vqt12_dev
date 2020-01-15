@@ -22,16 +22,35 @@ import {
 	getData
 } from '../../modules/profile'
 
-import close_icon from './images/close-icon.png'
-import backtotop from './images/backtotop.png'
-import bg_account from './images/bg-account.png'
-import bg_float_left from './images/bg-float-left.png'
+import close_icon from './images/close-icon.png';
+import backtotop from './images/backtotop.png';
+import bg_account from './images/bg-account.png';
+import bg_float_left from './images/bg-float-left.png';
+import bg_line_napthescoin from './images/bg-line-napthescoin.png'
 import bg_page from './images/bg-page.png';
 import bg_page_m from './images/bg-page-m.png';
 import bg_sukien_dienra from './images/bg-sukien-dienra.png';
+import bg_tab_ls from './images/bg-tab-ls.png';
 import btn_chudangco from './images/btn-chudangco.png';
+import btn_doingay from './images/btn-doingay.png';
 import btn_doithuong from './images/btn-doithuong.png';
+import btn_hotlinehotro from './images/btn-hotlinehotro.png';
+import btn_huongdanmuathescoin from './images/btn-huongdanmuathescoin.png';
+import btn_lat10chu from './images/btn-lat10chu.png';
+import btn_lattiep from './images/btn-lattiep.png';
+import btn_napthescoin from './images/btn-napthescoin.png';
+import btn_xemgiaithuong from './images/btn-xemgiaithuong.png';
+import icon_jsc from './images/icon-jsc.png';
 import icon_noti from './images/icon-noti.png';
+import img_canh_ty from './images/img-canh-ty.png';
+import img_chao_canh_ty from './images/img-chao-canh-ty.png';
+import img_chao_don from './images/img-chao-don.png';
+import img_chao_don_canh_ty from './images/img-chao-don-canh-ty.png';
+import img_chao_don_tet_canh_ty from './images/img-chao-don-tet-canh-ty.png';
+import img_doithuong from './images/img-doithuong.png';
+import img_don_canh_ty from './images/img-don-canh-ty.png';
+import img_mochu from './images/img-mochu.png';
+import img_nhanchu from './images/img-nhanchu.png';
 import logo from './images/logo.png';
 import logo_scoin from './images/logo-scoin.png';
 import logo_splay from './images/logo-splay.png';
@@ -41,6 +60,13 @@ import menu_float_bottom_m from './images/menu-float-bottom-m.png';
 import mo_1_chu from './images/mo-1-chu.png';
 import mo_10_chu from './images/mo-10-chu.png';
 import su_kien_dang_dien_ra_con from './images/su-kien-dang-dien-ra-con.png';
+import title_bangvinhdanh from './images/title-bangvinhdanh.png';
+import title_giaithuong from './images/title-giaithuong.png';
+import title_lichsu from './images/title-lichsu.png';
+import title_thele from './images/title-thele.png';
+
+
+
 import back from './images/back.png';
 import canh from './images/canh.png';
 import chao from './images/chao.png';
@@ -896,6 +922,18 @@ class Lucky_Rotation extends React.Component {
 		this.setState({listChu:[]})
 	}
 
+	openTheLe=()=>{
+		$("#thele").show();
+	}
+
+	openVinhDanh=()=>{
+		
+	}
+
+	openLichSu=()=>{
+		
+	}
+
 
 	render() {
 		const {number_chao, number_don, number_tet, number_canh, number_ti, scoinPlus, numberWordChange, showOneWord, oneWord, listChu, soinValue,listCountBonus, listKey, activeKey, turnsBuyInfo,status_sukien, xacthuc, scoinCard,height, width, dialogLoginOpen, dialogBonus, auto, dialogWarning, textWarning, isLogin, userTurnSpin, day, hour, minute, second, code,numberPage, message_status, data_auto,message_error,
@@ -965,6 +1003,14 @@ class Lucky_Rotation extends React.Component {
 							<div class="col-3 display-5 text-white mt-n2 py-1"> {second} </div>
 						</div>
 					</div>
+					<div class="day" style={{margin:"5px 0px 10px 0px"}}>
+						<div class="row m-0">
+							<div class="col-3 font-13 text-white mt-n2 py-1 text-center">Ngày</div>
+							<div class="col-3 font-13 text-white mt-n2 py-1 text-center">Giờ</div>
+							<div class="col-3 font-13 text-white mt-n2 py-1 text-center">Phút</div>
+							<div class="col-3 font-13 text-white mt-n2 py-1 text-center">Giây</div>
+						</div>
+					</div>
 					<div class="d-mobile-none">
 						{(isLogin)?(<div class="row">
 									<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-white text-nowrap">Xin chào <span class="text-warning"> {this.getUsername(userTurnSpin.currName)}</span></div>
@@ -999,9 +1045,9 @@ class Lucky_Rotation extends React.Component {
 			{/* <!--End container--> */}
 				<div class="float-left">
 					<ul class="nav flex-column text-float-left">
-						<li class="mt-5"><a href="#" title="Thể lệ">&nbsp;</a></li>
-						<li class="mt-1"><a href="#" title="Vinh danh">&nbsp;</a></li>
-						<li class="mt-1"><a href="#" title="Thông báo">&nbsp;</a></li>
+						<li class="mt-5"><a title="Thể lệ" onClick={this.openTheLe}>&nbsp;</a></li>
+						<li class="mt-1"><a title="Vinh danh" onClick={this.openVinhDanh}>&nbsp;</a></li>
+						<li class="mt-1"><a title="Lịch sử" onClick={this.openLichSu}>&nbsp;</a></li>
 					</ul>
 				</div>
 				
@@ -1603,6 +1649,387 @@ class Lucky_Rotation extends React.Component {
 				</div>
 			</div>
 
+
+
+
+{/* AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA */}
+
+			{/* <!--Begin The Modal Thong bao chuc mung --> */}
+			<div class="modal" id="chucmung">
+				<div class="modal-dialog">
+					<div class="modal-content border-yellow">
+					<div class="modal-header border-bottom-0 p-1">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body text-center pt-0">
+						<h2 class="small text-danger">Chúc mừng &lt;Scoin_Name&gt; đổi thành công</h2>
+						<p>10.000 <img src={logo_scoin} alt="Scoin" width="60" /></p>
+						<p class="font-arial font-13">Scoin đã được cộng trực tiếp vào ví. Vui lòng truy cập <a class="font-arial" href="https://scoin.vn" title="Scoin.vn" target="_blank">Scoin.vn</a> để kiểm tra. <br /><a class="font-arial" href="https://scoin.vn" title="Lịch sử">Xem lịch sử đổi thưởng <span class="text-danger font-arial">tại đây</span></a></p>
+					</div>
+
+					</div>
+				</div>
+			</div>
+			{/* <!--End The Modal Thong bao chuc mung --> */}
+
+			{/* <!--Begin The Modal Thong bao chuc mung2 --> */}
+			<div class="modal" id="chucmung2">
+				<div class="modal-dialog">
+					<div class="modal-content border-yellow">
+					<div class="modal-header border-bottom-0 p-1">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body text-center pt-0">
+						<h2 class="small text-danger">Chúc mừng &lt;Scoin_Name&gt; đổi thành công</h2>
+						<p>1 chỉ vàng JSC <img src= {icon_jsc} alt="jsc" width="24" /></p>
+						<p class="font-arial font-13 text-danger">Đại diện BTC sẽ liên hệ để hướng dẫn thủ tục nhận thưởng. Vui lòng quay số Hotline xxxx xxxx để được hỗ trợ thêm. <br /><a class="font-arial" href="https://scoin.vn" title="Lịch sử">Xem lịch sử đổi thưởng <span class="text-danger font-arial">tại đây</span></a></p>
+					</div>
+
+					</div>
+				</div>
+			</div>
+			{/* <!--End The Modal Thong bao chuc mung2 --> */}
+
+			{/* <!--Begin The Modal Giai thuong --> */}
+			<div class="modal" id="giaithuong">
+				<div class="modal-dialog">
+					<div class="modal-content border-yellow">
+					<div class="modal-header border-bottom-0 p-1">
+						<h4 class="modal-title img-title-popup position-relative"><img src= {title_giaithuong} class="img-fluid" alt="Giải thưởng" /></h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body pt-0">
+						<h2 class="small pt-2">Xin chào &lt;Scoin_Name&gt;. Hãy chọn quà để đổi</h2>
+						<div class="alert border-yellow px-1 py-0">
+						<table class="table table-borderless mb-0">            
+							<tbody>
+							<tr>
+								<td width="24%" class="px-0"><img src= {img_chao_don} class="img-fluid" alt="" /></td>
+								<td width="38%" class="px-0"></td>
+								<td width="20%" class="pl-2 pr-0 text-center text-nowrap">10.000 <br/> <img src= {logo_scoin} alt="Scoin" width="48" /></td>
+								<td width="18%" class="px-0 text-center"><img src= {btn_doingay} class="img-fluid" alt="" /><br /><span class="text-danger font-11">Còn 4 giải</span></td>
+							</tr>             
+							</tbody>
+						</table>
+						</div>
+						<div class="alert border-yellow px-1 py-0">
+						<table class="table table-borderless mb-0">            
+							<tbody>
+							<tr>
+								<td width="24%" class="px-0"><img src= {img_canh_ty} class="img-fluid" alt="" /></td>
+								<td width="38%" class="px-0"></td>
+								<td width="20%" class="pl-2 pr-0 text-center text-nowrap">10.000 <br/> <img src= {logo_scoin} alt="Scoin" width="48" /></td>
+								<td width="18%" class="px-0 text-center"><img src= {btn_doingay} class="img-fluid" alt="" /><br /><span class="text-danger font-11">Còn 4 giải</span></td>
+							</tr>             
+							</tbody>
+						</table>
+						</div>
+						<div class="alert border-yellow px-1 py-0">
+						<table class="table table-borderless mb-0">            
+							<tbody>
+							<tr>
+								<td width="35%" class="px-0"><img src= {img_chao_canh_ty} class="img-fluid" alt="" /></td>
+								<td width="27%" class="px-0"></td>
+								<td width="20%" class="pl-2 pr-0 text-center text-nowrap">10.000 <br/> <img src= {logo_scoin} alt="Scoin" width="48" /></td>
+								<td width="18%" class="px-0 text-center"><img src= {btn_doingay} class="img-fluid" alt="" /><br /><span class="text-danger font-11">Còn 4 giải</span></td>
+							</tr>             
+							</tbody>
+						</table>
+						</div>
+						<div class="alert border-yellow px-1 py-0">
+						<table class="table table-borderless mb-0">            
+							<tbody>
+							<tr>
+								<td width="35%" class="px-0"><img src= {img_don_canh_ty} class="img-fluid" alt="" /></td>
+								<td width="27%" class="px-0"></td>
+								<td width="20%" class="pl-2 pr-0 text-center text-nowrap">10.000 <br/> <img src= {logo_scoin} alt="Scoin" width="48" /></td>
+								<td width="18%" class="px-0 text-center"><img src= {btn_doingay} class="img-fluid" alt="" /><br /><span class="text-danger font-11">Còn 4 giải</span></td>
+							</tr>             
+							</tbody>
+						</table>
+						</div>
+						<div class="alert border-yellow px-1 py-0">
+						<table class="table table-borderless mb-0">            
+							<tbody>
+							<tr>
+								<td width="62%" class="px-0"><img src= {img_chao_don_tet_canh_ty} class="img-fluid" alt="" /></td>
+								<td width="20%" class="pl-2 pr-0 text-center text-nowrap">10.000 <br/> <img src= {logo_scoin} alt="Scoin" width="48" /></td>
+								<td width="18%" class="px-0 text-center"><img src= {btn_doingay} class="img-fluid" alt="" /><br /><span class="text-danger font-11">Còn 4 giải</span></td>
+							</tr>             
+							</tbody>
+						</table>
+						</div>
+						<h3 class="font-arial text-uppercase font-13 font-italic">Quy tắc đổi thưởng:</h3>
+						<p class="font-arial font-13 font-italic">Tài khoản cần xác thực số điện thoại để đổi thưởng. <a class="font-arial font-italic" href="#" title="Xác thực" target="_blank">Xác thực tại đây</a><br />
+				Quà Scoin sau khi đổi thành công được cộng trực tiếp vào ví Scoin.<br />
+				Quà 1 Chỉ vàng SJC 9999 sau khi thực hiện đổi thành công sẽ được hướng dẫn thủ tục nhận thưởng.</p>
+						<h3 class="font-arial text-uppercase font-13 text-danger font-italic">Lưu ý:</h3>
+						<p class="font-arial font-13 font-italic">Mọi hành vi gian lận/ hack sẽ bị xử lý theo pháp luận hiện hành.<br />
+				Các thắc mắc liên quan đến sự kiện vui lòng quay số Hotline xxxx xxxx.<br />
+				Quyết định cuối cùng thuộc về BTC.</p>
+					</div>
+
+					</div>
+				</div>
+			</div>
+			{/* <!--End The Modal Giai thuong --> */}
+
+			{/* <!--Begin The Modal Lich su --> */}
+			<div class="modal" id="lichsu">
+				<div class="modal-dialog">
+					<div class="modal-content border-yellow">
+					<div class="modal-header border-bottom-0 p-1">
+						<h4 class="modal-title img-title-popup position-relative"><img src= {title_lichsu} class="img-fluid" alt="Lịch sử" /></h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body pt-0">
+						<div class="">
+							<ul class="nav nav-pills nav-justified pop-custom">
+							<li class="nav-item">
+								<a class="nav-link active px-2" data-toggle="tab" href="#doithuong"><img src= {img_doithuong} class="img-fluid" alt="Đổi thưởng" /></a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link px-2" data-toggle="tab" href="#mochu"><img src= {img_mochu} class="img-fluid" alt="Mở chữ" /></a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link px-2" data-toggle="tab" href="#nhanchu"><img src= {img_nhanchu} class="img-fluid" alt="Nhận chữ" /></a>
+							</li>
+							</ul>            
+							<div class="tab-content">
+							<div class="tab-pane container active" id="doithuong">
+								<div class="pt-3">
+									<table class="table mx-auto text-center">
+										<thead class="font-weight-bold">
+										<tr>
+											<th><p class="card-text font-arial">Thời gian đổi</p></th>
+											<th><p class="card-text font-arial">Tên giải thưởng</p></th>
+										</tr>
+										</thead>
+										<tbody>
+										<tr>
+											<td class="font-arial">16h40’13s ngày 20.07.2019</td>
+											<td class="font-arial">99.999 chữ</td>
+										</tr>
+										<tr>
+											<td class="font-arial">16h40’13s ngày 20.07.2019</td>
+											<td class="font-arial">99.999 chữ</td>
+										</tr>
+										</tbody>
+									</table>
+									<ul class="pagination justify-content-center pag-custom mt-4">
+										<li class="page-item"><a class="page-link page-be" href="#">Trang đầu</a></li>
+										<li class="page-item"><a class="page-link" href="#">1</a></li>
+										<li class="page-item active"><a class="page-link" href="#">2</a></li>
+										<li class="page-item"><a class="page-link" href="#">3</a></li>
+										<li class="page-item"><a class="page-link" href="#">...</a></li>
+										<li class="page-item"><a class="page-link page-be" href="#">Trang cuối</a></li>
+									</ul> 
+								</div>                 
+							</div>
+							<div class="tab-pane container fade" id="mochu">
+								<div class="pt-3">
+									<table class="table mx-auto text-center">
+										<thead class="font-weight-bold">
+										<tr>
+											<th><p class="card-text font-arial">Thời gian đổi</p></th>
+											<th><p class="card-text font-arial">Tên giải thưởng</p></th>
+										</tr>
+										</thead>
+										<tbody>
+										<tr>
+											<td class="font-arial">16h40’13s ngày 20.07.2019</td>
+											<td class="font-arial">99.999 chữ</td>
+										</tr>
+										<tr>
+											<td class="font-arial">16h40’13s ngày 20.07.2019</td>
+											<td class="font-arial">99.999 chữ</td>
+										</tr>
+										</tbody>
+									</table>
+									<ul class="pagination justify-content-center pag-custom mt-4">
+										<li class="page-item"><a class="page-link page-be" href="#">Trang đầu</a></li>
+										<li class="page-item"><a class="page-link" href="#">1</a></li>
+										<li class="page-item active"><a class="page-link" href="#">2</a></li>
+										<li class="page-item"><a class="page-link" href="#">3</a></li>
+										<li class="page-item"><a class="page-link" href="#">...</a></li>
+										<li class="page-item"><a class="page-link page-be" href="#">Trang cuối</a></li>
+									</ul> 
+								</div>                
+							</div>
+							<div class="tab-pane container fade" id="nhanchu">
+								<div class="pt-3">
+									<table class="table mx-auto text-center">
+										<thead class="font-weight-bold">
+										<tr>
+											<th><p class="card-text font-arial">Thời gian đổi</p></th>
+											<th><p class="card-text font-arial">Tên giải thưởng</p></th>
+										</tr>
+										</thead>
+										<tbody>
+										<tr>
+											<td class="font-arial">16h40’13s ngày 20.07.2019</td>
+											<td class="font-arial">99.999 chữ</td>
+										</tr>
+										<tr>
+											<td class="font-arial">16h40’13s ngày 20.07.2019</td>
+											<td class="font-arial">99.999 chữ</td>
+										</tr>
+										</tbody>
+									</table>
+									<ul class="pagination justify-content-center pag-custom mt-4">
+										<li class="page-item"><a class="page-link page-be" href="#">Trang đầu</a></li>
+										<li class="page-item"><a class="page-link" href="#">1</a></li>
+										<li class="page-item active"><a class="page-link" href="#">2</a></li>
+										<li class="page-item"><a class="page-link" href="#">3</a></li>
+										<li class="page-item"><a class="page-link" href="#">...</a></li>
+										<li class="page-item"><a class="page-link page-be" href="#">Trang cuối</a></li>
+									</ul> 
+								</div>                
+							</div>
+							</div>
+						</div>
+						
+					</div>
+
+					</div>
+				</div>
+			</div>
+			{/* <!--End The Modal Lich su --> */}
+
+			{/* <!--Begin The Modal The le --> */}
+			<div class="modal" id="thele">
+				<div class="modal-dialog">
+					<div class="modal-content border-yellow">
+					<div class="modal-header border-bottom-0 p-1">
+						<h4 class="modal-title img-title-popup position-relative"><img src= {title_thele} class="img-fluid" alt="Thể lệ" /></h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body pt-0">
+						<h3 class="font-arial font-13 font-weight-bold">1. Đối tượng tham gia</h3>
+						<p class="font-arial font-13">Khách hàng có tài khoản Scoin. Nếu chưa có <a class="font-arial text-danger" href="#" title="Đang ký" target="_blank">Đăng ký tại đây</a></p>
+						<h3 class="font-arial font-13 font-weight-bold">2. Làm thế nào để nhận chữ?</h3>
+						<p class="font-arial font-13">Rất đơn giản, chỉ cần dùng thẻ Scoin nạp thẳng vào các game do VTC Mobile phát hành
+				Tích lũy đủ 50,000Đ sẽ nhận 1 Chữ.</p>
+						<div class="row bg-line-napthescoin p-3">          
+						<div class="col-sm-8">
+							<h3 class="font-arial font-13">Scoin đã nạp từ ví vào Game: 10,005,000đ</h3>
+							<p class="font-arial font-13 text-danger font-weight-bold mb-0">Nạp thêm 45,000Đ bằng thẻ Scoin để nhận 1 Chữ</p>
+						</div>
+						<div class="col-sm-4 text-center"><img src= {btn_napthescoin} alt="Nạp thẻ scoin" class="img-fluid" width="120" /></div>
+						</div>
+						<div class="row p-3">          
+						<div class="col-sm-8">
+							<h3 class="font-arial font-13 font-weight-bold">3. Cơ cấu giải thưởng</h3>
+						</div>
+						<div class="col-sm-4 text-center"><img src= {btn_xemgiaithuong} alt="Xem giải thưởng" class="img-fluid" width="120" /></div>
+						</div>
+						<div class="row p-3">          
+						<div class="col-sm-6 text-center pt-1">
+							<a href="#" title="Hướng dẫn mua thẻ Scoin"><img src= {btn_huongdanmuathescoin} alt="Hướng dẫn mua thẻ Scoin" class="img-fluid" width="279" /></a>
+						</div>
+						<div class="col-sm-6 text-center pt-1"><a href="#" title="Hotline"><img src= {btn_hotlinehotro} alt="Hotline" class="img-fluid" width="279" /></a></div>
+						</div>
+					</div>
+						
+					</div>
+				</div>
+			</div>
+			{/* <!--End The Modal The le --> */}
+
+			{/* <!--Begin The Modal Bang vinh danh --> */}
+			<div class="modal" id="bangvinhdanh">
+				<div class="modal-dialog">
+					<div class="modal-content border-yellow">
+					<div class="modal-header border-bottom-0 p-1">
+						<h4 class="modal-title img-title-popup position-relative"><img src= {title_bangvinhdanh} class="img-fluid" alt="Bảng vinh danh" /></h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body pt-0">
+						<h3 class="font-arial font-13 font-weight-bold text-uppercase text-center pt-3">8 giải vàng jsc 9999</h3>
+						<div class="row border-yellow m-2 p-1 bg-orange text-white border-radius-8 text-center">
+							<div class="col-sm-6">
+								<div class="row">
+									<div class="col-6 font-arial">Scoin-name</div>
+									<div class="col-6 font-arial">Scoin-name</div>
+									<div class="col-6 font-arial">Scoin-name</div>
+									<div class="col-6 font-arial">Scoin-name</div>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="row">
+									<div class="col-6 font-arial">Scoin-name</div>
+									<div class="col-6 font-arial">Scoin-name</div>
+									<div class="col-6 font-arial">Scoin-name</div>
+									<div class="col-6 font-arial">Scoin-name</div>
+								</div>
+							</div>
+						</div>
+						<h3 class="font-arial font-13 font-weight-bold text-uppercase text-center pt-3">Các giải khác</h3>        
+						<table class="table mx-auto text-center">
+							<thead class="font-weight-bold">
+							<tr>
+								<th><p class="card-text font-arial">Tên giải thưởng</p></th>
+								<th><p class="card-text font-arial">Giải thưởng</p></th>
+								<th><p class="card-text font-arial">Thời gian đổi</p></th>                
+							</tr>
+							</thead>
+							<tbody>
+							<tr>
+								<td class="font-arial">Scoin-name</td>
+								<td class="font-arial">99.999 chữ</td>
+								<td class="font-arial">16h40’13s ngày 20.07.2019</td>                
+							</tr>
+							<tr>
+								<td class="font-arial">Scoin-name</td>
+								<td class="font-arial">99.999 chữ</td>
+								<td class="font-arial">16h40’13s ngày 20.07.2019</td>                
+							</tr>
+							</tbody>
+						</table>
+						<ul class="pagination justify-content-center pag-custom mt-4">
+							<li class="page-item"><a class="page-link page-be" href="#">Trang đầu</a></li>
+							<li class="page-item"><a class="page-link" href="#">1</a></li>
+							<li class="page-item active"><a class="page-link" href="#">2</a></li>
+							<li class="page-item"><a class="page-link" href="#">3</a></li>
+							<li class="page-item"><a class="page-link" href="#">...</a></li>
+							<li class="page-item"><a class="page-link page-be" href="#">Trang cuối</a></li>
+						</ul>       
+					</div>
+
+					</div>
+				</div>
+			</div>
+			{/* <!--End The Modal Bang vinh danh --> */}
+
+			{/* <!--Begin The Modal Mo 1 chu --> */}
+			<div class="modal fade in" id="mo1chu">
+				<div class="modal-dialog">
+					<div class="modal-content bg-transparent">
+					<div class="modal-body pt-0 text-center">
+						<p><img src= {tet} class="img-fluid text-center" alt="Tết" /></p>
+						<p><a href="#" title="Lật tiếp"><img src= {btn_lattiep} class="img-fluid text-center" alt="Lật tiếp" /></a></p>
+						<p><a href="#" class="text-danger text-center font-arial" data-dismiss="modal">Đóng</a></p>   
+					</div>
+
+					</div>
+				</div>
+			</div>
+			{/* <!--End The Modal Mo 1 chu --> */}
+
+			{/* <!--Begin The Modal Mo 10 chu --> */}
+			<div class="modal fade in" id="mo10chu">
+				<div class="modal-dialog">
+					<div class="modal-content bg-transparent">
+					<div class="modal-body pt-0 text-center">
+						<p><img src={tet} class="img-fluid text-center" alt="Tết" /></p>
+						<p><a href="#" title="Lật 10 chữ"><img src= {btn_lat10chu} class="img-fluid text-center" alt="Lật 10 chứ" /></a></p>
+						<p><a href="#" class="text-danger text-center font-arial" data-dismiss="modal">Đóng</a></p>   
+					</div>
+
+					</div>
+				</div>
+			</div>
+			{/* <!--End The Modal Mo 10 chu --> */}
 
 
 			<ReactResizeDetector handleWidth={true} handleHeight={true} onResize={this.onResize} />

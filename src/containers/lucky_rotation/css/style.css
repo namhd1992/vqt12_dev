@@ -96,7 +96,7 @@ body {background-image: url(../images/bg-page-m.png); background-size: cover; ba
 
 }
 @media (min-width: 576px) {
-.modal-dialog {max-width: 700px;}
+.modal-dialog {max-width: 700px !important;}
 }
 @media (max-width: 480px) {
 body {height: 720px;}

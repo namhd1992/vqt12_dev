@@ -106,6 +106,7 @@ class Lucky_Rotation extends React.Component {
 			itemOfUser:[],
 			luckySpin:{},
 			luckySpinGifts:[],
+			luckySpinGift:{},
 
 			turnsFree:0,
 			numberWordChange:0,
@@ -124,6 +125,7 @@ class Lucky_Rotation extends React.Component {
 			second:'00',
 			itemBonus:{},
 			vang_jsc:false,
+			isOpenTen:false,
 			
 			activeVinhDanh:1,
 			listVinhDanh:[],
@@ -312,133 +314,6 @@ class Lucky_Rotation extends React.Component {
 		window.location.replace(
 			`http://sandbox.graph.vtcmobile.vn/oauth/authorize?client_id=4e7549789b14693eda4e019faaa0c446&redirect_uri=${window.location.protocol}//${window.location.host}&action=logout&agencyid=0`,
 		);
-	}
-
-	start=()=>{
-		const {turnsFree, itemOfSpin, luckySpin, isSpin, closeAuto, auto}=this.state;
-		var _this = this;
-		var user = JSON.parse(localStorage.getItem("user"));
-		var time=Date.now();
-		if (user !== null) {
-			if(turnsFree>0){
-				this.props.pickCard(user.access_token, luckySpin.id).then(()=>{
-					var data=_this.props.dataPick;
-					var list=this.state.data_auto;
-					
-					if(data!==undefined){
-						if(data.status ==="01"){
-							if(auto){
-								var elem = document.getElementById('auto');
-								list.push(data.data.item.description);
-								this.getDetailData()
-								_this.setState({data_auto: list});
-								elem.scrollTop = elem.scrollHeight;
-								if(data.data.item.type!=="ACTION"){
-									this.setState({noti_tudo:true})
-									this.getVinhDanh(1);	
-								}
-							}else{
-								$('#Khobau').modal('show');
-								setTimeout(() => {
-									if(data.data.item.type!=="ACTION"){
-										$('#myModal4').modal('show');
-										this.setState({noti_tudo:true})
-										this.getVinhDanh(1);
-									}else{
-										$('#myModal7').modal('show');
-									}
-									this.getDetailData();
-									$('#Khobau').modal('hide');
-									_this.setState({itemBonus: data.data.item});
-								}, 1700);
-								
-							}	
-							
-						}else if(data.status ==="04"){
-							$('#myModal13').modal('show');
-						}else if(data.status ==="07"){
-								this.setState({message_status:"Sự kiện chưa diễn ra hoặc đã kết thúc."},()=>{
-								$('#myModal8').modal('show');
-							})
-						}else if(data.status ==="10"){
-							this.setState({message_status:"Bạn cần xác nhận số ĐT để chơi.", xacthuc:true},()=>{
-								$('#myModal8').modal('show');
-							})
-						}else{
-							$('#myModal11').modal('show');
-							this.setState({message_error:'Sự kiện đang có lỗi. Vui lòng tải lại trang.'})
-						}
-					}else{
-						$('#myModal12').modal('show');
-						this.setState({server_err:true})
-					}
-				})
-				
-			}else{
-				$('#myModal6').modal('show');
-			}
-		} else {
-			$('#myModal5').modal('show');
-		}
-	}
-
-	btnStart=()=>{
-		const {server_err, start, finish}=this.state;
-		if(server_err){
-			$('#myModal12').modal('show');
-		}else{
-			if(start){
-				this.setState({message_status:"Sự kiện chưa diễn ra."},()=>{
-					$('#myModal8').modal('show');
-				})
-			}else if(finish){
-				this.setState({message_status:"Sự kiện đã kết thúc."},()=>{
-					$('#myModal8').modal('show');
-				})
-			}else{
-				this.setState({data_auto:[], closeAuto:true},()=>{
-					this.start();
-				})
-			}
-		}
-	}
-
-
-	autoOpen=()=>{
-		const {turnsFree, luckySpin, server_err, start, finish}=this.state;
-		var user = JSON.parse(localStorage.getItem("user"));
-		var time=Date.now();
-		if(server_err){
-			$('#myModal12').modal('show');
-		}else{
-			if (user !== null) {
-				if(start){
-					this.setState({message_status:"Sự kiện chưa diễn ra."},()=>{
-						$('#myModal8').modal('show');
-					})
-				}else if(finish){
-					this.setState({message_status:"Sự kiện đã kết thúc."},()=>{
-						$('#myModal8').modal('show');
-					})
-				}else{
-					if(turnsFree>0){
-						$('#Khobau').modal('show');
-						setTimeout(() => {
-							$('#myModal9').modal('show');
-							this.setState({auto:true},()=>{
-								this.start()
-							});
-							$('#Khobau').modal('hide');
-						}, 1700);
-						
-					}else{
-						$('#myModal6').modal('show');
-					}
-				}
-			} else {
-				$('#myModal5').modal('show');
-			}
-		}	
 	}
 
 
@@ -648,34 +523,6 @@ class Lucky_Rotation extends React.Component {
 		
 	}
 
-	openThemLuot=()=>{
-		const {start, finish}=this.state;
-		var user = JSON.parse(localStorage.getItem("user"));
-		if (user !== null) {
-			if(start){
-				this.setState({message_status:"Sự kiện chưa diễn ra."},()=>{
-					$('#myModal8').modal('show');
-				})
-				
-			}else if(finish){
-				this.setState({message_status:"Sự kiện đã kết thúc."},()=>{
-					$('#myModal8').modal('show');
-				})
-			}else{
-				$('#ThemLuot').modal('show');
-			}
-		}else {
-			$('#myModal5').modal('show');
-		}
-	}
-
-	closePopupAuto=()=>{
-		const {timeout}=this.state;
-		this.setState({ auto:false});
-		clearTimeout(timeout)
-		$('#myModal9').modal('hide');
-	}
-
 
 
 	hideModalDetailBonus=()=>{
@@ -687,12 +534,10 @@ class Lucky_Rotation extends React.Component {
 
 	closeModal7=()=>{
 		$('#myModal7').modal('hide');
-		this.btnStart()
 	}
 
 	closeModal4=()=>{
 		$('#myModal4').modal('hide');
-		this.btnStart();
 	}
 
 
@@ -826,7 +671,7 @@ class Lucky_Rotation extends React.Component {
 		const words=[{name:'chao', img:chao}, {name:'don', img:don},{name:'canh', img:canh},{name:'ti', img:ty},{name:'tet',img:tet}]
 		const word_gif=[{name:'chao', img:chao_gif}, {name:'don', img:don_gif},{name:'canh', img:canh_gif},{name:'ti', img:ty_gif},{name:'tet',img:tet_gif}]
 		var listWord=[];
-
+		
 		this.props.openItem(119,10, user.access_token).then(()=>{
 			var data=this.props.dataOpenItem;
 			var k=0;
@@ -834,6 +679,7 @@ class Lucky_Rotation extends React.Component {
 			if(data.status==='01'){
 				var len= data.data.length;
 				this.getDetailData();
+				this.setState({isOpenTen:true})
 				for (let i = 0; i < len; i++) {
 					listWord.push(back)
 					this.setState({listChu:listWord})
@@ -852,46 +698,49 @@ class Lucky_Rotation extends React.Component {
 						k=k+1;
 						old_pos=pos
 					}else{
+						this.setState({isOpenTen:false})
 						clearInterval(myVar)
 					}
-				}, 925)				
+				}, 1000)				
 			}
 			
 		});
 	}
 
 	changePlus=()=>{
-		const {numberWordChange, max}=this.state;
+		const {numberWordChange, max, scoinPlus, luckySpinGift}=this.state;
 		if(numberWordChange <max){
-			this.setState({numberWordChange:this.state.numberWordChange+1})
+			var scoin=(numberWordChange+1)*(luckySpinGift.value)
+			this.setState({numberWordChange:this.state.numberWordChange+1, scoinPlus:scoin})
 		}
 		
 	}
 	changeMinus=()=>{
-		const {numberWordChange}=this.state;
+		const {numberWordChange, scoinPlus, luckySpinGift}=this.state;
 		if(numberWordChange > 0){
-			this.setState({numberWordChange:this.state.numberWordChange-1})
+			var scoin=(numberWordChange-1)*(luckySpinGift.value)
+			this.setState({numberWordChange:this.state.numberWordChange-1, scoinPlus:scoin})
 		}
 		
 	}
 
 	changeNumberWordMax=()=>{
-		const {max}=this.state;
-		console.log(max)
-		this.setState({numberWordChange:max})
+		const {max, luckySpinGift}=this.state;
+		var scoin=max*(luckySpinGift.value)
+		this.setState({numberWordChange:max, scoinPlus:scoin})
 	}
 
 	openPopupBonus=()=>{
 		$("#giaithuong").modal('show');
+		$("#thele").modal('hide');
 	}
 
 	openExchangeWord=(n)=>{
 		const {luckySpinGifts}=this.state;
 		var user = JSON.parse(localStorage.getItem("user"));
-		console.log(user)
 		var item=luckySpinGifts[n];
 		if(user !== null) {
-			this.setState({max: item.maxQuantity, luckySpinGiftId: item.luckySpinGiftId},()=>{
+			this.setState({max: item.maxQuantity, luckySpinGiftId: item.luckySpinGiftId, luckySpinGift: item},()=>{
 				$('#doithuong1').modal('show');
 				$("#giaithuong").modal('hide');
 			})
@@ -904,26 +753,34 @@ class Lucky_Rotation extends React.Component {
 
 	exchangeWord=()=>{
 		const {luckySpinGiftId, numberWordChange}=this.state;
+		const {dataProfile}=this.props;
 		var user = JSON.parse(localStorage.getItem("user"));
-		this.props.exchangeItem(119,luckySpinGiftId, numberWordChange, user.access_token).then(()=>{
-			var data=this.props.dataExchangeItem;
-			if(data.status==='01'){
-				this.setState({scoinPlus:data.data.value, numberWordChange:0},()=>{
-					$('#doithuong').modal('hide');
-					$('#changeSuccess').modal('show');
-				})
-				this.getDetailData();
-			}
-			
-		})
+		var scoinPlus=luckySpinGiftId.value;
+		if(dataProfile.phoneNumber !==null){
+			this.props.exchangeItem(119,luckySpinGiftId, numberWordChange, user.access_token).then(()=>{
+				var data=this.props.dataExchangeItem;
+				if(data.status==='01'){
+					this.setState({scoinPlus:data.data.value, numberWordChange:0, scoinPlus:scoinPlus},()=>{
+						$('#doithuong').modal('hide');
+						$('#chucmung').modal('show');
+					})
+					this.getDetailData();
+				}
+				
+			})
+		}else{
+			$('#myModal8').modal('show');
+		}
+		
 	}
 
 	changeGroupWord=(event)=>{
-		const {luckySpinGifts}=this.state;
+		const {luckySpinGifts, numberWordChange}=this.state;
 		var user = JSON.parse(localStorage.getItem("user"));
 		var item=luckySpinGifts[+event.target.value];
+		var scoinPlus=numberWordChange * (item.value)
 		if(user !== null) {
-			this.setState({max: item.maxQuantity, luckySpinGiftId: item.luckySpinGiftId, numberWordChange: 0},()=>{
+			this.setState({max: item.maxQuantity,luckySpinGift:item, luckySpinGiftId: item.luckySpinGiftId, numberWordChange: 0, scoinPlus:scoinPlus},()=>{
 				$('#doithuong1').modal('show');
 				$("#giaithuong").modal('hide');
 			})
@@ -944,6 +801,7 @@ class Lucky_Rotation extends React.Component {
 		$("#thele").modal('show');
 	}
 
+
 	openVinhDanh=()=>{
 		$("#bangvinhdanh").modal('show');
 		this.getVinhDanh(1)
@@ -954,62 +812,16 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	openPopupNhanChu=()=>{
-		console.log('AAAAAAA')
 		$("#myModal6").modal('show');
 	}
 
 
 	render() {
-		const {max, vang_jsc, number_chao, number_don, number_tet, number_canh, number_ti, scoinPlus, numberWordChange, showOneWord, oneWord, listChu, soinValue,listCountBonus, listKey, activeKey, turnsBuyInfo,status_sukien, xacthuc, scoinCard,height, width, dialogLoginOpen, dialogBonus, auto, dialogWarning, textWarning, isLogin, userTurnSpin, day, hour, minute, second, code,numberPage, message_status, data_auto,message_error,
+		const {isOpenTen, luckySpinGiftId, luckySpinGifts, max, vang_jsc, number_chao, number_don, number_tet, number_canh, number_ti, scoinPlus, numberWordChange, showOneWord, oneWord, listChu, soinValue,listCountBonus, listKey, activeKey, turnsBuyInfo,status_sukien, xacthuc, scoinCard,height, width, dialogLoginOpen, dialogBonus, auto, dialogWarning, textWarning, isLogin, userTurnSpin, day, hour, minute, second, code,numberPage, message_status, data_auto,message_error,
 			activeRuong, activeHistory, activeBonus, activeVinhDanh, limit, countCodeBonus, countRuong, countKey, countVinhDanh, listHistory, listCodeBonus, listRuong, listVinhDanh,itemBonus, turnsFree, noti_mdt, noti_tudo, hour_live, minute_live, second_live, user}=this.state;
 		const { classes } = this.props;
 		const notification_tudo=noti_tudo?(<span className="badge badge-pill badge-danger position-absolute noti-tudo">!</span>):(<span></span>);
-
 		return (<div>
-			{/* <a href="#logo" id="button"><img src={backtotop} alt="Back to Top" width="16" /></a> */}
-			{/* <div id="top" class="container-fluid header">
-				<div class="container position-relative h-100 w-100">
-				{(isLogin)?(<ul class="box-account nav font-iCielPantonLight">
-						<li class="bg-acc nav-item text-center"><a class="d-block pt-03 text-orange" href="#" title={this.titleName(userTurnSpin.currName)}><span class="text-white">Xin chào</span> {this.getUsername(userTurnSpin.currName)}</a></li>
-						<li class="bg-acc nav-item text-center" onClick={this.logoutAction}><a class="d-block pt-03 font-italic text-orange" href="#" title="Đăng xuất">Đăng Xuất</a></li>
-						
-						
-					</ul>):(<ul class="box-account nav font-iCielPantonLight justify-content-end">
-							<li class="bg-acc nav-item text-center" onClick={this.loginAction}><a class="d-block pt-03 font-italic text-orange" href="#" title="Đăng xuất">Đăng Nhập</a></li>
-					</ul>)}
-					<div id="logo" class="logo"><img src={logo} class="img-fluid" /></div>
-					<div>
-						<div>
-							<p>Số chữ còn lại: {turnsFree}</p>
-						</div>
-						<div style={{border:'2px solid #fff', marginBottom:10, padding:10, width:150}} onClick={this.openPopup1Word}>
-							<span style={{color: "#fff", fontSize:20, fontWeight:'bold'}}>Mở 1 chữ</span>
-						</div>
-						<div style={{border:'2px solid #fff', marginBottom:10, padding:10, width:150}} onClick={this.openPopup10Word}>
-							<span style={{color: "#fff", fontSize:20, fontWeight:'bold'}}>Mở 10 chữ</span>
-						</div>
-						<div style={{border:'2px solid #fff', marginBottom:10, padding:10, width:150}}>
-							<span style={{color: "#fff", fontSize:20, fontWeight:'bold'}}>Đổi Thưởng</span>
-						</div>
-
-						<div>
-							<p>CHỮ CỦA TÔI</p>
-		 					<p><span>CHÀO {number_chao} |</span><span> ĐÓN {number_don} |</span><span> TẾT {number_tet} |</span><span> CANH {number_canh} |</span><span> TÍ {number_ti} |</span></p>
-						</div>
-
-						<div>
-							<p>ĐỔI CHỮ</p>
-							<p style={{border:'1px solid', padding:5, marginTop:10}} onClick={()=>this.openExchangeWord(0)}>CHÀO ĐÓN</p>
-							<p style={{border:'1px solid', padding:5, marginTop:5}} onClick={()=>this.openExchangeWord(1)}>CANH TÍ</p>
-							<p style={{border:'1px solid', padding:5, marginTop:5}} onClick={()=>this.openExchangeWord(2)}>CHÀO CANH TÍ</p>
-							<p style={{border:'1px solid', padding:5, marginTop:5}} onClick={()=>this.openExchangeWord(3)}>ĐÓN CANH TÍ</p>
-							<p style={{border:'1px solid', padding:5, marginTop:5}} onClick={()=>this.openExchangeWord(4)}>CHÀO ĐÓN CANH TÍ</p>
-							<p style={{border:'1px solid', padding:5, marginTop:5}} onClick={()=>this.openExchangeWord(5)}>CHÀO ĐÓN TẾT CANH TÍ</p>
-						</div>
-					</div>
-				</div>
-			</div> */}
-			{/* End p1 */}
 
 
 			<div id="top" class="container-fluid mx-auto">
@@ -1036,9 +848,17 @@ class Lucky_Rotation extends React.Component {
 						</div>
 					</div>
 					<div class="d-mobile-none">
-						{(isLogin)?(<div class="row">
+						{/* {(isLogin)?(<div class="row">
 									<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-white text-nowrap">Xin chào <span class="text-warning"> {this.getUsername(userTurnSpin.currName)}</span></div>
 									<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-nowrap" style={{cursor:"pointer"}} onClick={this.logoutAction}><a title="Đăng xuất"><span class="text-warning">Đăng xuất</span></a></div>
+								</div>):(
+									<div class="row logout">
+								<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-nowrap" style={{cursor:"pointer"}} onClick={this.loginAction}><a title="Đăng nhập"><span class="text-warning">Đăng nhập</span></a></div>
+								</div>
+						)} */}
+						{(isLogin)?(<div class="row">
+									<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-white text-nowrap"><span> {this.getUsername(userTurnSpin.currName)}</span> <a title="Đăng xuất" style={{cursor:"pointer"}} onClick={this.logoutAction}><span class="text-warning">Đăng xuất</span></a></div>
+									<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-white"><a><span>Chữ chưa mở &nbsp;&nbsp; {turnsFree ? turnsFree.toLocaleString() : 0}</span></a></div>
 								</div>):(
 									<div class="row logout">
 								<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-nowrap" style={{cursor:"pointer"}} onClick={this.loginAction}><a title="Đăng nhập"><span class="text-warning">Đăng nhập</span></a></div>
@@ -1057,8 +877,8 @@ class Lucky_Rotation extends React.Component {
 
 				<div class="container d-pc-none pl-5">
 					{(isLogin)?(<div class="row col-12">
-								<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-white text-nowrap">Xin chào <span class="text-warning"> {this.getUsername(userTurnSpin.currName)}</span></div>
-								<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-nowrap" style={{cursor:"pointer"}} onClick={this.logoutAction}><a title="Đăng xuất"><span class="text-warning">Đăng xuất</span></a></div>
+								<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-white text-nowrap"><span> {this.getUsername(userTurnSpin.currName)}</span> <a title="Đăng xuất" style={{cursor:"pointer"}} onClick={this.logoutAction}><span class="text-warning">Đăng xuất</span></a></div>
+								<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-white"><a><span>Chữ chưa mở &nbsp;&nbsp; {turnsFree ? turnsFree.toLocaleString() : 0}</span></a></div>
 							</div>):(
 							<div class="row col-12">
 								<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-nowrap" style={{cursor:"pointer", marginLeft:"25%"}} onClick={this.loginAction}><a title="Đăng nhập"><span class="text-warning">Đăng nhập</span></a></div>
@@ -1069,9 +889,9 @@ class Lucky_Rotation extends React.Component {
 			{/* <!--End container--> */}
 				<div class="float-left">
 					<ul class="nav flex-column text-float-left">
-						<li class="mt-5"><a title="Thể lệ" onClick={this.openTheLe}>&nbsp;</a></li>
-						<li class="mt-1"><a title="Vinh danh" onClick={this.openVinhDanh}>&nbsp;</a></li>
-						<li class="mt-1"><a title="Lịch sử" onClick={this.openLichSu}>&nbsp;</a></li>
+						<li class="mt-5"><a title="Thể lệ" style={{cursor:"pointer"}} onClick={this.openTheLe}>&nbsp;</a></li>
+						<li class="mt-1"><a title="Vinh danh" style={{cursor:"pointer"}} onClick={this.openVinhDanh}>&nbsp;</a></li>
+						<li class="mt-1"><a title="Lịch sử" style={{cursor:"pointer"}} onClick={this.openLichSu}>&nbsp;</a></li>
 					</ul>
 				</div>
 				
@@ -1108,42 +928,6 @@ class Lucky_Rotation extends React.Component {
 			</div>
 
 			
-			{/* End p2 */}
-
-			{/* The Modal Phần thưởng */}
-			{/* <div class="modal fade" data-keyboard="false" data-backdrop="static" id="GiaiThuong">
-				<div class="modal-dialog">
-					<div class="modal-content bg-modal-content border-0" style={{marginTop: 60}}>
-					<div class="modal-header border-bottom-0">
-						<button type="button" class="close" data-dismiss="modal"><img src={close_icon} class="img-fluid" /></button>
-					</div>
-					<div class="modal-body font16">
-						<p class="d-pc-none mt-n3">&rarr; Trả thẳng vào Ví Scoin của khách hàng</p>
-
-						{listCountBonus.map((obj, key) => (
-							<div class="alert alert-giaithuong row mx-0 py-0 pl-0 mb-2" key={key}>
-								<div class="col-md-2 col-6 pl-0">
-								</div>
-								<div class="col-md-3 col-6 px-1 text-center pt-3">
-									{this.getNameScoin(obj.itemName)} <img src={logo_scoin} width="60" class="img-fluid" /> <br /> <span class="font-italic d-pc-none">Còn {obj.itemQuantityExist ? obj.itemQuantityExist.toLocaleString() :0} giải</span>
-								</div>
-								<div class="col-md-2 px-1 d-mobile-none text-center pt-3">
-									Còn {obj.itemQuantityExist ? obj.itemQuantityExist.toLocaleString() :0} giải
-								</div>
-								<div class="col-md-5 px-1 d-mobile-none text-center pt-3">
-									Trả thẳng vào Ví Scoin của khách hàng
-								</div>
-							</div>
-						))}
-					</div>
-
-					</div>
-				</div>
-			</div> */}
-
-			{/* The Modal them luot */}
-
-			{/* The Modal chia khoa */}
 
 			{/* The Modal Lich su */}
 			<div class="modal fade" id="LichSu" data-keyboard="false" data-backdrop="static" style={{zIndex:100001}}>
@@ -1372,29 +1156,10 @@ class Lucky_Rotation extends React.Component {
 					</div>
 				</div>
 				</div>
-			{/* The Modal Thông báo chúc mừng */}
-			<div className="modal" id="myModal4">
-			<div className="modal-dialog">
-					<div className="modal-content popup-phanthuong">
-						<div className="modal-header border-bottom-0">	
-							<button type="button" className="close" data-dismiss="modal"><img src={close_icon} alt="Đóng" class="img-fluid"/></button>
-						</div>
-						<div className="modal-body">
-						<h2 class="font-iCielPantonBlack text-brown-shadow text-uppercase text-center pb-0 w-75 mx-auto mt-n5">Chúc mừng</h2>
-							<div className="mt-2 text-center">              
-								<h5 className="text-thele lead text-center py-3">Bạn vừa tìm được <span style={{color:'red'}}>{itemBonus.name}</span> khi mở rương!</h5>
-								<h5 className="text-thele lead text-center py-3">(Phần thưởng đã được cộng trực tiếp vào ví Scoin.vn)</h5>
-								<span className="text-center">Xem <a className="underline" style={{color:"#2d9bf0", cursor:'pointer'}} onClick={()=>this.showModalCodeBonus(1)}>Lịch sử</a></span><br></br>
-								<button type="button" className="btn mx-auto text-center my-3" style={{backgroundColor:'#1ac6ff', color:'#fff'}} onClick={this.closeModal4}>Mở tiếp 1 rương</button>
-							</div>       
-						</div>
 
-					</div>
-				</div>
-			</div>
 
 			{/* <!-- The Modal Thông báo đăng nhập--> */}
-			<div className="modal fade" id="myModal5" style={{zIndex:10000}}>
+			<div className="modal fade" id="myModal5" style={{zIndex:100010}}>
 				<div className="modal-dialog">
 					<div className="modal-content popup-phanthuong">
 
@@ -1416,84 +1181,7 @@ class Lucky_Rotation extends React.Component {
 				</div>
 			</div>
 
-		
-			{/* <!-- The Modal Rương rỗng--> */}
-			<div className="modal fade" id="myModal7">
-				<div className="modal-dialog">
-					<div className="modal-content popup-phanthuong">
 
-
-					<div className="modal-header border-bottom-0">
-						
-						<button type="button" className="close" data-dismiss="modal"><img src={close_icon} alt="Đóng" class="img-fluid"/></button>
-					</div>
-
-					<div className="modal-body">
-						{/* <h2 class="font-iCielPantonBlack text-brown-shadow text-uppercase text-center pb-0 w-75 mx-auto mt-n5">Thông Báo</h2> */}
-						<div className="mt-2 text-center">
-							<h5 className="text-thele lead text-center py-2">Rương rỗng...</h5>              
-							<h5 className="text-thele lead text-center py-3">Chúc bạn may mắn lần sau</h5>
-							<button type="button" className="btn mx-auto text-center my-3" style={{backgroundColor:'#1ac6ff', color:'#fff'}} onClick={this.closeModal7}>Mở tiếp 1 rương</button>
-						</div>       
-					</div>
-
-					</div>
-				</div>
-			</div>
-
-			{/* <!-- The Modal Kho bau--> */}
-
-			{/* <!-- The Modal Xác thực sdt--> */}
-			<div className="modal fade" id="myModal8">
-				<div className="modal-dialog">
-					<div className="modal-content popup-phanthuong">
-
-					{/* <!-- Modal Header --> */}
-					<div className="modal-header border-bottom-0">
-						<button type="button" className="close" data-dismiss="modal"><img src={close_icon} alt="Đóng"  class="img-fluid"/></button>
-					</div>
-
-					{/* <!-- Modal body --> */}
-					<div className="modal-body">
-						<h2 class="font-iCielPantonBlack text-brown-shadow text-uppercase text-center pb-0 w-75 mx-auto mt-n5">Thông Báo</h2>
-						<div className="table-responsive mt-2">              
-							<h5 className="text-thele lead text-center">{message_status}</h5>
-							{(xacthuc)?(<button type="button" className="btn btn-xacnhan text-white btn-block text-center py-4" onClick={()=>this.xacThuc('https://scoin.vn/cap-nhat-sdt')}>Xác Thực</button>):(<div></div>)}
-							
-						</div>       
-					</div>
-
-					</div>
-				</div>
-			</div>
-			{/* <!-- The Modal Kết quả quay tự động--> */}
-
-			<div className="modal fade" id="myModal9" data-keyboard="false" data-backdrop="static" style={{zIndex:10000}}>
-				<div className="modal-dialog">
-					<div className="modal-content popup-phanthuong">
-
-					<div className="modal-header border-bottom-0">
-						<button className="close"><img src={close_icon} alt="Đóng" onClick={this.closePopupAuto} class="img-fluid"/></button>
-					</div>
-
-					<div className="modal-body">
-						<h2 class="font-iCielPantonBlack text-brown-shadow text-uppercase text-center pb-0 w-75 mx-auto mt-n5">Kết quả mở rương báu tự động</h2>
-						<div id="auto" className="table-responsive mt-2" style={{height:300}}>
-							<ol className="list-group list-group-flush">
-								{data_auto.map((obj, key) => (
-									<li className="list-group-item" key={key}>{key+1}. {obj}</li>
-								))}
-							</ol> 
-						
-						</div>
-						<p className="text-thele">Vào <code style={{color:'red'}}><label style={{cursor:'pointer'}} onClick={()=>this.showModalCodeBonus(1)}>Lịch sử</label></code> để xem chi tiết.</p>
-						<p className="text-thele text-center"><code style={{color:'red'}} className="font-iCielPantonBlack">Đang mở tự động <span className="spinner-grow spinner-grow-sm"></span></code></p>
-						
-					</div>
-
-					</div>
-				</div>
-			</div>
 
 			{/* <!-- The Modal báo lỗi--> */}
 			<div className="modal fade" id="myModal11">
@@ -1541,73 +1229,6 @@ class Lucky_Rotation extends React.Component {
 				</div>
 			</div>
 
-			<div className="modal fade" id="myModal13">
-				<div className="modal-dialog">
-					<div className="modal-content popup-phanthuong">
-
-					{/* <!-- Modal Header --> */}
-					<div className="modal-header border-bottom-0">
-						<h2 class="font-iCielPantonBlack text-brown-shadow text-uppercase text-center pb-0">Thông Báo</h2>
-						<button type="button" className="close" data-dismiss="modal"><img src={close_icon} alt="Đóng" /></button>
-					</div>
-
-					{/* <!-- Modal body --> */}
-					<div className="modal-body">
-						<div className="table-responsive mt-2"> 
-							<h3 class="text-center text-red">Livestream chưa diễn ra.</h3>          
-							<h5 className="text-thele lead text-center">Mời quay lại vào lúc 19:00 ngày 04/11/2019 để xem trực tiếp buổi so Mã dự thưởng trúng iPhone 11 Pro Max 256Gb</h5>
-							<p class="text-center text-thele">Phát sóng trực tiếp tại trang sự kiện <a style={{color:'#0066ff', textDecoration:'underline'}}>https://vongquayt10.splay.vn</a></p>
-							<p class="text-center text-thele">Và fanpage Scoin: <a href="https://www.facebook.com/scoinvtcmobile" title="Fanpage Scoin" target="_blank">https://www.facebook.com/scoinvtcmobile</a></p>
-							<h5 className="text-thele lead text-center">BTC trân trọng thông báo.</h5>
-							<button type="button" className="btn btn-xacnhan text-white btn-block text-center py-4" onClick={this.closePopupFinish}>Xác nhận</button>
-						</div>       
-					</div>
-
-					</div>
-				</div>
-			</div>
-
-			{/* Mở 1 chữ */}
-			{/* <div class="modal fade" data-keyboard="false" data-backdrop="static" id="mo1chu">
-				<div class="modal-dialog">
-					<div class="modal-content bg-modal-content border-0" style={{marginTop: 60}}>
-					<div class="modal-header border-bottom-0">
-						<button type="button" class="close" data-dismiss="modal" onClick={this.closeModalOneWord}><img src={close_icon} class="img-fluid" /></button>
-					</div>
-					<div class="modal-body font16">
-						{(showOneWord)?(<img src={oneWord} class="img-fluid" style={{margin:5}} />):(
-							<img src={back} class="img-fluid" style={{margin:5}} />
-						)}
-						
-					</div>
-
-					</div>
-				</div>
-			</div> */}
-
-			{/* Mở 10 chữ */}
-			{/* <div class="modal fade" data-keyboard="false" data-backdrop="static" id="mo10chu">
-				<div class="modal-dialog">
-					<div class="modal-content bg-modal-content border-0" style={{marginTop: 60}}>
-					<div class="modal-header border-bottom-0">
-						<button type="button" class="close" data-dismiss="modal" onClick={this.closeModalTenWord}><img src={close_icon} class="img-fluid" /></button>
-					</div>
-					<div class="modal-body font16">
-						{listChu.map((obj, key)=>{
-							return(
-								<div key={key} style={{float:'left'}}>
-									<img src={obj} class="img-fluid" style={{margin:5}} />
-								</div>
-							)
-							
-						})}
-					</div>
-
-					</div>
-				</div>
-			</div> */}
-
-
 			{/* <!-- The Modal Thông báo hết chữ--> */}
 			<div class="modal fade" id="myModal6" style={{zIndex:10001}}>
 				<div class="modal-dialog">
@@ -1651,69 +1272,50 @@ class Lucky_Rotation extends React.Component {
 				</div>
 			</div>
 
-			<div class="modal fade" id="changeSuccess" style={{zIndex:10001}}>
-				<div class="modal-dialog">
-					<div class="modal-content bg-modal-content border-0">
-					<div class="modal-header border-bottom-0">
-						<button type="button" class="close" data-dismiss="modal"><img src={close_icon} class="img-fluid" /></button>
-					</div>
-					<div class="modal-body font16">
-						<div class="w-75 mx-auto">
-							<h3 class="font-iCielPantonBlack text-brown pt-5">Chúc mừng {user.username} đổi thành công:</h3>
-							<div>
-								<p>{scoinPlus} <img src={logo_scoin} width="20" class="img-fluid" /></p>
-								<p>Scoin đã được cộng trực tiếp vào ví, vui lòng truy cập Scoin.vn để kiểm tra</p>
-								<span className="text-center">Xem <a className="underline" style={{color:"#2d9bf0", cursor:'pointer'}} onClick={()=>this.showModalCodeBonus(1)}>Xem lịch sử đổi thưởng tại đây</a></span><br></br>
-							</div>
-						</div>
-					</div>	  
-					</div>
-				</div>
-			</div>
 
-
-
-
-{/* AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA */}
 
 			{/* <!--Begin The Modal Thong bao chuc mung --> */}
-			<div class="modal" id="chucmung">
+			<div class="modal" id="chucmung" style={{zIndex:10006}}>
 				<div class="modal-dialog">
 					<div class="modal-content border-yellow">
 					<div class="modal-header border-bottom-0 p-1">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 					<div class="modal-body text-center pt-0">
-						<h2 class="small text-danger">Chúc mừng &lt;{userTurnSpin.currName}&gt; đổi thành công</h2>
-						<p>10.000 <img src={logo_scoin} alt="Scoin" width="60" /></p>
+						<h2 class="small text-danger">Chúc mừng {userTurnSpin.currName} đổi thành công</h2>
+						{(luckySpinGiftId===6)?(<p>{scoinPlus} chỉ vàng JSC <img src= {icon_jsc} alt="jsc" width="24" /></p>):(<p>{scoinPlus} <img src={logo_scoin} alt="Scoin" width="60" /></p>)}
+						
 						<p class="font-arial font-13">Scoin đã được cộng trực tiếp vào ví. Vui lòng truy cập <a class="font-arial" href="https://scoin.vn" title="Scoin.vn" target="_blank">Scoin.vn</a> để kiểm tra. <br /><a class="font-arial" href="https://scoin.vn" title="Lịch sử">Xem lịch sử đổi thưởng <span class="text-danger font-arial">tại đây</span></a></p>
 					</div>
 
 					</div>
 				</div>
 			</div>
-			{/* <!--End The Modal Thong bao chuc mung --> */}
 
-			{/* <!--Begin The Modal Thong bao chuc mung2 --> */}
-			<div class="modal" id="chucmung2">
+			{/* <!-- The Modal Xác thực sdt--> */}
+			<div class="modal" id="myModal8" style={{zIndex:10008}}>
 				<div class="modal-dialog">
 					<div class="modal-content border-yellow">
 					<div class="modal-header border-bottom-0 p-1">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 					<div class="modal-body text-center pt-0">
-						<h2 class="small text-danger">Chúc mừng &lt;{userTurnSpin.currName}&gt; đổi thành công</h2>
-						<p>1 chỉ vàng JSC <img src= {icon_jsc} alt="jsc" width="24" /></p>
-						<p class="font-arial font-13 text-danger">Đại diện BTC sẽ liên hệ để hướng dẫn thủ tục nhận thưởng. Vui lòng quay số Hotline xxxx xxxx để được hỗ trợ thêm. <br /><a class="font-arial" href="https://scoin.vn" title="Lịch sử">Xem lịch sử đổi thưởng <span class="text-danger font-arial">tại đây</span></a></p>
+						<h3 class="text-danger">Thông Báo</h3>
+						<h5 style={{marginTop:20}}>Tài khoản cần xác thực số điện thoại để đổi thưởng</h5>
+						{/* <button type="button" className="btn btn-xacnhan btn-block text-center py-4" onClick={this.exchangeWord}>Xác Thực</button> */}
+							{(!xacthuc)?(<button type="button" className="btn btn-xacnhan btn-block text-center py-4" onClick={()=>this.xacThuc('https://scoin.vn/cap-nhat-sdt')}>Xác Thực</button>):(<div></div>)}
 					</div>
 
 					</div>
 				</div>
 			</div>
-			{/* <!--End The Modal Thong bao chuc mung2 --> */}
+
+				
+
+
 
 			{/* <!--Begin The Modal Giai thuong --> */}
-			<div class="modal" id="giaithuong">
+			<div class="modal" id="giaithuong" style={{zIndex:10002}}>
 				<div class="modal-dialog">
 					<div class="modal-content border-yellow">
 					<div class="modal-header border-bottom-0 p-1">
@@ -1729,7 +1331,7 @@ class Lucky_Rotation extends React.Component {
 									<td width="24%" class="px-0"><img src= {img_chao_don} class="img-fluid" alt="" /></td>
 									<td width="38%" class="px-0"></td>
 									<td width="20%" class="pl-2 pr-0 text-center text-nowrap">10.000 <br/> <img src= {logo_scoin} alt="Scoin" width="48" /></td>
-									<td width="18%" class="px-0 text-center"><img src= {btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(0)} /><br /><span class="text-danger font-11">Còn 4 giải</span></td>
+									<td width="18%" class="px-0 text-center"><img src= {btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(0)} /><br /><span class="text-danger font-11">Còn {luckySpinGifts[0] !==undefined ? luckySpinGifts[0].quantity : 0} giải</span></td>
 								</tr>             
 								</tbody>
 							</table>
@@ -1740,8 +1342,8 @@ class Lucky_Rotation extends React.Component {
 								<tr>
 									<td width="24%" class="px-0"><img src= {img_canh_ty} class="img-fluid" alt="" /></td>
 									<td width="38%" class="px-0"></td>
-									<td width="20%" class="pl-2 pr-0 text-center text-nowrap">10.000 <br/> <img src= {logo_scoin} alt="Scoin" width="48" /></td>
-									<td width="18%" class="px-0 text-center"><img src= {btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(1)} /><br /><span class="text-danger font-11">Còn 4 giải</span></td>
+									<td width="20%" class="pl-2 pr-0 text-center text-nowrap">20.000 <br/> <img src= {logo_scoin} alt="Scoin" width="48" /></td>
+									<td width="18%" class="px-0 text-center"><img src= {btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(1)} /><br /><span class="text-danger font-11">Còn {luckySpinGifts[1] !==undefined ?  luckySpinGifts[1].quantity : 0} giải</span></td>
 								</tr>             
 								</tbody>
 							</table>
@@ -1752,8 +1354,8 @@ class Lucky_Rotation extends React.Component {
 								<tr>
 									<td width="35%" class="px-0"><img src= {img_chao_canh_ty} class="img-fluid" alt="" /></td>
 									<td width="27%" class="px-0"></td>
-									<td width="20%" class="pl-2 pr-0 text-center text-nowrap">10.000 <br/> <img src= {logo_scoin} alt="Scoin" width="48" /></td>
-									<td width="18%" class="px-0 text-center"><img src= {btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(2)} /><br /><span class="text-danger font-11">Còn 4 giải</span></td>
+									<td width="20%" class="pl-2 pr-0 text-center text-nowrap">50.000 <br/> <img src= {logo_scoin} alt="Scoin" width="48" /></td>
+									<td width="18%" class="px-0 text-center"><img src= {btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(2)} /><br /><span class="text-danger font-11">Còn {luckySpinGifts[2] !==undefined ?  luckySpinGifts[2].quantity : 0} giải</span></td>
 								</tr>             
 								</tbody>
 							</table>
@@ -1764,8 +1366,8 @@ class Lucky_Rotation extends React.Component {
 								<tr>
 									<td width="35%" class="px-0"><img src= {img_don_canh_ty} class="img-fluid" alt="" /></td>
 									<td width="27%" class="px-0"></td>
-									<td width="20%" class="pl-2 pr-0 text-center text-nowrap">10.000 <br/> <img src= {logo_scoin} alt="Scoin" width="48" /></td>
-									<td width="18%" class="px-0 text-center"><img src= {btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(3)} /><br /><span class="text-danger font-11">Còn 4 giải</span></td>
+									<td width="20%" class="pl-2 pr-0 text-center text-nowrap">100.000 <br/> <img src= {logo_scoin} alt="Scoin" width="48" /></td>
+									<td width="18%" class="px-0 text-center"><img src= {btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(3)} /><br /><span class="text-danger font-11">Còn {luckySpinGifts[3] !==undefined ?  luckySpinGifts[3].quantity : 0} giải</span></td>
 								</tr>             
 								</tbody>
 							</table>
@@ -1776,8 +1378,8 @@ class Lucky_Rotation extends React.Component {
 									<tr>
 										<td width="48%" class="px-0"><img src= {img_chao_don_canh_ty} class="img-fluid" alt="" /></td>
 										<td width="14%" class="px-0"></td>
-										<td width="20%" class="pl-2 pr-0 text-center text-nowrap">10.000 <br/> <img src={logo_scoin} alt="Scoin" width="48" /></td>
-										<td width="18%" class="px-0 text-center"><img src={btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(4)} /><br /><span class="text-danger font-11">Còn 4 giải</span></td>
+										<td width="20%" class="pl-2 pr-0 text-center text-nowrap">200.000 <br/> <img src={logo_scoin} alt="Scoin" width="48" /></td>
+										<td width="18%" class="px-0 text-center"><img src={btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(4)} /><br /><span class="text-danger font-11">Còn {luckySpinGifts[4] !==undefined ?  luckySpinGifts[4].quantity : 0} giải</span></td>
 									</tr>             
 								</tbody>
 							</table>
@@ -1787,8 +1389,8 @@ class Lucky_Rotation extends React.Component {
 								<tbody>
 									<tr>
 										<td width="62%" class="px-0"><img src= {img_chao_don_tet_canh_ty} class="img-fluid" alt="" /></td>
-										<td width="20%" class="pl-2 pr-0 text-center text-nowrap">10.000 <br/> <img src= {icon_jsc} alt="Scoin" width="12" /></td>
-										<td width="18%" class="px-0 text-center"><img src= {btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(5)} /><br /><span class="text-danger font-11">Còn 4 giải</span></td>
+										<td width="20%" class="pl-2 pr-0 text-center text-nowrap">1 Chỉ vàng SJC <br/> <img src= {icon_jsc} alt="Scoin" width="12" /></td>
+										<td width="18%" class="px-0 text-center"><img src= {btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(5)} /><br /><span class="text-danger font-11">Còn {luckySpinGifts[5] !==undefined ?  luckySpinGifts[5].quantity : 0} giải</span></td>
 									</tr>             
 								</tbody>
 							</table>
@@ -1931,7 +1533,7 @@ class Lucky_Rotation extends React.Component {
 			{/* <!--End The Modal Lich su --> */}
 
 			{/* <!--Begin The Modal The le --> */}
-			<div class="modal" id="thele">
+			<div class="modal" id="thele" style={{zIndex:10001}}>
 				<div class="modal-dialog">
 					<div class="modal-content border-yellow">
 					<div class="modal-header border-bottom-0 p-1">
@@ -1940,7 +1542,7 @@ class Lucky_Rotation extends React.Component {
 					</div>
 					<div class="modal-body pt-0">
 						<h3 class="font-arial font-13 font-weight-bold">1. Đối tượng tham gia</h3>
-						<p class="font-arial font-13">Khách hàng có tài khoản Scoin. Nếu chưa có <a class="font-arial text-danger" href="#" title="Đang ký" target="_blank">Đăng ký tại đây</a></p>
+						<p class="font-arial font-13">Khách hàng có tài khoản Scoin. Nếu chưa có <a class="font-arial text-danger" href="http://scoin.vn/" title="Đang ký" target="_blank">Đăng ký tại đây</a></p>
 						<h3 class="font-arial font-13 font-weight-bold">2. Làm thế nào để nhận chữ?</h3>
 						<p class="font-arial font-13">Rất đơn giản, chỉ cần dùng thẻ Scoin nạp thẳng vào các game do VTC Mobile phát hành
 				Tích lũy đủ 50,000Đ sẽ nhận 1 Chữ.</p>
@@ -1949,19 +1551,19 @@ class Lucky_Rotation extends React.Component {
 							<h3 class="font-arial font-13">Scoin đã nạp từ ví vào Game: 10,005,000đ</h3>
 							<p class="font-arial font-13 text-danger font-weight-bold mb-0">Nạp thêm 45,000Đ bằng thẻ Scoin để nhận 1 Chữ</p>
 						</div>
-						<div class="col-sm-4 text-center"><img src= {btn_napthescoin} alt="Nạp thẻ scoin" class="img-fluid" width="120" /></div>
+						<div class="col-sm-4 text-center"><a href="https://scoin.vn/nap-game" title="Hướng dẫn mua thẻ Scoin" target="_blank"><img src= {btn_napthescoin} alt="Nạp thẻ scoin" class="img-fluid" width="120" /></a></div>
 						</div>
 						<div class="row p-3">          
 						<div class="col-sm-8">
 							<h3 class="font-arial font-13 font-weight-bold">3. Cơ cấu giải thưởng</h3>
 						</div>
-						<div class="col-sm-4 text-center"><img src= {btn_xemgiaithuong} alt="Xem giải thưởng" class="img-fluid" width="120" /></div>
+						<div class="col-sm-4 text-center"><img src= {btn_xemgiaithuong} alt="Xem giải thưởng" class="img-fluid" width="120" onClick={this.openPopupBonus} /></div>
 						</div>
 						<div class="row p-3">          
 						<div class="col-sm-6 text-center pt-1">
-							<a href="#" title="Hướng dẫn mua thẻ Scoin"><img src= {btn_huongdanmuathescoin} alt="Hướng dẫn mua thẻ Scoin" class="img-fluid" width="279" /></a>
+							<a href="https://daily.scoin.vn/huong-dan-mua-the/" title="Hướng dẫn mua thẻ Scoin" target="_blank"><img src= {btn_huongdanmuathescoin} alt="Hướng dẫn mua thẻ Scoin" class="img-fluid" width="279" /></a>
 						</div>
-						<div class="col-sm-6 text-center pt-1"><a href="#" title="Hotline"><img src= {btn_hotlinehotro} alt="Hotline" class="img-fluid" width="279" /></a></div>
+						<div class="col-sm-6 text-center pt-1"><a href="tel:19001104" title="Hotline" target="_blank"><img src= {btn_hotlinehotro} alt="Hotline" class="img-fluid" width="279" /></a></div>
 						</div>
 					</div>
 						
@@ -2045,11 +1647,11 @@ class Lucky_Rotation extends React.Component {
 							<img src={back} class="img-fluid" style={{margin:5}} />
 						)}
 						<p><a title="Lật tiếp"><img src= {btn_lattiep} class="img-fluid text-center" alt="Lật tiếp"  onClick={this.get1Word} /></a></p>
-						<p><a href="#" class="text-danger text-center font-arial" data-dismiss="modal">Đóng</a></p>   
+						<p><a class="text-danger text-center font-arial" style={{cursor:"pointer"}} data-dismiss="modal" onClick={this.closeModalOneWord}>Đóng</a></p>   
 					</div>
 
 					</div>
-				</div>
+				</div> 
 			</div>
 			{/* <!--End The Modal Mo 1 chu --> */}
 
@@ -2061,14 +1663,15 @@ class Lucky_Rotation extends React.Component {
 						{listChu.map((obj, key)=>{
 							return(
 								<div key={key} style={{float:'left'}}>
-									<img src={obj} class="img-fluid" style={{margin:5}} />
+									<img src={obj} class="img-fluid" style={{margin:5}} width={180} />
 								</div>
 							)
 							
 						})}
 						{/* <p><img src={tet} class="img-fluid text-center" alt="Tết" /></p> */}
-						<p><a title="Lật 10 chữ"><img src= {btn_lat10chu} class="img-fluid text-center" alt="Lật 10 chứ" onClick={this.get10Word} /></a></p>
-						<p><a href="#" class="text-danger text-center font-arial" data-dismiss="modal">Đóng</a></p>   
+						{(isOpenTen) ? (<p><a title="Lật 10 chữ"><img src= {btn_lat10chu} class="img-fluid text-center" style={{opacity :"0.7"}} alt="Lật 10 chứ" /></a></p>) : (<p><a title="Lật 10 chữ"><img src= {btn_lat10chu} class="img-fluid text-center" style={{cursor:"pointer"}} alt="Lật 10 chứ" onClick={this.get10Word} /></a></p>)}
+						{(isOpenTen) ? (<p><a class="text-danger text-center font-arial" style={{opacity :"0.7"}} data-dismiss="modal">Đóng</a></p>) : (<p><a class="text-danger text-center font-arial" style={{cursor:"pointer"}} data-dismiss="modal" onClick={this.closeModalTenWord}>Đóng</a></p>   )}
+						
 					</div>
 
 					</div>
@@ -2077,7 +1680,7 @@ class Lucky_Rotation extends React.Component {
 			{/* <!--End The Modal Mo 10 chu --> */}
 
 			{/* <!--Begin The Modal Xac nhan doi thuong 1 --> */}
-			<div class="modal" id="doithuong1">
+			<div class="modal" id="doithuong1" style={{zIndex:10005}}>
 				<div class="modal-dialog">
 					<div class="modal-content border-yellow">
 					<div class="modal-header border-bottom-0 p-1">
@@ -2105,7 +1708,7 @@ class Lucky_Rotation extends React.Component {
 							<div class="col-sm-3 py-1"><button type="button" class="btn btn-warning"  onClick={this.changeNumberWordMax}>Max</button></div>
 						</div>
 						{(vang_jsc)?(<p class="text-center py-3">Nhận được: 1 chỉ vàng JSC <img src= {icon_jsc} alt="jsc" width="12" /></p>):(
-						<p class="text-center py-3">Nhận được: 10.000 <img src= {logo_scoin} alt="Scoin" width="48" /></p>)}
+						<p class="text-center py-3">Nhận được: {scoinPlus} <img src= {logo_scoin} alt="Scoin" width="48" /></p>)}
 						{(numberWordChange >max)?(<p class="font-arial small text-danger text-center">Không đủ chữ để nhận giải thưởng này</p>):(<div></div>)}
 						<p class="text-center"><a title="Xác nhận đổi" onClick={this.exchangeWord}><img src= {btn_xacnhanduoithuong} class="img-fluid" style={{cursor:"pointer"}} alt="Xác nhận" /></a></p>
 						

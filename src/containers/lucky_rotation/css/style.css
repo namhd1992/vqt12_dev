@@ -63,6 +63,16 @@ body {background-image: url(../images/bg-page.png); background-size: cover; back
   animation-iteration-count: infinite;
 }
 
+.d-mobile-none:hover{
+  -webkit-filter: drop-shadow(0 0 20px rgba(254, 200, 16, 1));
+  filter: drop-shadow(0 0 20px rgba(254, 200, 16, 1));
+}
+
+.d-pc-none:hover{
+  -webkit-filter: drop-shadow(0 0 20px rgba(254, 200, 16, 1));
+  filter: drop-shadow(0 0 20px rgba(254, 200, 16, 1));
+}
+
 @keyframes shake {
   0% { transform: translate(1px, 1px) rotate(0deg); }
   10% { transform: translate(-1px, -2px) rotate(-1deg); }
@@ -114,7 +124,7 @@ body {height: 720px;}
 .float-bottom {bottom: 2%;}
 }
 @media (max-width: 360px) {
-body {height: 560px;}
+body {height: 600px;}
 .font-11 {font-size: 10px}
 }
 @media (min-width: 320px) {

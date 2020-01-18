@@ -7,14 +7,12 @@ import {
 	getDetailData,
 	getRotationDetailData,
 	getRotationDetailDataUser,
-	pickCard,
-	buyTurn,
 	getTuDo,
-	getHistoryTuDo,
+	getOpenWord,
 	getCodeBonus,
 	getVinhDanh,
 	getCountBonus,
-	getKeys,
+	getReceiveWord,
 	openItem,
 	exchangeItem
 } from '../../modules/lucky'
@@ -61,6 +59,8 @@ import menu_float_bottom_m from './images/menu-float-bottom-m.png';
 import mo_1_chu from './images/mo-1-chu.png';
 import mo_10_chu from './images/mo-10-chu.png';
 import su_kien_dang_dien_ra_con from './images/su-kien-dang-dien-ra-con.png';
+import su_kien_sap_dien_ra from './images/su-kien-sap-dien-ra.png';
+import su_kien_da_ket_thuc from './images/su-kien-da-ket-thuc.png';
 import title_bangvinhdanh from './images/title-bangvinhdanh.png';
 import title_giaithuong from './images/title-giaithuong.png';
 import title_lichsu from './images/title-lichsu.png';
@@ -127,6 +127,8 @@ class Lucky_Rotation extends React.Component {
 			vang_jsc:false,
 			isOpenTen:false,
 			
+			golds:[],
+
 			activeVinhDanh:1,
 			listVinhDanh:[],
 			countVinhDanh:0,
@@ -165,7 +167,7 @@ class Lucky_Rotation extends React.Component {
 			server_err:false,
 			user:{},
 			xacthuc:false,
-			status_sukien:'',
+			img_status: su_kien_sap_dien_ra,
 			start:false,
 			live:false,
 			finish: false,
@@ -271,14 +273,14 @@ class Lucky_Rotation extends React.Component {
 
 		if (time < start) {
 			this.timeRemain(start)
-			this.setState({ status_sukien: 'Sự kiện chưa diễn ra.', message_status:"Sự kiện chưa diễn ra.", start:true});
+			this.setState({ img_status: su_kien_sap_dien_ra, message_status:"Sự kiện chưa diễn ra.", start:true});
 		}
 		if (time > start && time < end) {
 			this.timeRemain(end)
-			this.setState({ status_sukien: "Sự kiện đang diễn ra còn", live:true});
+			this.setState({ img_status: su_kien_dang_dien_ra_con, live:true});
 		}
 		if (time > end) {
-			this.setState({ status_sukien: "Sự kiện đã kết thúc.", message_status:"Sự kiện đã kết thúc.", finish:true});
+			this.setState({ img_status: su_kien_da_ket_thuc, message_status:"Sự kiện đã kết thúc.", finish:true});
 		}
 	}
 
@@ -412,7 +414,6 @@ class Lucky_Rotation extends React.Component {
 		console.log(user)
 		if(user !== null){
 			this.getBonus(user, pageNumber)
-			$('#myModal4').modal('hide');
 		}else {
 			$('#myModal5').modal('show');
 		}
@@ -422,9 +423,10 @@ class Lucky_Rotation extends React.Component {
 		const {luckySpin, limit}=this.state;
 		this.props.getTuDo(user.access_token, luckySpin.id, limit, (pageNumber-1)).then(()=>{
 			var data=this.props.dataTuDo;
+			console.log(data)
 			if(data!==undefined){
 				if(data.status==='01'){
-					$('#LichSu').modal('show');
+					$('#lichsu').modal('show');
 					this.setState({listCodeBonus:data.data, countCodeBonus:data.totalRecords, noti_tudo:false})
 				}else{
 					$('#myModal11').modal('show');
@@ -439,11 +441,11 @@ class Lucky_Rotation extends React.Component {
 
 
 
-	getRuong=(user, pageNumber)=>{
+	getOpenWord=(user, pageNumber)=>{
 		const {luckySpin, limit}=this.state;
 		// var offsetTuDo=(pageNumber-1)*limit;
-		this.props.getHistoryTuDo(user.access_token, luckySpin.id, limit, (pageNumber-1)).then(()=>{
-			var data=this.props.dataHistoryTuDo;
+		this.props.getOpenWord(user.access_token, luckySpin.id, limit, (pageNumber-1)).then(()=>{
+			var data=this.props.dataHistoryOpenWord;
 			if(data!==undefined){
 				if(data.status==='01'){
 					this.setState({listRuong:data.data, countRuong: data.totalRecords})
@@ -458,11 +460,11 @@ class Lucky_Rotation extends React.Component {
 		});
 	}
 
-	getKey=(user, pageNumber)=>{
+	getReceiveWord=(user, pageNumber)=>{
 		const {luckySpin, limit}=this.state;
 		// var offsetTuDo=(pageNumber-1)*limit;
-		this.props.getKeys(user.access_token, luckySpin.id, limit, (pageNumber-1)).then(()=>{
-			var data=this.props.dataListKey;
+		this.props.getReceiveWord(user.access_token, luckySpin.id, limit, (pageNumber-1)).then(()=>{
+			var data=this.props.dataListReceiveWord;
 			if(data!==undefined){
 				if(data.status==='01'){
 					this.setState({listKey:data.data, countKey: data.totalRecords})
@@ -481,16 +483,20 @@ class Lucky_Rotation extends React.Component {
 		const {limit}=this.state;
 		this.props.getVinhDanh(120, 10, (pageNumber-1)).then(()=>{
 			var data=this.props.dataVinhDanh;
+			console.log(data)
 			if(data!==undefined){
-				var n=10-data.data.length;
-				var listEmpty=[];
-				for (let i = 0; i < n; i++) {
-					let obj={date: '...', description: null, itemName: '...', userName: '...'}
-					listEmpty.push(obj);
-				}
-				var listData=data.data.concat(listEmpty)
 				if(data.status==='01'){	
-					this.setState({listVinhDanh:listData, countVinhDanh: Math.ceil(data.totalRecords/10)*10})
+					var golds=data.data.golds;
+					var scoin=data.data.scoin;
+					var len=golds.length;
+					var n=8-len;
+					var listEmpty=[];
+					for (let i = 0; i < n; i++) {
+						let obj={date: '...', userName: '- Chưa có -', itemName: '...'}
+						listEmpty.push(obj);
+					}
+					golds=golds.concat(listEmpty)
+					this.setState({listVinhDanh:scoin, countVinhDanh: data.totalRecords-len, golds:golds})
 				}else{
 					$('#myModal11').modal('show');
 					this.setState({message_error:'Không lấy được dữ liệu bảng vinh danh.'})
@@ -544,14 +550,14 @@ class Lucky_Rotation extends React.Component {
 	handlePageChangeRuong=(pageNumber)=> {
 		var user = JSON.parse(localStorage.getItem("user"));
 		this.setState({activeRuong: pageNumber},()=>{
-			this.getRuong(user, pageNumber)
+			this.getOpenWord(user, pageNumber)
 		})
 	}
 
-	handlePageChangeKey=(pageNumber)=> {
+	handlePageChangeReceiveWord=(pageNumber)=> {
 		var user = JSON.parse(localStorage.getItem("user"));
 		this.setState({activeKey: pageNumber},()=>{
-			this.getKey(user, pageNumber)
+			this.getReceiveWord(user, pageNumber)
 		})
 	}
 
@@ -807,9 +813,9 @@ class Lucky_Rotation extends React.Component {
 		this.getVinhDanh(1)
 	}
 
-	openLichSu=()=>{
-		$("#lichsu").modal('show');
-	}
+	// openLichSu=()=>{
+	// 	$("#lichsu").modal('show');
+	// }
 
 	openPopupNhanChu=()=>{
 		$("#myModal6").modal('show');
@@ -817,7 +823,7 @@ class Lucky_Rotation extends React.Component {
 
 
 	render() {
-		const {isOpenTen, luckySpinGiftId, luckySpinGifts, max, vang_jsc, number_chao, number_don, number_tet, number_canh, number_ti, scoinPlus, numberWordChange, showOneWord, oneWord, listChu, soinValue,listCountBonus, listKey, activeKey, turnsBuyInfo,status_sukien, xacthuc, scoinCard,height, width, dialogLoginOpen, dialogBonus, auto, dialogWarning, textWarning, isLogin, userTurnSpin, day, hour, minute, second, code,numberPage, message_status, data_auto,message_error,
+		const {img_status, golds, isOpenTen, luckySpinGiftId, luckySpinGifts, max, vang_jsc, number_chao, number_don, number_tet, number_canh, number_ti, scoinPlus, numberWordChange, showOneWord, oneWord, listChu, soinValue,listCountBonus, listKey, activeKey, turnsBuyInfo,status_sukien, xacthuc, scoinCard,height, width, dialogLoginOpen, dialogBonus, auto, dialogWarning, textWarning, isLogin, userTurnSpin, day, hour, minute, second, code,numberPage, message_status, data_auto,message_error,
 			activeRuong, activeHistory, activeBonus, activeVinhDanh, limit, countCodeBonus, countRuong, countKey, countVinhDanh, listHistory, listCodeBonus, listRuong, listVinhDanh,itemBonus, turnsFree, noti_mdt, noti_tudo, hour_live, minute_live, second_live, user}=this.state;
 		const { classes } = this.props;
 		const notification_tudo=noti_tudo?(<span className="badge badge-pill badge-danger position-absolute noti-tudo">!</span>):(<span></span>);
@@ -830,7 +836,7 @@ class Lucky_Rotation extends React.Component {
 				</div>
 				<div class="row mx-auto container content w-50">
 				<div class="col-lg-6 text-right align-top box-left">
-					<h2 class="mb-0"><img src={su_kien_dang_dien_ra_con} class="img-fluid" /></h2>        
+					<h2 class="mb-0" style={{textAlign:'center'}}><img src={img_status} class="img-fluid" /></h2>        
 					<div class="box-time">
 						<div class="row m-0">
 							<div class="col-3 display-5 text-white mt-n2 py-1"> {day} </div>
@@ -857,11 +863,11 @@ class Lucky_Rotation extends React.Component {
 								</div>
 						)} */}
 						{(isLogin)?(<div class="row">
-									<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-white text-nowrap"><span> {this.getUsername(userTurnSpin.currName)}</span> <a title="Đăng xuất" style={{cursor:"pointer"}} onClick={this.logoutAction}><span class="text-warning">Đăng xuất</span></a></div>
-									<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-white"><a><span>Chữ chưa mở &nbsp;&nbsp; {turnsFree ? turnsFree.toLocaleString() : 0}</span></a></div>
+									<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-white text-nowrap"><span class="font-arial" style={{fontWeight:'bold'}}> {this.getUsername(userTurnSpin.currName)}</span> <a title="Đăng xuất" style={{cursor:"pointer"}} onClick={this.logoutAction}><span class="text-warning font-arial">Đăng xuất</span></a></div>
+									<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-white"><a><span class="font-arial">Chữ chưa mở &nbsp;&nbsp; {turnsFree ? turnsFree.toLocaleString() : 0}</span></a></div>
 								</div>):(
 									<div class="row logout">
-								<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-nowrap" style={{cursor:"pointer"}} onClick={this.loginAction}><a title="Đăng nhập"><span class="text-warning">Đăng nhập</span></a></div>
+								<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-nowrap" style={{cursor:"pointer"}} onClick={this.loginAction}><a title="Đăng nhập"><span class="text-warning font-arial">Đăng nhập</span></a></div>
 								</div>
 						)}
 					</div>
@@ -871,17 +877,17 @@ class Lucky_Rotation extends React.Component {
 						<div class="col-6 px-0 text-center"><a title="Mở 10 chữ" onClick={this.openPopup10Word}><img src={mo_10_chu} class="img-fluid img-shadow" /></a></div>
 					</div>        
 				</div>
-				<div class="col-lg-6 text-left"><a title="Đổi thưởng" onClick={this.openPopupBonus} style={{cursor:'pointer'}} ><img src={btn_doithuong} class="img-fluid img-doithuong img-shadow shake-effect" /></a></div>
+				<div class="col-lg-6 text-left"><a title="Đổi thưởng" onClick={this.openPopupBonus} style={{cursor:'pointer'}} ><img src={btn_doithuong} class="img-doithuong img-shadow shake-effect" width="110%"/></a></div>
 					
 				</div>
 
 				<div class="container d-pc-none pl-5">
 					{(isLogin)?(<div class="row col-12">
-								<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-white text-nowrap"><span> {this.getUsername(userTurnSpin.currName)}</span> <a title="Đăng xuất" style={{cursor:"pointer"}} onClick={this.logoutAction}><span class="text-warning">Đăng xuất</span></a></div>
-								<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-white"><a><span>Chữ chưa mở &nbsp;&nbsp; {turnsFree ? turnsFree.toLocaleString() : 0}</span></a></div>
+								<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-white text-nowrap"><span class="font-arial" style={{fontWeight:'bold'}}> {this.getUsername(userTurnSpin.currName)}</span> <a title="Đăng xuất" style={{cursor:"pointer"}} onClick={this.logoutAction}><span class="text-warning font-arial">Đăng xuất</span></a></div>
+								<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-white"><a><span class="font-arial">Chữ chưa mở &nbsp;&nbsp; {turnsFree ? turnsFree.toLocaleString() : 0}</span></a></div>
 							</div>):(
 							<div class="row col-12">
-								<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-nowrap" style={{cursor:"pointer", marginLeft:"25%"}} onClick={this.loginAction}><a title="Đăng nhập"><span class="text-warning">Đăng nhập</span></a></div>
+								<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-nowrap" style={{cursor:"pointer", marginLeft:"25%"}} onClick={this.loginAction}><a title="Đăng nhập"><span class="text-warning font-arial">Đăng nhập</span></a></div>
 							</div>
 					)}
 				</div>
@@ -891,7 +897,7 @@ class Lucky_Rotation extends React.Component {
 					<ul class="nav flex-column text-float-left">
 						<li class="mt-5"><a title="Thể lệ" style={{cursor:"pointer"}} onClick={this.openTheLe}>&nbsp;</a></li>
 						<li class="mt-1"><a title="Vinh danh" style={{cursor:"pointer"}} onClick={this.openVinhDanh}>&nbsp;</a></li>
-						<li class="mt-1"><a title="Lịch sử" style={{cursor:"pointer"}} onClick={this.openLichSu}>&nbsp;</a></li>
+						<li class="mt-1"><a title="Lịch sử" style={{cursor:"pointer"}} onClick={()=>this.showModalCodeBonus(1)}>&nbsp;</a></li>
 					</ul>
 				</div>
 				
@@ -929,233 +935,6 @@ class Lucky_Rotation extends React.Component {
 
 			
 
-			{/* The Modal Lich su */}
-			<div class="modal fade" id="LichSu" data-keyboard="false" data-backdrop="static" style={{zIndex:100001}}>
-				<div class="modal-dialog">
-					<div class="modal-content bg-modal-content border-0">
-					<div class="modal-header border-bottom-0">
-						<button type="button" class="close" data-dismiss="modal"><img src={close_icon} class="img-fluid" /></button>
-					</div>
-					<div class="modal-body">
-						<h2 class="font-iCielPantonBlack text-brown-shadow text-uppercase text-center pb-0">Lịch Sử</h2>
-						<div class="">
-							<ul class="nav nav-pills justify-content-between pag-custom">
-							<li class="nav-item">
-								<a class="nav-link active font16 px-2" data-toggle="tab" href="#TGiaiThuong" onClick={this.getBonus}>Giải thưởng</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link font16 px-2" data-toggle="tab" href="#TMoRuong" onClick={()=>this.getRuong(user,activeRuong)}>Mở Rương</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link font16 px-2" data-toggle="tab" href="#TNhanChiaKhoa" onClick={()=>this.getKey(user,activeKey)}>Nhận chìa khóa</a>
-							</li>
-							</ul>            
-							<div class="tab-content">
-							<div class="tab-pane container active" id="TGiaiThuong">
-								<div class="d-pc-none pt-3">
-									<table class="table mx-auto tbl-bang-vinh-danh-mobile text-center">
-										<thead class="font-iCielPantonLight font-weight-bold">
-										<tr>
-											<th><p class="card-text font-iCielPantonBlack text-brown-shadow font16">STT/Nội dung/Thời gian trúng</p></th>
-										</tr>
-										</thead>
-										<tbody>
-											{listCodeBonus.map((obj, key) => (
-												<tr key={key}>
-													<td class="font16"><strong>{key + (activeBonus-1)*limit +1}</strong> <br />{obj.itemName}<br />{obj.date}</td>
-												</tr>
-											))}
-										</tbody>
-									</table>
-									<ul class="pagination justify-content-center pag-custom mt-4">
-										<Pagination
-											activePage={activeBonus}
-											itemsCountPerPage={5}
-											totalItemsCount={countCodeBonus}
-											pageRangeDisplayed={numberPage}
-											lastPageText={'Trang cuối'}
-											firstPageText={'Trang đầu'}
-											itemClass={"page-item"}
-											linkClass={"page-link"}
-											onChange={(v) => this.handlePageChangeCodeBonus(v)}
-										/>
-									</ul> 
-								</div>
-								<div class="table-responsive d-mobile-none">
-									<table class="table table-borderless text-center mb-2">
-										<thead>
-										<tr>
-											<th><p class="font-iCielPantonBlack text-brown-shadow font18 mb-0">STT</p></th>
-											<th><p class="font-iCielPantonBlack text-brown-shadow font18 mb-0">Nội dung</p></th>
-											<th><p class="font-iCielPantonBlack text-brown-shadow font18 mb-0">Thời gian trúng</p></th>
-										</tr>
-										</thead>
-										<tbody>
-											{listCodeBonus.map((obj, key) => (
-												<tr key={key}>
-													<td className="border-right-0">{key + (activeBonus-1)*limit +1}</td>
-													<td className="border-left-0 border-right-0">{obj.itemName}</td>
-													<td className="border-left-0">{obj.date}</td>
-												</tr>
-											))}
-
-										</tbody>
-									</table>
-								
-									<ul class="pagination justify-content-center pag-custom">
-										<Pagination
-											activePage={activeBonus}
-											itemsCountPerPage={10}
-											totalItemsCount={countCodeBonus}
-											pageRangeDisplayed={numberPage}
-											lastPageText={'Trang cuối'}
-											firstPageText={'Trang đầu'}
-											itemClass={"page-item"}
-											linkClass={"page-link"}
-											onChange={(v) => this.handlePageChangeCodeBonus(v)}
-										/>
-									</ul>
-								</div> 
-							</div>
-							<div class="tab-pane container fade" id="TMoRuong">
-								<div class="d-pc-none pt-3">
-									<table class="table mx-auto tbl-bang-vinh-danh-mobile text-center">
-										<thead class="font-iCielPantonLight font-weight-bold">
-										<tr>
-											<th><p class="card-text font-iCielPantonBlack text-brown-shadow font16">STT/Kết quả/Thời gian</p></th>
-										</tr>
-										</thead>
-										<tbody>
-											{listRuong.map((obj, key) => (
-												<tr key={key}>
-													<td class="font16"><strong>{obj.stt}</strong> <br />{obj.item_name}<br />{obj.date}</td>
-												</tr>
-											))}
-										
-										</tbody>
-									</table>
-									<ul class="pagination justify-content-center pag-custom mt-4">
-										<Pagination
-											activePage={activeRuong}
-											itemsCountPerPage={5}
-											totalItemsCount={countRuong}
-											pageRangeDisplayed={numberPage}
-											lastPageText={'Trang cuối'}
-											firstPageText={'Trang đầu'}
-											itemClass={"page-item"}
-											linkClass={"page-link"}
-											onChange={(v) => this.handlePageChangeRuong(v)}
-										/>
-									</ul> 
-								</div>
-								<div class="table-responsive d-mobile-none">
-									<table class="table table-borderless text-center mb-2">
-										<thead>
-										<tr>
-											<th><p class="font-iCielPantonBlack text-brown-shadow font18 mb-0">STT</p></th>
-											<th><p class="font-iCielPantonBlack text-brown-shadow font18 mb-0">Kết quả</p></th>
-											<th><p class="font-iCielPantonBlack text-brown-shadow font18 mb-0">Thời gian</p></th>
-										</tr>
-										</thead>
-										<tbody>
-											{listRuong.map((obj, key) => (
-												<tr key={key}>
-													<td className="border-right-0">{obj.stt}</td>
-													<td className="border-left-0 border-right-0">{obj.item_name}</td>
-													<td className="border-left-0">{obj.date}</td>
-												</tr>
-											))}
-										</tbody>
-									</table>
-								
-								<ul class="pagination justify-content-center pag-custom">
-									<Pagination
-										activePage={activeRuong}
-										itemsCountPerPage={10}
-										totalItemsCount={countRuong}
-										pageRangeDisplayed={numberPage}
-										lastPageText={'Trang cuối'}
-										firstPageText={'Trang đầu'}
-										itemClass={"page-item"}
-										linkClass={"page-link"}
-										onChange={(v) => this.handlePageChangeRuong(v)}
-									/>
-								</ul>
-								</div>
-							</div>
-							<div class="tab-pane container fade" id="TNhanChiaKhoa">
-								<div class="d-pc-none pt-3">
-									<table class="table mx-auto tbl-bang-vinh-danh-mobile text-center">
-										<thead class="font-iCielPantonLight font-weight-bold">
-										<tr>
-											<th><p class="card-text font-iCielPantonBlack text-brown-shadow font16">Nội Dung/Số lượng/Thời gian</p></th>
-										</tr>
-										</thead>
-										<tbody>
-											{listKey.map((obj, key) => (
-												<tr key={key}>
-													<td class="font16"><strong>{obj.sourceTurn}</strong> <br />{obj.receivedTurn} <br />{obj.date}</td>
-												</tr>
-											))}
-										
-										</tbody>
-									</table>
-									<ul class="pagination justify-content-center pag-custom mt-4">
-										<Pagination
-											activePage={activeKey}
-											itemsCountPerPage={5}
-											totalItemsCount={countKey}
-											pageRangeDisplayed={numberPage}
-											lastPageText={'Trang cuối'}
-											firstPageText={'Trang đầu'}
-											itemClass={"page-item"}
-											linkClass={"page-link"}
-											onChange={(v) => this.handlePageChangeKey(v)}
-										/>
-									</ul> 
-								</div>
-								<div class="table-responsive d-mobile-none">
-									<table class="table table-borderless text-center mb-2">
-										<thead>
-										<tr>
-											<th><p class="font-iCielPantonBlack text-brown-shadow font18 mb-0">Nội Dung</p></th>
-											<th><p class="font-iCielPantonBlack text-brown-shadow font18 mb-0">Số lượng</p></th>
-											<th><p class="font-iCielPantonBlack text-brown-shadow font18 mb-0">Thời gian</p></th>
-										</tr>
-										</thead>
-										<tbody>
-											{listKey.map((obj, key) => (
-												<tr key={key}>
-													<td className="border-right-0">{obj.sourceTurn}</td>
-													{/* <td className="border-left-0 border-right-0">{obj.receivedTurn} <img src={key_yellow_icon} width="20" class="img-fluid" /></td> */}
-													<td className="border-left-0">{obj.date}</td>
-												</tr>
-											))}
-										</tbody>
-									</table>
-								
-								<ul class="pagination justify-content-center pag-custom">
-									<Pagination
-										activePage={activeKey}
-										itemsCountPerPage={10}
-										totalItemsCount={countKey}
-										pageRangeDisplayed={numberPage}
-										lastPageText={'Trang cuối'}
-										firstPageText={'Trang đầu'}
-										itemClass={"page-item"}
-										linkClass={"page-link"}
-										onChange={(v) => this.handlePageChangeKey(v)}
-									/>
-								</ul>
-								</div>
-							</div>
-							</div>
-						</div>
-						
-					</div>	  
-					</div>
-				</div>
-				</div>
 
 
 			{/* <!-- The Modal Thông báo đăng nhập--> */}
@@ -1170,7 +949,7 @@ class Lucky_Rotation extends React.Component {
 					</div>
 
 					<div className="modal-body">
-					<h2 class="font-iCielPantonBlack text-brown-shadow text-uppercase text-center pb-0 w-75 mx-auto mt-n5">Thông Báo</h2>
+					<h2 class="font-arial text-brown-shadow text-uppercase text-center pb-0 w-75 mx-auto mt-n5">Thông Báo</h2>
 						<div className="mt-2 text-center">              
 							<h5 className="text-thele lead text-center py-3">Xin vui lòng đăng nhập!</h5>
 							<button type="button" className="btn btn-danger mx-auto text-center my-3" onClick={this.loginAction}>Đăng nhập</button>
@@ -1190,14 +969,14 @@ class Lucky_Rotation extends React.Component {
 
 					{/* <!-- Modal Header --> */}
 					<div className="modal-header border-bottom-0">
-						<h2 class="font-iCielPantonBlack text-brown-shadow text-uppercase text-center pb-0 w-75 mx-auto mt-n5">Thông Báo</h2>
+						<h2 class="font-arial text-brown-shadow text-uppercase text-center pb-0 w-75 mx-auto mt-n5">Thông Báo</h2>
 						<button type="button" className="close" data-dismiss="modal"><img src={close_icon} alt="Đóng" class="img-fluid"/></button>
 					</div>
 
 					{/* <!-- Modal body --> */}
 					<div className="modal-body">
 						<div className="table-responsive mt-2">              
-							<h5 className="text-thele lead text-center">{message_error}</h5>
+							<h5 className="font-arial text-thele lead text-center">{message_error}</h5>
 						</div>       
 					</div>
 
@@ -1216,7 +995,7 @@ class Lucky_Rotation extends React.Component {
 
 					{/* <!-- Modal body --> */}
 					<div className="modal-body">
-					<h2 class="font-iCielPantonBlack text-brown-shadow text-uppercase text-center pb-0 w-75 mx-auto mt-n5">Thông Báo</h2>
+					<h2 class="font-arial text-brown-shadow text-uppercase text-center pb-0 w-75 mx-auto mt-n5">Thông Báo</h2>
 						<div className="mt-2 text-center">              
 							<h5 className="text-thele lead text-center">Thông báo bảo trì!</h5>
 							<h5 className="text-thele lead text-center">Hệ thống đang được nâng cấp để tối ưu. Vui lòng quay lại sau 10 phút.</h5>
@@ -1230,44 +1009,26 @@ class Lucky_Rotation extends React.Component {
 			</div>
 
 			{/* <!-- The Modal Thông báo hết chữ--> */}
-			<div class="modal fade" id="myModal6" style={{zIndex:10001}}>
-				<div class="modal-dialog">
-					<div class="modal-content bg-modal-content border-0">
-					<div class="modal-header border-bottom-0">
-						<button type="button" class="close" data-dismiss="modal"><img src={close_icon} class="img-fluid" /></button>
-					</div>
-					<div class="modal-body font16">
-						<div class="w-75 mx-auto">
-							<h3 class="font-iCielPantonBlack text-brown pt-5">Bạn muốn nhận thêm Chữ?</h3>
-							<p class="font-iCielPantonBlack text-brown">Dùng thẻ Scoin nạp thẳng vào các game do VTC Mobile phát hành <span>tích lũy đủ 50,000Đ sẽ nhận 1 Chữ.</span></p>
-							<div>
-								<p>Scoin đã nạp từ ví vào Game: xxx</p>
-								<p>Nạp thêm xxx bằng thẻ Scoin để nhận 1 Chữ</p>
-							</div>
-							<button type="button" className="btn btn-xacnhan text-white btn-block text-center py-4" onClick={this.openTabNapScoin}>Nạp thẻ Scoin</button>
-						
-						</div>
-					</div>	  
-					</div>
-				</div>
-			</div>
 
-			<div class="modal fade" id="doithuong" style={{zIndex:10001}}>
+			<div class="modal" id="myModal6" style={{zIndex:10001}}>
 				<div class="modal-dialog">
-					<div class="modal-content bg-modal-content border-0">
-					<div class="modal-header border-bottom-0">
-						<button type="button" class="close" data-dismiss="modal"><img src={close_icon} class="img-fluid" /></button>
+					<div class="modal-content border-yellow">
+					<div class="modal-header border-bottom-0 p-1">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
-					<div class="modal-body font16">
-						<div class="w-75 mx-auto">
-							<h3 class="font-iCielPantonBlack text-brown pt-5">Xác nhận ghép đổi thưởng như sau:</h3>
-							<div>
-								<p><span>SL Giải thưởng cần đổi <span style={{border:"1px solid", padding:"5px 10px", margin:'0px 10px', cursor:'pointer'}} onClick={this.changeMinus}>-</span> <span>{numberWordChange}</span> <span style={{border:"1px solid", padding:"5px 10px", margin:'0px 10px', cursor:'pointer'}} onClick={this.changePlus}>+</span> <span style={{border:"1px solid", padding:"5px 10px", cursor:'pointer'}} onClick={this.changeNumberWordMax}>MAX</span></span></p>
-							</div>
-							<button type="button" className="btn btn-xacnhan btn-block text-center py-4" onClick={this.exchangeWord}>XÁC NHẬN ĐỔI THƯỞNG</button>
-						
+					<div class="modal-body pt-0">
+						<h3 class="font-arial" style={{fontWeight:'bold'}}>Bạn muốn nhận thêm Chữ?</h3>
+						<p class="font-arial text-brown" style={{margin:"30px 0px"}}>Dùng thẻ Scoin nạp thẳng vào các game do VTC Mobile phát hành <span class="font-arial" style={{fontWeight:'bold'}}>tích lũy đủ 50,000Đ sẽ nhận 1 Chữ.</span></p>
+						<div style={{border:'1px solid #e6e6e6', padding:15, borderRadius:10}}>
+							<p class="font-arial">Thẻ Scoin đã nạp từ ví vào Game: {turnsBuyInfo.scoinTopupWallet ? turnsBuyInfo.scoinTopupWallet.toLocaleString() : 0}Đ</p>
+							<p class="font-arial" style={{color:"red"}}>Nạp thêm {turnsBuyInfo.scoinBalanceRounding ? turnsBuyInfo.scoinBalanceRounding.toLocaleString(): 0}Đ bằng thẻ Scoin để nhận 1 Chữ</p>
 						</div>
-					</div>	  
+						<div>
+							<button class="font-arial" type="button" style={{backgroundColor:"#12cdd4", width:"20%", marginLeft:"40%", marginTop:20, border:"0px", padding:5}} onClick={this.openTabNapScoin}>Nạp thẻ Scoin</button>
+						</div>
+						
+					</div>
+
 					</div>
 				</div>
 			</div>
@@ -1285,7 +1046,7 @@ class Lucky_Rotation extends React.Component {
 						<h2 class="small text-danger">Chúc mừng {userTurnSpin.currName} đổi thành công</h2>
 						{(luckySpinGiftId===6)?(<p>{scoinPlus} chỉ vàng JSC <img src= {icon_jsc} alt="jsc" width="24" /></p>):(<p>{scoinPlus} <img src={logo_scoin} alt="Scoin" width="60" /></p>)}
 						
-						<p class="font-arial font-13">Scoin đã được cộng trực tiếp vào ví. Vui lòng truy cập <a class="font-arial" href="https://scoin.vn" title="Scoin.vn" target="_blank">Scoin.vn</a> để kiểm tra. <br /><a class="font-arial" href="https://scoin.vn" title="Lịch sử">Xem lịch sử đổi thưởng <span class="text-danger font-arial">tại đây</span></a></p>
+						<p class="font-arial font-13">Scoin đã được cộng trực tiếp vào ví. Vui lòng truy cập <a class="font-arial" href="https://scoin.vn" title="Scoin.vn" target="_blank">Scoin.vn</a> để kiểm tra. <br /><a class="font-arial" title="Lịch sử" onClick={()=>this.getBonus(user,activeBonus)} style={{cursor:"pointer"}}>Xem lịch sử đổi thưởng <span class="text-danger font-arial">tại đây</span></a></p>
 					</div>
 
 					</div>
@@ -1300,10 +1061,10 @@ class Lucky_Rotation extends React.Component {
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 					<div class="modal-body text-center pt-0">
-						<h3 class="text-danger">Thông Báo</h3>
-						<h5 style={{marginTop:20}}>Tài khoản cần xác thực số điện thoại để đổi thưởng</h5>
+						<h3 class="font-arial text-danger">Thông Báo</h3>
+						<h5 class="font-arial" style={{marginTop:20}}>Tài khoản cần xác thực số điện thoại để đổi thưởng</h5>
 						{/* <button type="button" className="btn btn-xacnhan btn-block text-center py-4" onClick={this.exchangeWord}>Xác Thực</button> */}
-							{(!xacthuc)?(<button type="button" className="btn btn-xacnhan btn-block text-center py-4" onClick={()=>this.xacThuc('https://scoin.vn/cap-nhat-sdt')}>Xác Thực</button>):(<div></div>)}
+							{(!xacthuc)?(<button class="font-arial" type="button" className="btn btn-xacnhan btn-block text-center py-4" onClick={()=>this.xacThuc('https://scoin.vn/cap-nhat-sdt')}>Xác Thực</button>):(<div></div>)}
 					</div>
 
 					</div>
@@ -1324,7 +1085,7 @@ class Lucky_Rotation extends React.Component {
 					</div>
 					<div class="modal-body pt-0">
 						<h2 class="small pt-2">Xin chào {userTurnSpin.currName}. Hãy chọn quà để đổi</h2>
-						<div class="alert border-yellow px-1 py-0">
+						<div class="alert border-yellow px-1 py-0" style={{border:'1px solid #e6e6e6', padding:7, borderRadius:7}}> 
 							<table class="table table-borderless mb-0">            
 								<tbody>
 								<tr>
@@ -1336,7 +1097,7 @@ class Lucky_Rotation extends React.Component {
 								</tbody>
 							</table>
 						</div>
-						<div class="alert border-yellow px-1 py-0">
+						<div class="alert border-yellow px-1 py-0" style={{border:'1px solid #e6e6e6', padding:7, borderRadius:7}}>
 							<table class="table table-borderless mb-0">            
 								<tbody>
 								<tr>
@@ -1348,7 +1109,7 @@ class Lucky_Rotation extends React.Component {
 								</tbody>
 							</table>
 						</div>
-						<div class="alert border-yellow px-1 py-0">
+						<div class="alert border-yellow px-1 py-0" style={{border:'1px solid #e6e6e6', padding:7, borderRadius:7}}>
 							<table class="table table-borderless mb-0">            
 								<tbody>
 								<tr>
@@ -1360,7 +1121,7 @@ class Lucky_Rotation extends React.Component {
 								</tbody>
 							</table>
 						</div>
-						<div class="alert border-yellow px-1 py-0">
+						<div class="alert border-yellow px-1 py-0" style={{border:'1px solid #e6e6e6', padding:7, borderRadius:7}}>
 							<table class="table table-borderless mb-0">            
 								<tbody>
 								<tr>
@@ -1372,7 +1133,7 @@ class Lucky_Rotation extends React.Component {
 								</tbody>
 							</table>
 						</div>
-						<div class="alert border-yellow px-1 py-0">
+						<div class="alert border-yellow px-1 py-0" style={{border:'1px solid #e6e6e6', padding:7, borderRadius:7}}>
 							<table class="table table-borderless mb-0">            
 								<tbody>
 									<tr>
@@ -1384,7 +1145,7 @@ class Lucky_Rotation extends React.Component {
 								</tbody>
 							</table>
 						</div>
-						<div class="alert border-yellow px-1 py-0">
+						<div class="alert border-yellow px-1 py-0" style={{border:'1px solid #e6e6e6', padding:7, borderRadius:7}}>
 							<table class="table table-borderless mb-0">            
 								<tbody>
 									<tr>
@@ -1422,13 +1183,13 @@ class Lucky_Rotation extends React.Component {
 						<div class="">
 							<ul class="nav nav-pills nav-justified pop-custom">
 							<li class="nav-item">
-								<a class="nav-link active px-2" data-toggle="tab" href="#doithuong"><img src= {img_doithuong} class="img-fluid" alt="Đổi thưởng" /></a>
+								<a class="nav-link active px-2" data-toggle="tab" href="#doithuong" onClick={()=>this.getBonus(user,activeBonus)}>Đổi thưởng</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link px-2" data-toggle="tab" href="#mochu"><img src= {img_mochu} class="img-fluid" alt="Mở chữ" /></a>
+								<a class="nav-link px-2" data-toggle="tab" href="#mochu" onClick={()=>this.getOpenWord(user,activeRuong)}>Mở chữ</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link px-2" data-toggle="tab" href="#nhanchu"><img src= {img_nhanchu} class="img-fluid" alt="Nhận chữ" /></a>
+								<a class="nav-link px-2" data-toggle="tab" href="#nhanchu" onClick={()=>this.getReceiveWord(user,activeKey)}>Nhận chữ</a>
 							</li>
 							</ul>            
 							<div class="tab-content">
@@ -1442,23 +1203,26 @@ class Lucky_Rotation extends React.Component {
 										</tr>
 										</thead>
 										<tbody>
-										<tr>
-											<td class="font-arial">16h40’13s ngày 20.07.2019</td>
-											<td class="font-arial">99.999 chữ</td>
-										</tr>
-										<tr>
-											<td class="font-arial">16h40’13s ngày 20.07.2019</td>
-											<td class="font-arial">99.999 chữ</td>
-										</tr>
+											{listCodeBonus.map((obj, key) => (
+												<tr key={key}>
+													<td className="border-left-0">{obj.date}</td>
+													<td className="border-left-0 border-right-0">{obj.itemName}</td>
+												</tr>
+											))}
 										</tbody>
 									</table>
 									<ul class="pagination justify-content-center pag-custom mt-4">
-										<li class="page-item"><a class="page-link page-be" href="#">Trang đầu</a></li>
-										<li class="page-item"><a class="page-link" href="#">1</a></li>
-										<li class="page-item active"><a class="page-link" href="#">2</a></li>
-										<li class="page-item"><a class="page-link" href="#">3</a></li>
-										<li class="page-item"><a class="page-link" href="#">...</a></li>
-										<li class="page-item"><a class="page-link page-be" href="#">Trang cuối</a></li>
+										<Pagination
+											activePage={activeBonus}
+											itemsCountPerPage={10}
+											totalItemsCount={countCodeBonus}
+											pageRangeDisplayed={numberPage}
+											lastPageText={'Trang cuối'}
+											firstPageText={'Trang đầu'}
+											itemClass={"page-item"}
+											linkClass={"page-link"}
+											onChange={(v) => this.handlePageChangeCodeBonus(v)}
+										/>
 									</ul> 
 								</div>                 
 							</div>
@@ -1472,23 +1236,26 @@ class Lucky_Rotation extends React.Component {
 										</tr>
 										</thead>
 										<tbody>
-										<tr>
-											<td class="font-arial">16h40’13s ngày 20.07.2019</td>
-											<td class="font-arial">99.999 chữ</td>
-										</tr>
-										<tr>
-											<td class="font-arial">16h40’13s ngày 20.07.2019</td>
-											<td class="font-arial">99.999 chữ</td>
-										</tr>
+											{listRuong.map((obj, key) => (
+												<tr key={key}>
+													<td className="border-left-0">{obj.date}</td>
+													<td className="border-left-0 border-right-0">{obj.item_name}</td>
+												</tr>
+											))}
 										</tbody>
 									</table>
 									<ul class="pagination justify-content-center pag-custom mt-4">
-										<li class="page-item"><a class="page-link page-be" href="#">Trang đầu</a></li>
-										<li class="page-item"><a class="page-link" href="#">1</a></li>
-										<li class="page-item active"><a class="page-link" href="#">2</a></li>
-										<li class="page-item"><a class="page-link" href="#">3</a></li>
-										<li class="page-item"><a class="page-link" href="#">...</a></li>
-										<li class="page-item"><a class="page-link page-be" href="#">Trang cuối</a></li>
+										<Pagination
+											activePage={activeRuong}
+											itemsCountPerPage={10}
+											totalItemsCount={countRuong}
+											pageRangeDisplayed={numberPage}
+											lastPageText={'Trang cuối'}
+											firstPageText={'Trang đầu'}
+											itemClass={"page-item"}
+											linkClass={"page-link"}
+											onChange={(v) => this.handlePageChangeRuong(v)}
+										/>
 									</ul> 
 								</div>                
 							</div>
@@ -1502,23 +1269,27 @@ class Lucky_Rotation extends React.Component {
 										</tr>
 										</thead>
 										<tbody>
-										<tr>
-											<td class="font-arial">16h40’13s ngày 20.07.2019</td>
-											<td class="font-arial">99.999 chữ</td>
-										</tr>
-										<tr>
-											<td class="font-arial">16h40’13s ngày 20.07.2019</td>
-											<td class="font-arial">99.999 chữ</td>
-										</tr>
+											{listKey.map((obj, key) => (
+												<tr key={key}>
+													<td className="border-right-0">{obj.date}</td>
+													<td className="border-right-0">{obj.receivedTurn}</td>
+													<td className="border-left-0">{obj.sourceTurn}</td>
+												</tr>
+											))}
 										</tbody>
 									</table>
 									<ul class="pagination justify-content-center pag-custom mt-4">
-										<li class="page-item"><a class="page-link page-be" href="#">Trang đầu</a></li>
-										<li class="page-item"><a class="page-link" href="#">1</a></li>
-										<li class="page-item active"><a class="page-link" href="#">2</a></li>
-										<li class="page-item"><a class="page-link" href="#">3</a></li>
-										<li class="page-item"><a class="page-link" href="#">...</a></li>
-										<li class="page-item"><a class="page-link page-be" href="#">Trang cuối</a></li>
+										<Pagination
+											activePage={activeKey}
+											itemsCountPerPage={10}
+											totalItemsCount={countKey}
+											pageRangeDisplayed={numberPage}
+											lastPageText={'Trang cuối'}
+											firstPageText={'Trang đầu'}
+											itemClass={"page-item"}
+											linkClass={"page-link"}
+											onChange={(v) => this.handlePageChangeKey(v)}
+										/>
 									</ul> 
 								</div>                
 							</div>
@@ -1546,18 +1317,18 @@ class Lucky_Rotation extends React.Component {
 						<h3 class="font-arial font-13 font-weight-bold">2. Làm thế nào để nhận chữ?</h3>
 						<p class="font-arial font-13">Rất đơn giản, chỉ cần dùng thẻ Scoin nạp thẳng vào các game do VTC Mobile phát hành
 				Tích lũy đủ 50,000Đ sẽ nhận 1 Chữ.</p>
-						<div class="row bg-line-napthescoin p-3">          
+						<div class="row bg-line-napthescoin p-3 mx-1">          
 						<div class="col-sm-8">
-							<h3 class="font-arial font-13">Scoin đã nạp từ ví vào Game: 10,005,000đ</h3>
+							<h3 class="font-arial font-13">Thẻ Scoin đã nạp vào Game: 10,005,000đ</h3>
 							<p class="font-arial font-13 text-danger font-weight-bold mb-0">Nạp thêm 45,000Đ bằng thẻ Scoin để nhận 1 Chữ</p>
 						</div>
 						<div class="col-sm-4 text-center"><a href="https://scoin.vn/nap-game" title="Hướng dẫn mua thẻ Scoin" target="_blank"><img src= {btn_napthescoin} alt="Nạp thẻ scoin" class="img-fluid" width="120" /></a></div>
 						</div>
 						<div class="row p-3">          
-						<div class="col-sm-8">
+						<div class="col-sm-8 px-0">
 							<h3 class="font-arial font-13 font-weight-bold">3. Cơ cấu giải thưởng</h3>
 						</div>
-						<div class="col-sm-4 text-center"><img src= {btn_xemgiaithuong} alt="Xem giải thưởng" class="img-fluid" width="120" onClick={this.openPopupBonus} /></div>
+						<div class="col-sm-4 text-center px-0"><img src= {btn_xemgiaithuong} alt="Xem giải thưởng" class="img-fluid" width="120" onClick={this.openPopupBonus} /></div>
 						</div>
 						<div class="row p-3">          
 						<div class="col-sm-6 text-center pt-1">
@@ -1581,27 +1352,17 @@ class Lucky_Rotation extends React.Component {
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 					<div class="modal-body pt-0">
-						<h3 class="font-arial font-13 font-weight-bold text-uppercase text-center pt-3">8 giải vàng jsc 9999</h3>
+						{/* <h3 class="font-arial font-13 font-weight-bold text-uppercase text-center pt-3">8 giải vàng jsc 9999</h3> */}
 						<div class="row border-yellow m-2 p-1 bg-orange text-white border-radius-8 text-center">
-							<div class="col-sm-6">
-								<div class="row">
-									<div class="col-6 font-arial">Scoin-name</div>
-									<div class="col-6 font-arial">Scoin-name</div>
-									<div class="col-6 font-arial">Scoin-name</div>
-									<div class="col-6 font-arial">Scoin-name</div>
-								</div>
-							</div>
-							<div class="col-sm-6">
-								<div class="row">
-									<div class="col-6 font-arial">Scoin-name</div>
-									<div class="col-6 font-arial">Scoin-name</div>
-									<div class="col-6 font-arial">Scoin-name</div>
-									<div class="col-6 font-arial">Scoin-name</div>
-								</div>
-							</div>
+							{golds.map((obj, key) => (
+												<div class="col-sm-6" key={key}>
+													<div class="row justify-content-center">
+														<div class="col-6 font-arial"> {obj.userName} </div>
+													</div>
+												</div>
+											))}
 						</div>
-						<h3 class="font-arial font-13 font-weight-bold text-uppercase text-center pt-3">Các giải khác</h3>        
-						<table class="table mx-auto text-center">
+						<table class="table mx-auto text-center" style={{marginTop:15}}>
 							<thead class="font-weight-bold">
 							<tr>
 								<th><p class="card-text font-arial">Tên giải thưởng</p></th>
@@ -1610,25 +1371,27 @@ class Lucky_Rotation extends React.Component {
 							</tr>
 							</thead>
 							<tbody>
-							<tr>
-								<td class="font-arial">Scoin-name</td>
-								<td class="font-arial">99.999 chữ</td>
-								<td class="font-arial">16h40’13s ngày 20.07.2019</td>                
-							</tr>
-							<tr>
-								<td class="font-arial">Scoin-name</td>
-								<td class="font-arial">99.999 chữ</td>
-								<td class="font-arial">16h40’13s ngày 20.07.2019</td>                
-							</tr>
+								{listVinhDanh.map((obj, key) => (
+									<tr key={key}>
+										<td className="border-right-0">{obj.userName}</td>
+										<td className="border-left-0 border-right-0">{obj.itemName}</td>
+										<td className="border-left-0">{obj.date}</td>
+									</tr>
+								))}
 							</tbody>
 						</table>
 						<ul class="pagination justify-content-center pag-custom mt-4">
-							<li class="page-item"><a class="page-link page-be" href="#">Trang đầu</a></li>
-							<li class="page-item"><a class="page-link" href="#">1</a></li>
-							<li class="page-item active"><a class="page-link" href="#">2</a></li>
-							<li class="page-item"><a class="page-link" href="#">3</a></li>
-							<li class="page-item"><a class="page-link" href="#">...</a></li>
-							<li class="page-item"><a class="page-link page-be" href="#">Trang cuối</a></li>
+							<Pagination
+								activePage={activeVinhDanh}
+								itemsCountPerPage={10}
+								totalItemsCount={countVinhDanh}
+								pageRangeDisplayed={numberPage}
+								lastPageText={'Trang cuối'}
+								firstPageText={'Trang đầu'}
+								itemClass={"page-item"}
+								linkClass={"page-link"}
+								onChange={(v) => this.handlePageChangeVinhDanh(v)}
+							/>
 						</ul>       
 					</div>
 
@@ -1670,7 +1433,7 @@ class Lucky_Rotation extends React.Component {
 						})}
 						{/* <p><img src={tet} class="img-fluid text-center" alt="Tết" /></p> */}
 						{(isOpenTen) ? (<p><a title="Lật 10 chữ"><img src= {btn_lat10chu} class="img-fluid text-center" style={{opacity :"0.7"}} alt="Lật 10 chứ" /></a></p>) : (<p><a title="Lật 10 chữ"><img src= {btn_lat10chu} class="img-fluid text-center" style={{cursor:"pointer"}} alt="Lật 10 chứ" onClick={this.get10Word} /></a></p>)}
-						{(isOpenTen) ? (<p><a class="text-danger text-center font-arial" style={{opacity :"0.7"}} data-dismiss="modal">Đóng</a></p>) : (<p><a class="text-danger text-center font-arial" style={{cursor:"pointer"}} data-dismiss="modal" onClick={this.closeModalTenWord}>Đóng</a></p>   )}
+						{(isOpenTen) ? (<p><a class="text-danger text-center font-arial" style={{opacity :"0.7"}}>Đóng</a></p>) : (<p><a class="text-danger text-center font-arial" style={{cursor:"pointer"}} data-dismiss="modal" onClick={this.closeModalTenWord}>Đóng</a></p>   )}
 						
 					</div>
 
@@ -1737,9 +1500,9 @@ const mapStateToProps = state => ({
 	dataDetail: state.lucky.dataDetail,
 	dataTurn: state.lucky.dataTurn,
 	dataTuDo: state.lucky.dataTuDo,
-	dataListKey: state.lucky.dataListKey,
+	dataListReceiveWord: state.lucky.dataListReceiveWord,
 	dataCountBonus:state.lucky.dataCountBonus,
-	dataHistoryTuDo: state.lucky.dataHistoryTuDo,
+	dataHistoryOpenWord: state.lucky.dataHistoryOpenWord,
 	dataVinhDanh: state.lucky.dataVinhDanh,
 	dataCodeBonus: state.lucky.dataCodeBonus,
 	server:state.server.serverError,
@@ -1751,14 +1514,12 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 	getRotationDetailData,
 	getRotationDetailDataUser,
 	getCountBonus,
-	pickCard,
-	buyTurn,
-	getHistoryTuDo,
+	getOpenWord,
 	getData,
 	getTuDo,
 	getCodeBonus,
 	getVinhDanh,
-	getKeys,
+	getReceiveWord,
 	exchangeItem,
 	openItem
 }, dispatch)

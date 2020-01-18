@@ -20,9 +20,9 @@ app.get('/', function(request, response) {
     }
     data = data.replace(/\$OG_URL/g, 'https://khobauScoin.splay.vn/');
     data = data.replace(/\$OG_TYPE/g, "Game");
-    data = data.replace(/\$OG_TITLE/g, 'Săn Kho Báu - Mở rương khủng Trúng 50 triệu Scoin');
-    data = data.replace(/\$OG_DESCRIPTION/g, "SK khuyến mại Scoin từ 20.12.19 - 20.01.20 dành cho tất cả game thủ VTC Mobile.");
-    result = data.replace(/\$OG_IMAGE/g, 'https://i.postimg.cc/SxCSXBKd/share.jpg');
+    data = data.replace(/\$OG_TITLE/g, 'Ghép chữ đổi Vàng - Đón Tết rộn ràng');
+    data = data.replace(/\$OG_DESCRIPTION/g, "Từ 21.01 - 03.02 nạp thẻ Scoin vào game để ghép chữ đổi thưởng 8 chỉ Vàng SJC 9999. SK Dành cho tất cả game thủ VTC Mobile");
+    result = data.replace(/\$OG_IMAGE/g, 'https://i.postimg.cc/dQyQ0ptP/GhepChu.jpg');
     response.send(result);
   });
 });

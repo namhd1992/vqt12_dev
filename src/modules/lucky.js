@@ -7,15 +7,13 @@ export const LUCKY_ROTATION_DETAIL_RESPONSE = 'lucky/LUCKY_ROTATION_DETAIL_RESPO
 export const LUCKY_ROTATION_DETAIL_RESPONSE_USER = 'lucky/LUCKY_ROTATION_DETAIL_RESPONSE_USER'
 export const LUCKY_DETAIL_RESPONSE = 'lucky/LUCKY_DETAIL_RESPONSE'
 export const LUCKY_RESPONSE_MORE = 'lucky/LUCKY_RESPONSE_MORE'
-export const LUCKY_PICK_RESPONSE = 'lucky/LUCKY_PICK_RESPONSE'
-export const LUCKY_TURN_RESPONSE = 'lucky/LUCKY_TURN_RESPONSE'
 export const LUCKY_HISTORY_RESPONSE='lucky/LUCKY_HISTORY_RESPONSE'
 export const LUCKY_TU_DO='lucky/LUCKY_TU_DO';
-export const LUCKY_HISTORY_TU_DO='lucky/LUCKY_HISTORY_TU_DO';
+export const LUCKY_HISTORY_OPEN_WORD='lucky/LUCKY_HISTORY_OPEN_WORD';
 export const LUCKY_VINH_DANH='lucky/LUCKY_VINH_DANH';
 export const LUCKY_CODE_BONUS='lucky/LUCKY_CODE_BONUS';
 export const LUCKY_COUNT_BONUS='lucky/LUCKY_COUNT_BONUS';
-export const LUCKY_LIST_KEY='lucky/LUCKY_LIST_KEY';
+export const LUCKY_LIST_RECEIVE_WORD='lucky/LUCKY_LIST_RECEIVE_WORD';
 export const LUCKY_OPEN_ITEM='lucky/LUCKY_OPEN_ITEM';
 export const LUCKY_EXCHANGE_ITEM='lucky/LUCKY_EXCHANGE_ITEM';
 
@@ -51,18 +49,6 @@ export default (state = initialState, action) => {
 				dataDetail: action.data,
 				waiting: false
 			}
-		case LUCKY_PICK_RESPONSE:
-			return {
-				...state,
-				dataPick: action.data,
-				waiting: false
-			}
-		case LUCKY_TURN_RESPONSE:
-			return {
-				...state,
-				dataTurn: action.data,
-				waiting: false
-			}
 		case LUCKY_HISTORY_RESPONSE:
 			return {
 				...state,
@@ -87,10 +73,10 @@ export default (state = initialState, action) => {
 				dataTuDo: action.data,
 				waiting: false
 			}
-		case LUCKY_HISTORY_TU_DO:
+		case LUCKY_HISTORY_OPEN_WORD:
 			return {
 				...state,
-				dataHistoryTuDo: action.data,
+				dataHistoryOpenWord: action.data,
 				waiting: false
 			}
 		case LUCKY_VINH_DANH:
@@ -111,10 +97,10 @@ export default (state = initialState, action) => {
 				dataCountBonus: action.data,
 				waiting: false
 			}
-		case LUCKY_LIST_KEY:
+		case LUCKY_LIST_RECEIVE_WORD:
 			return {
 				...state,
-				dataListKey: action.data,
+				dataListReceiveWord: action.data,
 				waiting: false
 			}
 		case LUCKY_OPEN_ITEM:
@@ -205,64 +191,6 @@ export const getDetailData = (id) => {
 }
 
 
-
-export const pickCard = (token, id) => {
-	var header = {
-		headers: {
-			"Content-Type": "application/json",
-			"Authorization": "bearer " + token,
-		}
-	}
-	return dispatch => {
-		dispatch({
-			type: LUCKY_REQUEST
-		})
-		// var url = Ultilities.base_url() + "/awardSpin?spinId=" + id + "&scoinToken=" + scoinToken;
-		var url = Ultilities.base_url() + "lucky-spin/award-spin?lucky_spin_id=" + id;
-		return axios.get(url, header).then(function (response) {
-			dispatch({
-				type: LUCKY_PICK_RESPONSE,
-				data: response.data
-			})
-		}).catch(function (error) {
-			dispatch({
-				type: SERVER_ERROR
-			})
-		})
-	}
-}
-
-export const buyTurn = (id, turn, spin_name) => {
-	var header = {
-		headers: {
-			"Content-Type": "application/json",
-			// "Authorization": "bearer " + token,
-		}
-	}
-	var body = {
-		spin_id: +id,
-		number_turn: turn,
-		spin_name:spin_name,
-		// scoinToken: scoinToken
-	}
-	return dispatch => {
-		dispatch({
-			type: LUCKY_REQUEST
-		})
-		var url = Ultilities.base_url() + "lucky-spin/buy-turn";
-		return axios.post(url, body, header).then(function (response) {
-			console.log(response.data)
-			dispatch({
-				type: LUCKY_TURN_RESPONSE,
-				data: response.data
-			})
-		}).catch(function (error) {
-			dispatch({
-				type: SERVER_ERROR
-			})
-		})
-	}
-}
 
 
 export const history = (id, type) => {
@@ -367,7 +295,7 @@ export const getRotationDetailDataUser = (token, id) => {
 	}
 }
 
-export const getKeys = (token, id, limit, offset) => {
+export const getReceiveWord = (token, id, limit, offset) => {
 	var header = {
 		headers: {
 			"Content-Type": "application/json",
@@ -381,7 +309,7 @@ export const getKeys = (token, id, limit, offset) => {
 		var url = Ultilities.base_url() + "lucky-spin-history/buy-turn?lucky_spin_id=" + id + "&limit=" + limit + "&offset=" + offset;
 		return axios.get(url, header).then(function (response) {
 			dispatch({
-				type: LUCKY_LIST_KEY,
+				type: LUCKY_LIST_RECEIVE_WORD,
 				data: response.data
 			})
 		}).catch(function (error) {
@@ -419,7 +347,7 @@ export const getTuDo = (token, id, limit, offset) => {
 }
 
 
-export const getHistoryTuDo = (token, id, limit, offset) => {
+export const getOpenWord = (token, id, limit, offset) => {
 	var header = {
 		headers: {
 			"Content-Type": "application/json",
@@ -430,10 +358,10 @@ export const getHistoryTuDo = (token, id, limit, offset) => {
 		dispatch({
 			type: LUCKY_REQUEST
 		})
-		var url = Ultilities.base_url() + "lucky-spin-history/turn?lucky_spin_id=" + id + "&limit=" + limit + "&offset=" + offset;
+		var url = Ultilities.base_url() + "lucky-spin-history/open?lucky_spin_id=" + id + "&limit=" + limit + "&offset=" + offset;
 		return axios.get(url, header).then(function (response) {
 			dispatch({
-				type: LUCKY_HISTORY_TU_DO,
+				type: LUCKY_HISTORY_OPEN_WORD,
 				data: response.data
 			})
 		}).catch(function (error) {

@@ -750,8 +750,9 @@ class Lucky_Rotation extends React.Component {
 		const {luckySpinGifts}=this.state;
 		var user = JSON.parse(localStorage.getItem("user"));
 		var item=luckySpinGifts[n];
+		$("#select-word").val(n)
 		if(user !== null) {
-			this.setState({max: item.maxQuantity, luckySpinGiftId: item.luckySpinGiftId, luckySpinGift: item},()=>{
+			this.setState({max: item.maxQuantity, luckySpinGiftId: item.luckySpinGiftId, luckySpinGift: item,  numberWordChange:0, scoinPlus:0},()=>{
 				$('#doithuong1').modal('show');
 				$("#giaithuong").modal('hide');
 			})
@@ -1533,7 +1534,7 @@ class Lucky_Rotation extends React.Component {
 					<div class="modal-body pt-0">
 						<h3 class="font-arial font-13 font-weight-bold">Xác nhận ghép đổi thưởng như sau</h3>
 						<form>
-						<select name="ghepchu" class="custom-select" onChange={this.changeGroupWord}>
+						<select id="select-word" name="ghepchu" class="custom-select" onChange={this.changeGroupWord}>
 							<option value="0" selected>CHÀO + ĐÓN</option>
 							<option value="1">CANH + TÝ</option>
 							<option value="2">CHÀO + CANH + TÝ</option>

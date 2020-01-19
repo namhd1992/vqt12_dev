@@ -713,6 +713,11 @@ class Lucky_Rotation extends React.Component {
 		});
 	}
 
+	latTiep10Chu=()=>{
+		$('#mo10chu').animate({ scrollTop: 0 }, 'slow');
+		this.get10Word()
+	}
+
 	changePlus=()=>{
 		const {numberWordChange, max, scoinPlus, luckySpinGift}=this.state;
 		if(numberWordChange <max){
@@ -853,15 +858,7 @@ class Lucky_Rotation extends React.Component {
 							<div class="col-3 font-13 text-white mt-n2 py-1 text-center">Giây</div>
 						</div>
 					</div>
-					<div class="d-mobile-none">
-						{/* {(isLogin)?(<div class="row">
-									<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-white text-nowrap">Xin chào <span class="text-warning"> {this.getUsername(userTurnSpin.currName)}</span></div>
-									<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-nowrap" style={{cursor:"pointer"}} onClick={this.logoutAction}><a title="Đăng xuất"><span class="text-warning">Đăng xuất</span></a></div>
-								</div>):(
-									<div class="row logout">
-								<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-nowrap" style={{cursor:"pointer"}} onClick={this.loginAction}><a title="Đăng nhập"><span class="text-warning">Đăng nhập</span></a></div>
-								</div>
-						)} */}
+					<div>
 						{(isLogin)?(<div class="row">
 									<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-white text-nowrap"><span class="font-arial" style={{fontWeight:'bold'}}> {this.getUsername(userTurnSpin.currName)}</span> <a title="Đăng xuất" style={{cursor:"pointer"}} onClick={this.logoutAction}><span class="text-warning font-arial">Đăng xuất</span></a></div>
 									<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-white"><a><span class="font-arial">Chữ chưa mở &nbsp;&nbsp; {turnsFree ? turnsFree.toLocaleString() : 0}</span></a></div>
@@ -881,7 +878,7 @@ class Lucky_Rotation extends React.Component {
 					
 				</div>
 
-				<div class="container d-pc-none pl-5">
+				{/* <div class="container d-pc-none pl-5">
 					{(isLogin)?(<div class="row col-12">
 								<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-white text-nowrap"><span class="font-arial" style={{fontWeight:'bold'}}> {this.getUsername(userTurnSpin.currName)}</span> <a title="Đăng xuất" style={{cursor:"pointer"}} onClick={this.logoutAction}><span class="text-warning font-arial">Đăng xuất</span></a></div>
 								<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-white"><a><span class="font-arial">Chữ chưa mở &nbsp;&nbsp; {turnsFree ? turnsFree.toLocaleString() : 0}</span></a></div>
@@ -890,7 +887,7 @@ class Lucky_Rotation extends React.Component {
 								<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-nowrap" style={{cursor:"pointer", marginLeft:"25%"}} onClick={this.loginAction}><a title="Đăng nhập"><span class="text-warning font-arial">Đăng nhập</span></a></div>
 							</div>
 					)}
-				</div>
+				</div> */}
 				
 			{/* <!--End container--> */}
 				<div class="float-left">
@@ -903,7 +900,7 @@ class Lucky_Rotation extends React.Component {
 				
 			</div>
 
-			<div class="float-bottom centered pt-1 d-mobile-none">
+			<div class="float-bottom centered pt-1 d-mobile-none nhanchu">
 				<table class="table table-borderless mt-5">
 					<tbody>
 					<tr>
@@ -918,15 +915,15 @@ class Lucky_Rotation extends React.Component {
 					</tbody>
 				</table>
 			</div>
-			<div class="float-bottom centered pt-1 d-pc-none">
+			<div class="float-bottom centered pt-1 d-pc-none nhanchu">
 				<table class="table table-borderless mt-5">
 					<tbody>
 					<tr>
-						<td width="60px" class="text-center text-white small pl-3 pr-0 pt-4"><p class="font-arial">{number_chao}</p></td>
-						<td width="60px" class="text-center text-white small px-0 pt-4"> <p class="font-arial">{number_don}</p> </td>
-						<td width="60px" class="text-center text-white small px-0 pt-4"> <p class="font-arial">{number_tet}</p> </td>
-						<td width="60px" class="text-center text-white small pl-0 pt-4"> <p class="font-arial">{number_canh}</p> </td>
-						<td width="60px" class="text-center text-white small pl-0 pt-4"> <p class="font-arial">{number_ti}</p> </td>
+						<td width="60px" class="text-center text-white small pl-3 pr-0 pt-4"><p class="font-arial" style={{paddingTop:4}}>{number_chao}</p></td>
+						<td width="60px" class="text-center text-white small px-0 pt-4"> <p class="font-arial" style={{paddingTop:4}}>{number_don}</p> </td>
+						<td width="60px" class="text-center text-white small px-0 pt-4"> <p class="font-arial" style={{paddingTop:4}}>{number_tet}</p> </td>
+						<td width="60px" class="text-center text-white small pl-0 pt-4"> <p class="font-arial" style={{paddingTop:4}}>{number_canh}</p> </td>
+						<td width="60px" class="text-center text-white small pl-0 pt-4"> <p class="font-arial" style={{paddingTop:4}}>{number_ti}</p> </td>
 						<td width="95px" class="text-center p-0"><a title="Nhận chữ" class="d-block" style={{width:"100%", lineHeight: "300%", cursor:'pointer'}} onClick={this.openPopupNhanChu}  >&nbsp;</a></td>
 					</tr>
 					</tbody>
@@ -941,18 +938,14 @@ class Lucky_Rotation extends React.Component {
 			<div className="modal fade" id="myModal5" style={{zIndex:100010}}>
 				<div className="modal-dialog">
 					<div className="modal-content popup-phanthuong">
-
-
-					<div className="modal-header border-bottom-0">
-						
-						<button type="button" className="close" data-dismiss="modal"><img src={close_icon} alt="Đóng" class="img-fluid"/></button>
+					<div class="modal-header border-bottom-0 p-1">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
-
 					<div className="modal-body">
 					<h2 class="font-arial text-brown-shadow text-uppercase text-center pb-0 w-75 mx-auto mt-n5">Thông Báo</h2>
 						<div className="mt-2 text-center">              
-							<h5 className="text-thele lead text-center py-3">Xin vui lòng đăng nhập!</h5>
-							<button type="button" className="btn btn-danger mx-auto text-center my-3" onClick={this.loginAction}>Đăng nhập</button>
+							<h5 className="font-arial text-thele lead text-center py-3">Xin vui lòng đăng nhập!</h5>
+							<button type="button" className="font-arial btn btn-danger mx-auto text-center my-3" onClick={this.loginAction}>Đăng nhập</button>
 						</div>       
 					</div>
 
@@ -988,19 +981,18 @@ class Lucky_Rotation extends React.Component {
 					<div className="modal-content popup-phanthuong">
 
 					{/* <!-- Modal Header --> */}
-					<div className="modal-header border-bottom-0">
-						
-						<button type="button" className="close" data-dismiss="modal"><img src={close_icon} alt="Đóng" /></button>
+					<div class="modal-header border-bottom-0 p-1">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 
 					{/* <!-- Modal body --> */}
 					<div className="modal-body">
 					<h2 class="font-arial text-brown-shadow text-uppercase text-center pb-0 w-75 mx-auto mt-n5">Thông Báo</h2>
 						<div className="mt-2 text-center">              
-							<h5 className="text-thele lead text-center">Thông báo bảo trì!</h5>
-							<h5 className="text-thele lead text-center">Hệ thống đang được nâng cấp để tối ưu. Vui lòng quay lại sau 10 phút.</h5>
-							<h5 className="text-thele lead text-center">Xin lỗi vì sự bất tiện này</h5>
-							<button type="button" className="btn btn-danger mx-auto text-center my-3" onClick={this.closeServerErr}>Xác nhận</button>
+							<h5 className="font-arial text-thele lead text-center">Thông báo bảo trì!</h5>
+							<h5 className="font-arial text-thele lead text-center">Hệ thống đang được nâng cấp để tối ưu. Vui lòng quay lại sau 10 phút.</h5>
+							<h5 className="font-arial text-thele lead text-center">Xin lỗi vì sự bất tiện này</h5>
+							<button type="button" className="font-arial btn btn-danger mx-auto text-center my-3" onClick={this.closeServerErr}>Xác nhận</button>
 						</div>       
 					</div>
 
@@ -1017,13 +1009,13 @@ class Lucky_Rotation extends React.Component {
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 					<div class="modal-body pt-0">
-						<h3 class="font-arial" style={{fontWeight:'bold'}}>Bạn muốn nhận thêm Chữ?</h3>
-						<p class="font-arial text-brown" style={{margin:"30px 0px"}}>Dùng thẻ Scoin nạp thẳng vào các game do VTC Mobile phát hành <span class="font-arial" style={{fontWeight:'bold'}}>tích lũy đủ 50,000Đ sẽ nhận 1 Chữ.</span></p>
-						<div style={{border:'1px solid #e6e6e6', padding:15, borderRadius:10}}>
-							<p class="font-arial">Thẻ Scoin đã nạp từ ví vào Game: {turnsBuyInfo.scoinTopupWallet ? turnsBuyInfo.scoinTopupWallet.toLocaleString() : 0}Đ</p>
-							<p class="font-arial" style={{color:"red", fontWeight:'bold'}}>Nạp thêm {turnsBuyInfo.scoinBalanceRounding ? turnsBuyInfo.scoinBalanceRounding.toLocaleString(): 0}Đ bằng thẻ Scoin để nhận 1 Chữ</p>
+						<h3 class="font-arial font-13" style={{fontWeight:'bold'}}>Bạn muốn nhận thêm Chữ?</h3>
+						<p class="font-arial text-brown font-13" style={{margin:"30px 0px"}}>Dùng thẻ Scoin nạp thẳng vào các game do VTC Mobile phát hành <span class="font-arial" style={{fontWeight:'bold'}}>tích lũy đủ 50,000Đ sẽ nhận 1 Chữ.</span></p>
+						<div class="bg-line-napthescoin p-3 mx-1">
+							<h3 class="font-arial font-13">Thẻ Scoin đã nạp từ ví vào Game: {turnsBuyInfo.scoinTopupWallet ? turnsBuyInfo.scoinTopupWallet.toLocaleString() : 0}Đ</h3>
+							<p class="font-arial font-13 text-danger font-weight-bold mb-0">Nạp thêm {turnsBuyInfo.scoinBalanceRounding ? turnsBuyInfo.scoinBalanceRounding.toLocaleString(): 0}Đ bằng thẻ Scoin để nhận 1 Chữ</p>
 						</div>
-						<div style={{width:"20%", marginLeft:"40%", marginTop:20}}>
+						<div className="img-napthenhanchu">
 							<img src={btn_napthescoin} alt="Đóng" class="img-fluid" style={{cursor:"pointer"}} onClick={this.openTabNapScoin}/>
 						</div>
 						
@@ -1085,83 +1077,171 @@ class Lucky_Rotation extends React.Component {
 					</div>
 					<div class="modal-body pt-0">
 						<h2 class="small pt-2">Xin chào {userTurnSpin.currName}. Hãy chọn quà để đổi</h2>
-						<div class="alert border-yellow px-1 py-0" style={{border:'1px solid #e6e6e6', padding:7, borderRadius:7}}> 
-							<table class="table table-borderless mb-0">            
-								<tbody>
-								<tr>
-									<td width="24%" class="px-0"><img src= {img_chao_don} class="img-fluid" alt="" /></td>
-									<td width="38%" class="px-0"></td>
-									<td width="20%" class="pl-2 pr-0 text-center text-nowrap">10.000 <br/> <img src= {logo_scoin} alt="Scoin" width="48" /></td>
-									<td width="18%" class="px-0 text-center"><img src= {btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(0)} /><br /><span class="text-danger font-11">Còn {luckySpinGifts[0] !==undefined ? luckySpinGifts[0].quantity : 0} giải</span></td>
-								</tr>             
-								</tbody>
-							</table>
-						</div>
-						<div class="alert border-yellow px-1 py-0" style={{border:'1px solid #e6e6e6', padding:7, borderRadius:7}}>
-							<table class="table table-borderless mb-0">            
-								<tbody>
-								<tr>
-									<td width="24%" class="px-0"><img src= {img_canh_ty} class="img-fluid" alt="" /></td>
-									<td width="38%" class="px-0"></td>
-									<td width="20%" class="pl-2 pr-0 text-center text-nowrap">20.000 <br/> <img src= {logo_scoin} alt="Scoin" width="48" /></td>
-									<td width="18%" class="px-0 text-center"><img src= {btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(1)} /><br /><span class="text-danger font-11">Còn {luckySpinGifts[1] !==undefined ?  luckySpinGifts[1].quantity : 0} giải</span></td>
-								</tr>             
-								</tbody>
-							</table>
-						</div>
-						<div class="alert border-yellow px-1 py-0" style={{border:'1px solid #e6e6e6', padding:7, borderRadius:7}}>
-							<table class="table table-borderless mb-0">            
-								<tbody>
-								<tr>
-									<td width="35%" class="px-0"><img src= {img_chao_canh_ty} class="img-fluid" alt="" /></td>
-									<td width="27%" class="px-0"></td>
-									<td width="20%" class="pl-2 pr-0 text-center text-nowrap">50.000 <br/> <img src= {logo_scoin} alt="Scoin" width="48" /></td>
-									<td width="18%" class="px-0 text-center"><img src= {btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(2)} /><br /><span class="text-danger font-11">Còn {luckySpinGifts[2] !==undefined ?  luckySpinGifts[2].quantity : 0} giải</span></td>
-								</tr>             
-								</tbody>
-							</table>
-						</div>
-						<div class="alert border-yellow px-1 py-0" style={{border:'1px solid #e6e6e6', padding:7, borderRadius:7}}>
-							<table class="table table-borderless mb-0">            
-								<tbody>
-								<tr>
-									<td width="35%" class="px-0"><img src= {img_don_canh_ty} class="img-fluid" alt="" /></td>
-									<td width="27%" class="px-0"></td>
-									<td width="20%" class="pl-2 pr-0 text-center text-nowrap">100.000 <br/> <img src= {logo_scoin} alt="Scoin" width="48" /></td>
-									<td width="18%" class="px-0 text-center"><img src= {btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(3)} /><br /><span class="text-danger font-11">Còn {luckySpinGifts[3] !==undefined ?  luckySpinGifts[3].quantity : 0} giải</span></td>
-								</tr>             
-								</tbody>
-							</table>
-						</div>
-						<div class="alert border-yellow px-1 py-0" style={{border:'1px solid #e6e6e6', padding:7, borderRadius:7}}>
-							<table class="table table-borderless mb-0">            
-								<tbody>
+						<div class="d-mobile-none">
+							<div class="alert border-yellow px-1 py-0"> 
+								<table class="table table-borderless mb-0">            
+									<tbody>
 									<tr>
-										<td width="48%" class="px-0"><img src= {img_chao_don_canh_ty} class="img-fluid" alt="" /></td>
-										<td width="14%" class="px-0"></td>
-										<td width="20%" class="pl-2 pr-0 text-center text-nowrap">200.000 <br/> <img src={logo_scoin} alt="Scoin" width="48" /></td>
-										<td width="18%" class="px-0 text-center"><img src={btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(4)} /><br /><span class="text-danger font-11">Còn {luckySpinGifts[4] !==undefined ?  luckySpinGifts[4].quantity : 0} giải</span></td>
+										<td width="24%" class="px-0"><img src= {img_chao_don} class="img-fluid" alt="" /></td>
+										<td width="38%" class="px-0"></td>
+										<td width="20%" class="pl-2 pr-0 text-center text-nowrap">10.000 <br/> <img src= {logo_scoin} alt="Scoin" width="48" /></td>
+										<td width="18%" class="px-0 text-center"><img src= {btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(0)} /><br /><span class="text-danger font-11">Còn {luckySpinGifts[0] !==undefined ? luckySpinGifts[0].quantity : 0} giải</span></td>
 									</tr>             
-								</tbody>
-							</table>
+									</tbody>
+								</table>
+							</div>
+							<div class="alert border-yellow px-1 py-0">
+								<table class="table table-borderless mb-0">            
+									<tbody>
+									<tr>
+										<td width="24%" class="px-0"><img src= {img_canh_ty} class="img-fluid" alt="" /></td>
+										<td width="38%" class="px-0"></td>
+										<td width="20%" class="pl-2 pr-0 text-center text-nowrap">20.000 <br/> <img src= {logo_scoin} alt="Scoin" width="48" /></td>
+										<td width="18%" class="px-0 text-center"><img src= {btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(1)} /><br /><span class="text-danger font-11">Còn {luckySpinGifts[1] !==undefined ?  luckySpinGifts[1].quantity : 0} giải</span></td>
+									</tr>             
+									</tbody>
+								</table>
+							</div>
+							<div class="alert border-yellow px-1 py-0">
+								<table class="table table-borderless mb-0">            
+									<tbody>
+									<tr>
+										<td width="35%" class="px-0"><img src= {img_chao_canh_ty} class="img-fluid" alt="" /></td>
+										<td width="27%" class="px-0"></td>
+										<td width="20%" class="pl-2 pr-0 text-center text-nowrap">50.000 <br/> <img src= {logo_scoin} alt="Scoin" width="48" /></td>
+										<td width="18%" class="px-0 text-center"><img src= {btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(2)} /><br /><span class="text-danger font-11">Còn {luckySpinGifts[2] !==undefined ?  luckySpinGifts[2].quantity : 0} giải</span></td>
+									</tr>             
+									</tbody>
+								</table>
+							</div>
+							<div class="alert border-yellow px-1 py-0">
+								<table class="table table-borderless mb-0">            
+									<tbody>
+									<tr>
+										<td width="35%" class="px-0"><img src= {img_don_canh_ty} class="img-fluid" alt="" /></td>
+										<td width="27%" class="px-0"></td>
+										<td width="20%" class="pl-2 pr-0 text-center text-nowrap">100.000 <br/> <img src= {logo_scoin} alt="Scoin" width="48" /></td>
+										<td width="18%" class="px-0 text-center"><img src= {btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(3)} /><br /><span class="text-danger font-11">Còn {luckySpinGifts[3] !==undefined ?  luckySpinGifts[3].quantity : 0} giải</span></td>
+									</tr>             
+									</tbody>
+								</table>
+							</div>
+							<div class="alert border-yellow px-1 py-0">
+								<table class="table table-borderless mb-0">            
+									<tbody>
+										<tr>
+											<td width="48%" class="px-0"><img src= {img_chao_don_canh_ty} class="img-fluid" alt="" /></td>
+											<td width="14%" class="px-0"></td>
+											<td width="20%" class="pl-2 pr-0 text-center text-nowrap">200.000 <br/> <img src={logo_scoin} alt="Scoin" width="48" /></td>
+											<td width="18%" class="px-0 text-center"><img src={btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(4)} /><br /><span class="text-danger font-11">Còn {luckySpinGifts[4] !==undefined ?  luckySpinGifts[4].quantity : 0} giải</span></td>
+										</tr>             
+									</tbody>
+								</table>
+							</div>
+							<div class="alert border-yellow px-1 py-0">
+								<table class="table table-borderless mb-0">            
+									<tbody>
+										<tr>
+											<td width="62%" class="px-0"><img src= {img_chao_don_tet_canh_ty} class="img-fluid" alt="" /></td>
+											<td width="20%" class="pl-2 pr-0 text-center text-nowrap">1 Chỉ vàng SJC <br/> <img src= {icon_jsc} alt="Scoin" width="12" /></td>
+											<td width="18%" class="px-0 text-center"><img src= {btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(5)} /><br /><span class="text-danger font-11">Còn {luckySpinGifts[5] !==undefined ?  luckySpinGifts[5].quantity : 0} giải</span></td>
+										</tr>             
+									</tbody>
+								</table>
+							</div>
 						</div>
-						<div class="alert border-yellow px-1 py-0" style={{border:'1px solid #e6e6e6', padding:7, borderRadius:7}}>
+						<div class="d-pc-none-block">
+							<div class="alert border-yellow px-1 py-0 w-100">
 							<table class="table table-borderless mb-0">            
 								<tbody>
-									<tr>
-										<td width="62%" class="px-0"><img src= {img_chao_don_tet_canh_ty} class="img-fluid" alt="" /></td>
-										<td width="20%" class="pl-2 pr-0 text-center text-nowrap">1 Chỉ vàng SJC <br/> <img src= {icon_jsc} alt="Scoin" width="12" /></td>
-										<td width="18%" class="px-0 text-center"><img src= {btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(5)} /><br /><span class="text-danger font-11">Còn {luckySpinGifts[5] !==undefined ?  luckySpinGifts[5].quantity : 0} giải</span></td>
-									</tr>             
+								<tr>
+									<td colspan="4" class="px-0 text-center"><img src={img_chao_don} class="img-fluid w-40" alt="" /></td>                  
+								</tr>
+								<tr>
+									<td width="25%"></td>
+									<td width="25%" class="pl-2 pr-2 text-center text-nowrap">10.000 <br/> <img src={logo_scoin} alt="Scoin" width="48" /></td>
+									<td width="25%" class="px-0 text-center"><img src={btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(0)} /><br /><span class="text-danger font-11 text-center">Còn {luckySpinGifts[0] !==undefined ?  luckySpinGifts[0].quantity : 0} giải</span></td>    <td width="25%"></td>                
+								</tr>             
 								</tbody>
 							</table>
+							</div>
+							<div class="alert border-yellow px-1 py-0">
+							<table class="table table-borderless mb-0">            
+								<tbody>
+								<tr>
+									<td colspan="4" class="px-0 text-center"><img src= {img_canh_ty} class="img-fluid w-40" alt="" /></td>                  
+								</tr>
+								<tr>
+									<td width="25%"></td>
+									<td width="25%" class="pl-2 pr-2 text-center text-nowrap">10.000 <br/> <img src={logo_scoin} alt="Scoin" width="48" /></td>
+									<td width="25%" class="px-0 text-center"><img src={btn_doingay} class="img-fluid"style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(1)} /><br /><span class="text-danger font-11 text-center">Còn {luckySpinGifts[1] !==undefined ?  luckySpinGifts[1].quantity : 0} giải</span></td>    <td width="25%"></td>                
+								</tr>             
+								</tbody>
+							</table>
+							</div>
+							<div class="alert border-yellow px-1 py-0">
+							<table class="table table-borderless mb-0">            
+								<tbody>
+								<tr>
+									<td colspan="4" class="px-0 text-center"><img src= {img_chao_canh_ty} class="img-fluid w-60" alt="" /></td>                  
+								</tr>
+								<tr>
+									<td width="25%"></td>
+									<td width="25%" class="pl-2 pr-2 text-center text-nowrap">10.000 <br/> <img src={logo_scoin} alt="Scoin" width="48" /></td>
+									<td width="25%" class="px-0 text-center"><img src={btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(2)} /><br /><span class="text-danger font-11 text-center">Còn {luckySpinGifts[2] !==undefined ?  luckySpinGifts[2].quantity : 0} giải</span></td>    <td width="25%"></td>                
+								</tr>             
+								</tbody>
+							</table>
+							</div>
+							<div class="alert border-yellow px-1 py-0">
+							<table class="table table-borderless mb-0">            
+								<tbody>
+								<tr>
+									<td colspan="4" class="px-0 text-center"><img src= {img_don_canh_ty} class="img-fluid w-60" alt="" /></td>                  
+								</tr>
+								<tr>
+									<td width="25%"></td>
+									<td width="25%" class="pl-2 pr-2 text-center text-nowrap">10.000 <br/> <img src={logo_scoin} alt="Scoin" width="48" /></td>
+									<td width="25%" class="px-0 text-center"><img src={btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(3)} /><br /><span class="text-danger font-11 text-center">Còn {luckySpinGifts[3] !==undefined ?  luckySpinGifts[3].quantity : 0} giải</span></td>    <td width="25%"></td>                
+								</tr>             
+								</tbody>
+							</table>
+							</div>
+							<div class="alert border-yellow px-1 py-0">
+							<table class="table table-borderless mb-0">            
+								<tbody>
+								<tr>
+									<td colspan="4" class="px-0 text-center"><img src= {img_chao_don_canh_ty} class="img-fluid w-85" alt="" /></td>                  
+								</tr>
+								<tr>
+									<td width="25%"></td>
+									<td width="25%" class="pl-2 pr-2 text-center text-nowrap">10.000 <br/> <img src={logo_scoin} alt="Scoin" width="48" /></td>
+									<td width="25%" class="px-0 text-center"><img src={btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(4)} /><br /><span class="text-danger font-11 text-center">Còn {luckySpinGifts[4] !==undefined ?  luckySpinGifts[4].quantity : 0} giải</span></td>    <td width="25%"></td>                
+								</tr>             
+								</tbody>
+							</table>
+							</div>
+							<div class="alert border-yellow px-1 py-0">
+							<table class="table table-borderless mb-0">            
+								<tbody>
+								<tr>
+									<td colspan="4" class="px-0 text-center"><img src= {img_chao_don_tet_canh_ty} class="img-fluid" alt="" /></td>                  
+								</tr>
+								<tr>
+									<td width="25%"></td>
+									<td width="25%" class="pl-2 pr-2 text-center text-nowrap">10.000 <br/> <img src={logo_scoin} alt="Scoin" width="48" /></td>
+									<td width="25%" class="px-0 text-center"><img src={btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(5)} /><br /><span class="text-danger font-11 text-center">Còn {luckySpinGifts[5] !==undefined ?  luckySpinGifts[5].quantity : 0} giải</span></td>    <td width="25%"></td>                
+								</tr>             
+								</tbody>
+							</table>
+							</div>
 						</div>
 						<h3 class="font-arial text-uppercase font-13">Quy tắc đổi thưởng:</h3>
-						<p class="font-arial font-13 font-italic">Tài khoản cần xác thực số điện thoại để đổi thưởng. <a class="font-arial font-italic" href="https://scoin.vn/doi-sdt" title="Xác thực" target="_blank">Xác thực tại đây</a><br />
+						<p class="font-arial font-13">Tài khoản cần xác thực số điện thoại để đổi thưởng. <a class="font-arial" href="https://scoin.vn/doi-sdt" title="Xác thực" target="_blank">Xác thực tại đây</a><br />
 				Quà Scoin sau khi đổi thành công được cộng trực tiếp vào ví Scoin.<br />
 				Quà 1 Chỉ vàng SJC 9999 sau khi thực hiện đổi thành công sẽ được hướng dẫn thủ tục nhận thưởng.</p>
 						<h3 class="font-arial text-uppercase font-13 text-danger">Lưu ý:</h3>
-						<p class="font-arial font-13 font-italic">Mọi hành vi gian lận/ hack sẽ bị xử lý theo pháp luận hiện hành.<br />
+						<p class="font-arial font-13">Mọi hành vi gian lận/ hack sẽ bị xử lý theo pháp luận hiện hành.<br />
 				Các thắc mắc liên quan đến sự kiện vui lòng quay số Hotline 1900 1104.<br />
 				Quyết định cuối cùng thuộc về BTC.</p>
 					</div>
@@ -1205,8 +1285,8 @@ class Lucky_Rotation extends React.Component {
 										<tbody>
 											{listCodeBonus.map((obj, key) => (
 												<tr key={key}>
-													<td className="border-left-0"><p class="font-arial">{obj.date}</p></td>
-													<td className="border-left-0 border-right-0"><p class="font-arial">{obj.itemName}</p></td>
+													<td className="border-left-0"><p class="font-arial font-13">{obj.date}</p></td>
+													<td className="border-left-0 border-right-0"><p class="font-arial font-13">{obj.itemName}</p></td>
 												</tr>
 											))}
 										</tbody>
@@ -1238,8 +1318,8 @@ class Lucky_Rotation extends React.Component {
 										<tbody>
 											{listRuong.map((obj, key) => (
 												<tr key={key}>
-													<td className="border-left-0"><p class="font-arial">{obj.date}</p></td>
-													<td className="border-left-0 border-right-0"><p class="font-arial">{obj.item_name}</p></td>
+													<td className="border-left-0"><p class="font-arial font-13">{obj.date}</p></td>
+													<td className="border-left-0 border-right-0"><p class="font-arial font-13">{obj.item_name}</p></td>
 												</tr>
 											))}
 										</tbody>
@@ -1264,16 +1344,17 @@ class Lucky_Rotation extends React.Component {
 									<table class="table mx-auto text-center">
 										<thead class="font-weight-bold">
 										<tr>
-											<th><p class="card-text font-arial">Thời gian đổi</p></th>
-											<th><p class="card-text font-arial">Tên giải thưởng</p></th>
+											<th><p class="card-text font-arial">Thời gian</p></th>
+											<th><p class="card-text font-arial">Số lượng</p></th>
+											<th><p class="card-text font-arial">Nguồn</p></th>
 										</tr>
 										</thead>
 										<tbody>
 											{listKey.map((obj, key) => (
 												<tr key={key}>
-													<td className="border-right-0"><p class="font-arial">{obj.date}</p></td>
-													<td className="border-right-0"><p class="font-arial">{obj.receivedTurn}</p></td>
-													<td className="border-left-0"><p class="font-arial">{obj.sourceTurn}</p></td>
+													<td className="border-right-0"><p class="font-arial font-13">{obj.date}</p></td>
+													<td className="border-right-0"><p class="font-arial font-13">{obj.receivedTurn}</p></td>
+													<td className="border-left-0"><p class="font-arial font-13">{obj.sourceTurn}</p></td>
 												</tr>
 											))}
 										</tbody>
@@ -1352,7 +1433,7 @@ class Lucky_Rotation extends React.Component {
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 					<div class="modal-body pt-0">
-						<h3 class="font-arial font-13 font-weight-bold text-uppercase text-center pt-3" ><span class="font-arial" style={{borderBottom:"2px solid #ffff00"}}>8 Giải Vàng JSC 9999</span></h3>
+						<h3 class="font-arial font-weight-bold text-uppercase text-center pt-3" ><span class="font-arial" style={{ fontSize:'1rem'}}>8 Giải Vàng JSC 9999</span></h3>
 						<div class="row border-yellow m-2 p-1 bg-orange text-white border-radius-8 text-center">
 							{golds.map((obj, key) => (
 												<div class="col-sm-6" key={key}>
@@ -1362,11 +1443,11 @@ class Lucky_Rotation extends React.Component {
 												</div>
 											))}
 						</div>
-						<h3 class="font-arial font-13 font-weight-bold text-uppercase text-center pt-3" ><span class="font-arial" style={{borderBottom:"2px solid #ffff00"}}>Các Giải Khác</span></h3>
+						<h3 class="font-arial font-13 font-weight-bold text-uppercase text-center pt-3" ><span class="font-arial" style={{ fontSize:'1rem'}}>Các Giải Khác</span></h3>
 						<table class="table mx-auto text-center">
 							<thead class="font-weight-bold">
 							<tr>
-								<th><p class="card-text font-arial">Tên giải thưởng</p></th>
+								<th><p class="card-text font-arial">Tên</p></th>
 								<th><p class="card-text font-arial">Giải thưởng</p></th>
 								<th><p class="card-text font-arial">Thời gian đổi</p></th>             
 							</tr>
@@ -1374,9 +1455,9 @@ class Lucky_Rotation extends React.Component {
 							<tbody>
 								{listVinhDanh.map((obj, key) => (
 									<tr key={key}>
-										<td className="border-right-0"><p class="font-arial">{obj.userName}</p></td>
-										<td className="border-left-0 border-right-0"><p class="font-arial">{obj.itemName}</p></td>
-										<td className="border-left-0"><p class="font-arial">{obj.date}</p></td>
+										<td className="border-right-0"><p class="font-arial font-13">{obj.userName}</p></td>
+										<td className="border-left-0 border-right-0"><p class="font-arial font-13">{obj.itemName}</p></td>
+										<td className="border-left-0"><p class="font-arial font-13">{obj.date}</p></td>
 									</tr>
 								))}
 							</tbody>
@@ -1433,7 +1514,7 @@ class Lucky_Rotation extends React.Component {
 								
 							})}
 							{/* <p><img src={tet} class="img-fluid text-center" alt="Tết" /></p> */}
-							{(isOpenTen) ? (<p><a title="Lật 10 chữ"><img src= {btn_lat10chu} class="img-fluid text-center" style={{opacity :"0.7"}} alt="Lật 10 chứ" /></a></p>) : (<p><a title="Lật 10 chữ"><img src= {btn_lat10chu} class="img-fluid text-center" style={{cursor:"pointer"}} alt="Lật 10 chứ" onClick={this.get10Word} /></a></p>)}
+							{(isOpenTen) ? (<p><a title="Lật 10 chữ"><img src= {btn_lat10chu} class="img-fluid text-center" style={{opacity :"0.7"}} alt="Lật 10 chứ" /></a></p>) : (<p><a title="Lật 10 chữ"><img src= {btn_lat10chu} class="img-fluid text-center" style={{cursor:"pointer"}} alt="Lật 10 chứ" onClick={this.latTiep10Chu} /></a></p>)}
 							{(isOpenTen) ? (<p><a class="text-danger text-center font-arial" style={{opacity :"0.7"}}>Đóng</a></p>) : (<p><a class="text-danger text-center font-arial" style={{cursor:"pointer"}} data-dismiss="modal" onClick={this.closeModalTenWord}>Đóng</a></p>   )}
 							
 						</div>

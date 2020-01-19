@@ -35,11 +35,11 @@ body {background-image: url(../images/bg-page.png); background-size: cover; back
 .font-11 {font-size: 11px}
 .border-yellow { border: solid 3px #feea91}
 .img-title-popup {left: 50%; transform: translate(-50%, 0); margin-top: -28px}
-.pop-custom .nav-item .active {background: none; filter: drop-shadow(0 0 20px rgba(254, 200, 16, 1));}
+.pop-custom .nav-item .active {background: none;}
 .pag-custom .page-item {margin: 5px;}
-.pag-custom .page-link {background-color: #f4a600; border-color: #f4a600; border-radius: 4px; color:#FFFFFF; font-size:16px; padding: 4px 10px 1px 10px; font-family: Arial, Helvetica, sans-serif}
-.pag-custom .page-be {background-color: #f4a600; border-color: #f4a600;}
-.pag-custom .page-item.active .page-link {background-color: #b81518; border-color: #b81518;}
+.pag-custom .page-link {background-color: #fff; border-color: #868e94; border-radius: 4px; color:#868e94; font-size:16px; padding: 4px 10px 1px 10px; font-family: Arial, Helvetica, sans-serif}
+.pag-custom .page-be {background-color: #b30101; border-color: #b30101;}
+.pag-custom .page-item.active .page-link {background-color: #b30101; border-color: #b30101;}
 .bg-line-napthescoin {border: solid 2px #731c2e; border-radius: 100px;}
 .bg-orange {background-color: #e34127;}
 .border-radius-8 {border-radius: 8px;}
@@ -72,7 +72,15 @@ body {background-image: url(../images/bg-page.png); background-size: cover; back
   -webkit-filter: drop-shadow(0 0 20px rgba(254, 200, 16, 1));
   filter: drop-shadow(0 0 20px rgba(254, 200, 16, 1));
 }
-
+.img-word{
+  width: 180px;
+}
+.div-img-word{
+  width: 20%;
+}
+.modal-dialog{
+  margin-top: 25px !important;
+}
 @keyframes shake {
   0% { transform: translate(1px, 1px) rotate(0deg); }
   10% { transform: translate(-1px, -2px) rotate(-1deg); }
@@ -89,21 +97,20 @@ body {background-image: url(../images/bg-page.png); background-size: cover; back
 
 @media (min-width: 1024px) {
   .modal-dialog {max-width: 1024px !important;}
-  }
+}
 
 @media (max-width: 992px) {
 .bg-acc.h6 {font-size: 1vw}
 .box-left {padding-left: 0;}
 .display-5 {font-size: 4vw;}
 .bg-acc.h6 {font-size: 2vw}
-
 }
 @media (max-width: 576px) {
 .logo {padding-top: 10%;}
 .d-mobile-none {display: none}
 .float-left {top:35%}
 .d-pc-none {display: inline-flex !important;}
-body {background-image: url(../images/bg-page-m.png); background-size: cover; background-repeat: no-repeat; background-position: top center; max-height: 1000px; background-color: #ba1a31}
+body {background-image: url(../images/bg-page-m.png); background-size: cover; background-repeat: no-repeat; background-position: top center; max-height: 1000px; background-color: #ba1a31 !important}
 .img-doithuong {padding-top: 0}
 .float-bottom {position:fixed; bottom: 5%; background:url(../images/menu-float-bottom-m.png) no-repeat; width: 320px; height: 112px; font-size:11px}
 
@@ -112,7 +119,7 @@ body {background-image: url(../images/bg-page-m.png); background-size: cover; ba
 .modal-dialog {max-width: 700px;}
 }
 @media (max-width: 480px) {
-body {height: 720px;}
+body {height: 800px;}
 .logo .w-60 {width: 90% !important}
 .content.w-50 {width: 80% !important}
 .display-5 {font-size: 5vw;}
@@ -122,11 +129,21 @@ body {height: 720px;}
 .text-float-left li.mt-5 {margin-top: 1.6rem !important}
 .text-float-bottom li a {font-size: 1vw}
 .float-bottom {bottom: 2%;}
+.img-word{
+  width: 140px;
 }
-@media (max-width: 360px) {
-body {height: 600px;}
+.div-img-word{
+  width: 50%;
+}
+}
+@media (max-width: 380px) {
+body {height: 700px;}
 .font-11 {font-size: 10px}
+.img-word{
+  width: 120px;
+}
 }
 @media (min-width: 320px) {
+  body {height: 600px;}
 .modal-dialog {margin-top: 1.5rem}
 }

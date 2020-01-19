@@ -908,11 +908,11 @@ class Lucky_Rotation extends React.Component {
 					<tbody>
 					<tr>
 						<td width="26%">&nbsp;</td>
-						<td width="11%" class="text-center text-white small"> {number_chao} </td>
-						<td width="11%" class="text-center text-white small"> {number_don} </td>
-						<td width="11%" class="text-center text-white small"> {number_tet} </td>
-						<td width="11%" class="text-center text-white small"> {number_canh} </td>
-						<td width="12%" class="text-center text-white small"> {number_ti} </td>
+						<td width="11%" class="text-center text-white small"> <p class="font-arial" style={{paddingTop:4}}>{number_chao}</p> </td>
+						<td width="11%" class="text-center text-white small"> <p class="font-arial" style={{paddingTop:4}}>{number_don}</p> </td>
+						<td width="11%" class="text-center text-white small"> <p class="font-arial" style={{paddingTop:4}}>{number_tet}</p> </td>
+						<td width="11%" class="text-center text-white small"> <p class="font-arial" style={{paddingTop:4}}>{number_canh}</p> </td>
+						<td width="12%" class="text-center text-white small"> <p class="font-arial" style={{paddingTop:4}}>{number_ti}</p> </td>
 						<td width="18%" class="text-center p-0"><a title="Nhận chữ" class="d-block" style={{width:"100%", lineHeight: "300%", cursor:'pointer'}} onClick={this.openPopupNhanChu}>&nbsp;</a></td>
 					</tr>     
 					</tbody>
@@ -922,11 +922,11 @@ class Lucky_Rotation extends React.Component {
 				<table class="table table-borderless mt-5">
 					<tbody>
 					<tr>
-						<td width="60px" class="text-center text-white small pl-3 pr-0 pt-4"> {number_chao} </td>
-						<td width="60px" class="text-center text-white small px-0 pt-4"> {number_don} </td>
-						<td width="60px" class="text-center text-white small px-0 pt-4"> {number_tet} </td>
-						<td width="60px" class="text-center text-white small pl-0 pt-4"> {number_canh} </td>
-						<td width="60px" class="text-center text-white small pl-0 pt-4"> {number_ti} </td>
+						<td width="60px" class="text-center text-white small pl-3 pr-0 pt-4"><p class="font-arial">{number_chao}</p></td>
+						<td width="60px" class="text-center text-white small px-0 pt-4"> <p class="font-arial">{number_don}</p> </td>
+						<td width="60px" class="text-center text-white small px-0 pt-4"> <p class="font-arial">{number_tet}</p> </td>
+						<td width="60px" class="text-center text-white small pl-0 pt-4"> <p class="font-arial">{number_canh}</p> </td>
+						<td width="60px" class="text-center text-white small pl-0 pt-4"> <p class="font-arial">{number_ti}</p> </td>
 						<td width="95px" class="text-center p-0"><a title="Nhận chữ" class="d-block" style={{width:"100%", lineHeight: "300%", cursor:'pointer'}} onClick={this.openPopupNhanChu}  >&nbsp;</a></td>
 					</tr>
 					</tbody>
@@ -961,7 +961,7 @@ class Lucky_Rotation extends React.Component {
 			</div>
 
 
-
+			
 			{/* <!-- The Modal báo lỗi--> */}
 			<div className="modal fade" id="myModal11">
 				<div className="modal-dialog">
@@ -1021,10 +1021,10 @@ class Lucky_Rotation extends React.Component {
 						<p class="font-arial text-brown" style={{margin:"30px 0px"}}>Dùng thẻ Scoin nạp thẳng vào các game do VTC Mobile phát hành <span class="font-arial" style={{fontWeight:'bold'}}>tích lũy đủ 50,000Đ sẽ nhận 1 Chữ.</span></p>
 						<div style={{border:'1px solid #e6e6e6', padding:15, borderRadius:10}}>
 							<p class="font-arial">Thẻ Scoin đã nạp từ ví vào Game: {turnsBuyInfo.scoinTopupWallet ? turnsBuyInfo.scoinTopupWallet.toLocaleString() : 0}Đ</p>
-							<p class="font-arial" style={{color:"red"}}>Nạp thêm {turnsBuyInfo.scoinBalanceRounding ? turnsBuyInfo.scoinBalanceRounding.toLocaleString(): 0}Đ bằng thẻ Scoin để nhận 1 Chữ</p>
+							<p class="font-arial" style={{color:"red", fontWeight:'bold'}}>Nạp thêm {turnsBuyInfo.scoinBalanceRounding ? turnsBuyInfo.scoinBalanceRounding.toLocaleString(): 0}Đ bằng thẻ Scoin để nhận 1 Chữ</p>
 						</div>
-						<div>
-							<button class="font-arial" type="button" style={{backgroundColor:"#12cdd4", width:"20%", marginLeft:"40%", marginTop:20, border:"0px", padding:5}} onClick={this.openTabNapScoin}>Nạp thẻ Scoin</button>
+						<div style={{width:"20%", marginLeft:"40%", marginTop:20}}>
+							<img src={btn_napthescoin} alt="Đóng" class="img-fluid" style={{cursor:"pointer"}} onClick={this.openTabNapScoin}/>
 						</div>
 						
 					</div>
@@ -1156,11 +1156,11 @@ class Lucky_Rotation extends React.Component {
 								</tbody>
 							</table>
 						</div>
-						<h3 class="font-arial text-uppercase font-13 font-italic">Quy tắc đổi thưởng:</h3>
+						<h3 class="font-arial text-uppercase font-13">Quy tắc đổi thưởng:</h3>
 						<p class="font-arial font-13 font-italic">Tài khoản cần xác thực số điện thoại để đổi thưởng. <a class="font-arial font-italic" href="https://scoin.vn/doi-sdt" title="Xác thực" target="_blank">Xác thực tại đây</a><br />
 				Quà Scoin sau khi đổi thành công được cộng trực tiếp vào ví Scoin.<br />
 				Quà 1 Chỉ vàng SJC 9999 sau khi thực hiện đổi thành công sẽ được hướng dẫn thủ tục nhận thưởng.</p>
-						<h3 class="font-arial text-uppercase font-13 text-danger font-italic">Lưu ý:</h3>
+						<h3 class="font-arial text-uppercase font-13 text-danger">Lưu ý:</h3>
 						<p class="font-arial font-13 font-italic">Mọi hành vi gian lận/ hack sẽ bị xử lý theo pháp luận hiện hành.<br />
 				Các thắc mắc liên quan đến sự kiện vui lòng quay số Hotline 1900 1104.<br />
 				Quyết định cuối cùng thuộc về BTC.</p>
@@ -1183,13 +1183,13 @@ class Lucky_Rotation extends React.Component {
 						<div class="">
 							<ul class="nav nav-pills nav-justified pop-custom">
 							<li class="nav-item">
-								<a class="nav-link active px-2" data-toggle="tab" href="#doithuong" onClick={()=>this.getBonus(user,activeBonus)}>Đổi thưởng</a>
+								<a class="font-arial nav-link active px-2" data-toggle="tab" href="#doithuong" onClick={()=>this.getBonus(user,activeBonus)}>ĐỔI THƯỞNG</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link px-2" data-toggle="tab" href="#mochu" onClick={()=>this.getOpenWord(user,activeRuong)}>Mở chữ</a>
+								<a class="font-arial nav-link px-2" data-toggle="tab" href="#mochu" onClick={()=>this.getOpenWord(user,activeRuong)}>MỞ CHỮ</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link px-2" data-toggle="tab" href="#nhanchu" onClick={()=>this.getReceiveWord(user,activeKey)}>Nhận chữ</a>
+								<a class="font-arial nav-link px-2" data-toggle="tab" href="#nhanchu" onClick={()=>this.getReceiveWord(user,activeKey)}>NHẬN CHỮ</a>
 							</li>
 							</ul>            
 							<div class="tab-content">
@@ -1205,8 +1205,8 @@ class Lucky_Rotation extends React.Component {
 										<tbody>
 											{listCodeBonus.map((obj, key) => (
 												<tr key={key}>
-													<td className="border-left-0">{obj.date}</td>
-													<td className="border-left-0 border-right-0">{obj.itemName}</td>
+													<td className="border-left-0"><p class="font-arial">{obj.date}</p></td>
+													<td className="border-left-0 border-right-0"><p class="font-arial">{obj.itemName}</p></td>
 												</tr>
 											))}
 										</tbody>
@@ -1238,8 +1238,8 @@ class Lucky_Rotation extends React.Component {
 										<tbody>
 											{listRuong.map((obj, key) => (
 												<tr key={key}>
-													<td className="border-left-0">{obj.date}</td>
-													<td className="border-left-0 border-right-0">{obj.item_name}</td>
+													<td className="border-left-0"><p class="font-arial">{obj.date}</p></td>
+													<td className="border-left-0 border-right-0"><p class="font-arial">{obj.item_name}</p></td>
 												</tr>
 											))}
 										</tbody>
@@ -1271,9 +1271,9 @@ class Lucky_Rotation extends React.Component {
 										<tbody>
 											{listKey.map((obj, key) => (
 												<tr key={key}>
-													<td className="border-right-0">{obj.date}</td>
-													<td className="border-right-0">{obj.receivedTurn}</td>
-													<td className="border-left-0">{obj.sourceTurn}</td>
+													<td className="border-right-0"><p class="font-arial">{obj.date}</p></td>
+													<td className="border-right-0"><p class="font-arial">{obj.receivedTurn}</p></td>
+													<td className="border-left-0"><p class="font-arial">{obj.sourceTurn}</p></td>
 												</tr>
 											))}
 										</tbody>
@@ -1322,7 +1322,7 @@ class Lucky_Rotation extends React.Component {
 							<h3 class="font-arial font-13">Thẻ Scoin đã nạp vào Game: 10,005,000đ</h3>
 							<p class="font-arial font-13 text-danger font-weight-bold mb-0">Nạp thêm 45,000Đ bằng thẻ Scoin để nhận 1 Chữ</p>
 						</div>
-						<div class="col-sm-4 text-center"><a href="https://scoin.vn/nap-game" title="Hướng dẫn mua thẻ Scoin" target="_blank"><img src= {btn_napthescoin} alt="Nạp thẻ scoin" class="img-fluid" width="120" /></a></div>
+						<div class="col-sm-4 text-center"><a href="https://scoin.vn/nap-game" title="Hướng dẫn mua thẻ Scoin" target="_blank"><img src= {btn_napthescoin} alt="Nạp thẻ scoin" class="img-fluid" style={{marginLeft:20}} width="120" /></a></div>
 						</div>
 						<div class="row p-3">          
 						<div class="col-sm-8 px-0">
@@ -1352,7 +1352,7 @@ class Lucky_Rotation extends React.Component {
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 					<div class="modal-body pt-0">
-						{/* <h3 class="font-arial font-13 font-weight-bold text-uppercase text-center pt-3">8 giải vàng jsc 9999</h3> */}
+						<h3 class="font-arial font-13 font-weight-bold text-uppercase text-center pt-3" ><span class="font-arial" style={{borderBottom:"2px solid #ffff00"}}>8 Giải Vàng JSC 9999</span></h3>
 						<div class="row border-yellow m-2 p-1 bg-orange text-white border-radius-8 text-center">
 							{golds.map((obj, key) => (
 												<div class="col-sm-6" key={key}>
@@ -1362,7 +1362,8 @@ class Lucky_Rotation extends React.Component {
 												</div>
 											))}
 						</div>
-						<table class="table mx-auto text-center" style={{marginTop:15}}>
+						<h3 class="font-arial font-13 font-weight-bold text-uppercase text-center pt-3" ><span class="font-arial" style={{borderBottom:"2px solid #ffff00"}}>Các Giải Khác</span></h3>
+						<table class="table mx-auto text-center">
 							<thead class="font-weight-bold">
 							<tr>
 								<th><p class="card-text font-arial">Tên giải thưởng</p></th>
@@ -1373,9 +1374,9 @@ class Lucky_Rotation extends React.Component {
 							<tbody>
 								{listVinhDanh.map((obj, key) => (
 									<tr key={key}>
-										<td className="border-right-0">{obj.userName}</td>
-										<td className="border-left-0 border-right-0">{obj.itemName}</td>
-										<td className="border-left-0">{obj.date}</td>
+										<td className="border-right-0"><p class="font-arial">{obj.userName}</p></td>
+										<td className="border-left-0 border-right-0"><p class="font-arial">{obj.itemName}</p></td>
+										<td className="border-left-0"><p class="font-arial">{obj.date}</p></td>
 									</tr>
 								))}
 							</tbody>
@@ -1401,7 +1402,7 @@ class Lucky_Rotation extends React.Component {
 			{/* <!--End The Modal Bang vinh danh --> */}
 
 			{/* <!--Begin The Modal Mo 1 chu --> */}
-			<div class="modal fade in" id="mo1chu">
+			<div class="modal fade in" id="mo1chu" data-keyboard="false" data-backdrop="static">
 				<div class="modal-dialog">
 					<div class="modal-content bg-transparent">
 					<div class="modal-body pt-0 text-center">
@@ -1419,24 +1420,23 @@ class Lucky_Rotation extends React.Component {
 			{/* <!--End The Modal Mo 1 chu --> */}
 
 			{/* <!--Begin The Modal Mo 10 chu --> */}
-			<div class="modal fade in" id="mo10chu">
+			<div class="modal fade in" id="mo10chu" data-keyboard="false" data-backdrop="static">
 				<div class="modal-dialog">
 					<div class="modal-content bg-transparent">
-					<div class="modal-body pt-0 text-center">
-						{listChu.map((obj, key)=>{
-							return(
-								<div key={key} style={{float:'left'}}>
-									<img src={obj} class="img-fluid" style={{margin:5}} width={180} />
-								</div>
-							)
+						<div class="modal-body pt-0 text-center">
+							{listChu.map((obj, key)=>{
+								return(
+									<div key={key} style={{float:'left'}} className="div-img-word">
+										<img src={obj} class="img-fluid" style={{margin:5}} className="img-word" />
+									</div>
+								)
+								
+							})}
+							{/* <p><img src={tet} class="img-fluid text-center" alt="Tết" /></p> */}
+							{(isOpenTen) ? (<p><a title="Lật 10 chữ"><img src= {btn_lat10chu} class="img-fluid text-center" style={{opacity :"0.7"}} alt="Lật 10 chứ" /></a></p>) : (<p><a title="Lật 10 chữ"><img src= {btn_lat10chu} class="img-fluid text-center" style={{cursor:"pointer"}} alt="Lật 10 chứ" onClick={this.get10Word} /></a></p>)}
+							{(isOpenTen) ? (<p><a class="text-danger text-center font-arial" style={{opacity :"0.7"}}>Đóng</a></p>) : (<p><a class="text-danger text-center font-arial" style={{cursor:"pointer"}} data-dismiss="modal" onClick={this.closeModalTenWord}>Đóng</a></p>   )}
 							
-						})}
-						{/* <p><img src={tet} class="img-fluid text-center" alt="Tết" /></p> */}
-						{(isOpenTen) ? (<p><a title="Lật 10 chữ"><img src= {btn_lat10chu} class="img-fluid text-center" style={{opacity :"0.7"}} alt="Lật 10 chứ" /></a></p>) : (<p><a title="Lật 10 chữ"><img src= {btn_lat10chu} class="img-fluid text-center" style={{cursor:"pointer"}} alt="Lật 10 chứ" onClick={this.get10Word} /></a></p>)}
-						{(isOpenTen) ? (<p><a class="text-danger text-center font-arial" style={{opacity :"0.7"}}>Đóng</a></p>) : (<p><a class="text-danger text-center font-arial" style={{cursor:"pointer"}} data-dismiss="modal" onClick={this.closeModalTenWord}>Đóng</a></p>   )}
-						
-					</div>
-
+						</div>
 					</div>
 				</div>
 			</div>

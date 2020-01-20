@@ -1096,8 +1096,11 @@ class Lucky_Rotation extends React.Component {
 					<div class="modal-body text-center pt-0">
 						<h2 class="font-arial small text-danger">Chúc mừng {userTurnSpin.currName} đổi thành công</h2>
 						{(typeGift==='SCOIN')?(<p>{scoinPlusSuccess} <img src={logo_scoin} alt="Scoin" width="60" /></p>):(<p class="font-arial">{scoinPlusSuccess} chỉ vàng JSC <img src= {icon_jsc} alt="jsc" width="24" /></p>)}
+
+						{(typeGift==='SCOIN')?(<p class="font-arial font-13">Scoin đã được cộng trực tiếp vào ví. Vui lòng truy cập <a class="font-arial" href="https://scoin.vn" title="Scoin.vn" target="_blank">Scoin.vn</a> để kiểm tra. <br /><a class="font-arial" title="Lịch sử" onClick={()=>this.getBonus(user,activeBonus)} style={{cursor:"pointer"}}>Xem lịch sử đổi thưởng <span class="text-danger font-arial">tại đây</span></a></p>):(
+						<p class="font-arial font-13"><span class="font-arial">Đại diện BTC sẽ liên hệ để hướng dẫn thủ tục nhận thưởng.</span><br></br><span class="font-arial">Vui lòng quay số Hotline <a href="tel:19001104" title="Hotline" target="_blank">1900 1104</a> để được hỗ trợ thêm.</span>. <br /><a class="font-arial" title="Lịch sử" onClick={()=>this.getBonus(user,activeBonus)} style={{cursor:"pointer"}}>Xem lịch sử đổi thưởng <span class="text-danger font-arial">tại đây</span></a></p>)}
 						
-						<p class="font-arial font-13">Scoin đã được cộng trực tiếp vào ví. Vui lòng truy cập <a class="font-arial" href="https://scoin.vn" title="Scoin.vn" target="_blank">Scoin.vn</a> để kiểm tra. <br /><a class="font-arial" title="Lịch sử" onClick={()=>this.getBonus(user,activeBonus)} style={{cursor:"pointer"}}>Xem lịch sử đổi thưởng <span class="text-danger font-arial">tại đây</span></a></p>
+						
 					</div>
 
 					</div>
@@ -1301,7 +1304,7 @@ class Lucky_Rotation extends React.Component {
 				- Quà 1 Chỉ vàng SJC 9999 sau khi thực hiện đổi thành công sẽ được hướng dẫn thủ tục nhận thưởng.</p>
 						<h3 class="font-arial text-uppercase font-13 text-danger">Lưu ý:</h3>
 						<p class="font-arial font-13">- Mọi hành vi gian lận/ hack sẽ bị xử lý theo pháp luận hiện hành.<br />
-				- Các thắc mắc liên quan đến sự kiện vui lòng quay số Hotline 1900 1104.<br />
+				- Các thắc mắc liên quan đến sự kiện vui lòng quay số Hotline <a href="tel:19001104" title="Hotline" target="_blank">1900 1104</a>.<br />
 				- Quyết định cuối cùng thuộc về BTC.</p>
 					</div>
 

@@ -868,6 +868,10 @@ class Lucky_Rotation extends React.Component {
 		$("#myModal6").modal('show');
 	}
 
+	numberWithCommas=(x)=> {
+		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+	}
+
 
 	render() {
 		const {img_status, golds, isOpenTen, luckySpinGiftId, luckySpinGifts, max, vang_jsc, number_chao, number_don, number_tet, number_canh, number_ti, scoinPlus, numberWordChange, showOneWord, oneWord, listChu, soinValue,listCountBonus, listKey, activeKey, turnsBuyInfo,status_sukien, xacthuc, scoinCard,height, width, dialogLoginOpen, dialogBonus, auto, dialogWarning, textWarning, isLogin, userTurnSpin, day, hour, minute, second, code,numberPage, message_status, data_auto,message_error,
@@ -902,7 +906,7 @@ class Lucky_Rotation extends React.Component {
 					<div>
 						{(isLogin)?(<div class="row">
 									<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-white text-nowrap"><span class="font-arial" style={{fontWeight:'bold'}}> {this.getUsername(userTurnSpin.currName)}</span> <a title="Đăng xuất" style={{cursor:"pointer"}} onClick={this.logoutAction}><span class="text-warning font-arial">Đăng xuất</span></a></div>
-									<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-white"><a><span class="font-arial">Chữ chưa mở &nbsp;&nbsp; {turnsFree ? turnsFree.toLocaleString() : 0}</span></a></div>
+									<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-white"><a><span class="font-arial">Chữ chưa mở &nbsp;&nbsp; {turnsFree ? this.numberWithCommas(turnsFree) : 0}</span></a></div>
 								</div>):(
 									<div class="row logout">
 								<div class="col-6 px-0 bg-acc h6 small py-2 text-center text-nowrap" style={{cursor:"pointer"}} onClick={this.loginAction}><a title="Đăng nhập"><span class="text-warning font-arial">Đăng nhập</span></a></div>
@@ -946,11 +950,11 @@ class Lucky_Rotation extends React.Component {
 					<tbody>
 					<tr>
 						<td width="26%">&nbsp;</td>
-						<td width="11%" class="text-center text-white small"> <p class="font-arial" style={{paddingTop:4}}>{number_chao ? number_chao.toLocaleString() : 0}</p> </td>
-						<td width="11%" class="text-center text-white small"> <p class="font-arial" style={{paddingTop:4}}>{number_don ? number_don.toLocaleString() : 0}</p> </td>
-						<td width="11%" class="text-center text-white small"> <p class="font-arial" style={{paddingTop:4}}>{number_tet ? number_tet.toLocaleString() : 0}</p> </td>
-						<td width="11%" class="text-center text-white small"> <p class="font-arial" style={{paddingTop:4}}>{number_canh ? number_canh.toLocaleString() : 0}</p> </td>
-						<td width="12%" class="text-center text-white small"> <p class="font-arial" style={{paddingTop:4}}>{number_ti ? number_ti.toLocaleString() : 0}</p> </td>
+						<td width="11%" class="text-center text-white small"> <p class="font-arial" style={{paddingTop:4}}>{number_chao ? this.numberWithCommas(number_chao) : 0}</p> </td>
+						<td width="11%" class="text-center text-white small"> <p class="font-arial" style={{paddingTop:4}}>{number_don ? this.numberWithCommas(number_don) : 0}</p> </td>
+						<td width="11%" class="text-center text-white small"> <p class="font-arial" style={{paddingTop:4}}>{number_tet ? this.numberWithCommas(number_tet) : 0}</p> </td>
+						<td width="11%" class="text-center text-white small"> <p class="font-arial" style={{paddingTop:4}}>{number_canh ? this.numberWithCommas(number_canh) : 0}</p> </td>
+						<td width="12%" class="text-center text-white small"> <p class="font-arial" style={{paddingTop:4}}>{number_ti ? this.numberWithCommas(number_ti) : 0}</p> </td>
 						<td width="18%" class="text-center p-0"><a title="Nhận chữ" class="d-block" style={{width:"100%", lineHeight: "300%", cursor:'pointer'}} onClick={this.openPopupNhanChu}>&nbsp;</a></td>
 					</tr>     
 					</tbody>
@@ -960,11 +964,11 @@ class Lucky_Rotation extends React.Component {
 				<table class="table table-borderless mt-5">
 					<tbody>
 					<tr>
-						<td width="60px" class="text-center text-white small pl-3 pr-0 pt-4"><p class="font-arial" style={{paddingTop:4}}>{number_chao ? number_chao.toLocaleString() : 0}</p></td>
-						<td width="60px" class="text-center text-white small px-0 pt-4"> <p class="font-arial" style={{paddingTop:4}}>{number_don ? number_don.toLocaleString() : 0}</p> </td>
-						<td width="60px" class="text-center text-white small px-0 pt-4"> <p class="font-arial" style={{paddingTop:4}}>{number_tet ? number_tet.toLocaleString() : 0}</p> </td>
-						<td width="60px" class="text-center text-white small pl-0 pt-4"> <p class="font-arial" style={{paddingTop:4}}>{number_canh ? number_canh.toLocaleString() : 0}</p> </td>
-						<td width="60px" class="text-center text-white small pl-0 pt-4"> <p class="font-arial" style={{paddingTop:4}}>{number_ti ? number_ti.toLocaleString() : 0}</p> </td>
+						<td width="60px" class="text-center text-white small pl-3 pr-0 pt-4"><p class="font-arial" style={{paddingTop:4}}>{number_chao ? this.numberWithCommas(number_chao) : 0}</p></td>
+						<td width="60px" class="text-center text-white small px-0 pt-4"> <p class="font-arial" style={{paddingTop:4}}>{number_don ? this.numberWithCommas(number_don) : 0}</p> </td>
+						<td width="60px" class="text-center text-white small px-0 pt-4"> <p class="font-arial" style={{paddingTop:4}}>{number_tet ? this.numberWithCommas(number_tet) : 0}</p> </td>
+						<td width="60px" class="text-center text-white small pl-0 pt-4"> <p class="font-arial" style={{paddingTop:4}}>{number_canh ? this.numberWithCommas(number_canh) : 0}</p> </td>
+						<td width="60px" class="text-center text-white small pl-0 pt-4"> <p class="font-arial" style={{paddingTop:4}}>{number_ti ? this.numberWithCommas(number_ti) : 0}</p> </td>
 						<td width="95px" class="text-center p-0"><a title="Nhận chữ" class="d-block" style={{width:"100%", lineHeight: "300%", cursor:'pointer'}} onClick={this.openPopupNhanChu}  >&nbsp;</a></td>
 					</tr>
 					</tbody>
@@ -1051,8 +1055,8 @@ class Lucky_Rotation extends React.Component {
 						<h3 class="font-arial font-13" style={{fontWeight:'bold'}}>Bạn muốn nhận thêm Chữ?</h3>
 						<p class="font-arial text-brown font-13" style={{margin:"30px 0px"}}>Dùng thẻ Scoin nạp thẳng vào các game do VTC Mobile phát hành <span class="font-arial" style={{fontWeight:'bold'}}>tích lũy đủ 50,000Đ sẽ nhận 1 Chữ.</span></p>
 						<div class="bg-line-napthescoin p-3 mx-1">
-							<h3 class="font-arial font-13">Thẻ Scoin đã nạp từ ví vào Game: {turnsBuyInfo.scoinTopupWallet ? turnsBuyInfo.scoinTopupWallet.toLocaleString() : 0}Đ</h3>
-							<p class="font-arial font-13 text-danger font-weight-bold mb-0">Nạp thêm {turnsBuyInfo.scoinBalanceRounding ? turnsBuyInfo.scoinBalanceRounding.toLocaleString(): 0}Đ bằng thẻ Scoin để nhận 1 Chữ</p>
+							<h3 class="font-arial font-13">Thẻ Scoin đã nạp từ ví vào Game: {turnsBuyInfo.scoinTopupWallet ? this.numberWithCommas(turnsBuyInfo.scoinTopupWallet) : 0}Đ</h3>
+							<p class="font-arial font-13 text-danger font-weight-bold mb-0">Nạp thêm {turnsBuyInfo.scoinBalanceRounding ? this.numberWithCommas(turnsBuyInfo.scoinBalanceRounding): 0}Đ bằng thẻ Scoin để nhận 1 Chữ</p>
 						</div>
 						<div className="img-napthenhanchu">
 							<img src={btn_napthescoin} alt="Đóng" class="img-fluid" style={{cursor:"pointer"}} onClick={this.openTabNapScoin}/>
@@ -1095,7 +1099,7 @@ class Lucky_Rotation extends React.Component {
 						<h3 class="font-arial text-danger">Thông Báo</h3>
 						<h5 class="font-arial" style={{marginTop:20}}>Tài khoản cần xác thực số điện thoại để đổi thưởng</h5>
 						{/* <button type="button" className="btn btn-xacnhan btn-block text-center py-4" onClick={this.exchangeWord}>Xác Thực</button> */}
-							{(!xacthuc)?(<button type="button" className="btn btn-xacnhan btn-block text-center py-4" onClick={()=>this.xacThuc('https://scoin.vn/cap-nhat-sdt')}><span class="font-arial" style={{color:'#009999', textDecoration:'underline', fontWeight:'bold'}}>Xác thực SDT</span></button>):(<div></div>)}
+							{(!xacthuc)?(<button type="button" className="btn btn-xacnhan btn-block text-center py-4" onClick={()=>this.xacThuc('https://scoin.vn/cap-nhat-sdt')}><span class="font-arial" style={{color:'#009999', textDecoration:'underline', fontWeight:'bold'}}>Xác thực SĐT</span></button>):(<div></div>)}
 					</div>
 
 					</div>
@@ -1123,8 +1127,8 @@ class Lucky_Rotation extends React.Component {
 									<tr>
 										<td width="24%" class="px-0"><img src= {img_chao_don} class="img-fluid" alt="" /></td>
 										<td width="38%" class="px-0"></td>
-										<td width="20%" class="pl-2 pr-0 text-center text-nowrap"><span class="font-arial font-13">10.000</span> <br/> <img src= {logo_scoin} alt="Scoin" width="48" /></td>
-										<td width="18%" class="px-0 text-center"><img src= {btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(0)} /><br /><span class="text-danger font-arial font-11">Còn {luckySpinGifts[0] !==undefined ? luckySpinGifts[0].quantity.toLocaleString() : 0} giải</span></td>
+										<td width="20%" class="pl-2 pr-0 text-center text-nowrap"><span class="font-arial font-13" style={{fontWeight:'bold'}}>10.000</span> <br/> <img src= {logo_scoin} alt="Scoin" width="48" /></td>
+										<td width="18%" class="px-0 text-center"><img src= {btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(0)} /><br /><span class="text-danger font-arial font-11">Còn {luckySpinGifts[0] !==undefined ? this.numberWithCommas(luckySpinGifts[0].quantity): 0} giải</span></td>
 									</tr>             
 									</tbody>
 								</table>
@@ -1135,8 +1139,8 @@ class Lucky_Rotation extends React.Component {
 									<tr>
 										<td width="24%" class="px-0"><img src= {img_canh_ty} class="img-fluid" alt="" /></td>
 										<td width="38%" class="px-0"></td>
-										<td width="20%" class="pl-2 pr-0 text-center text-nowrap"><span class="font-arial font-13">20.000</span> <br/> <img src= {logo_scoin} alt="Scoin" width="48" /></td>
-										<td width="18%" class="px-0 text-center"><img src= {btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(1)} /><br /><span class="text-danger font-arial font-11">Còn {luckySpinGifts[1] !==undefined ?  luckySpinGifts[1].quantity.toLocaleString() : 0} giải</span></td>
+										<td width="20%" class="pl-2 pr-0 text-center text-nowrap"><span class="font-arial font-13" style={{fontWeight:'bold'}}>20.000</span> <br/> <img src= {logo_scoin} alt="Scoin" width="48" /></td>
+										<td width="18%" class="px-0 text-center"><img src= {btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(1)} /><br /><span class="text-danger font-arial font-11">Còn {luckySpinGifts[1] !==undefined ?  this.numberWithCommas(luckySpinGifts[1].quantity) : 0} giải</span></td>
 									</tr>             
 									</tbody>
 								</table>
@@ -1147,8 +1151,8 @@ class Lucky_Rotation extends React.Component {
 									<tr>
 										<td width="35%" class="px-0"><img src= {img_chao_canh_ty} class="img-fluid" alt="" /></td>
 										<td width="27%" class="px-0"></td>
-										<td width="20%" class="pl-2 pr-0 text-center text-nowrap"><span class="font-arial font-13">50.000</span> <br/> <img src= {logo_scoin} alt="Scoin" width="48" /></td>
-										<td width="18%" class="px-0 text-center"><img src= {btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(2)} /><br /><span class="text-danger font-arial font-11">Còn {luckySpinGifts[2] !==undefined ?  luckySpinGifts[2].quantity.toLocaleString() : 0} giải</span></td>
+										<td width="20%" class="pl-2 pr-0 text-center text-nowrap"><span class="font-arial font-13" style={{fontWeight:'bold'}}>50.000</span> <br/> <img src= {logo_scoin} alt="Scoin" width="48" /></td>
+										<td width="18%" class="px-0 text-center"><img src= {btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(2)} /><br /><span class="text-danger font-arial font-11">Còn {luckySpinGifts[2] !==undefined ?  this.numberWithCommas(luckySpinGifts[2].quantity) : 0} giải</span></td>
 									</tr>             
 									</tbody>
 								</table>
@@ -1159,8 +1163,8 @@ class Lucky_Rotation extends React.Component {
 									<tr>
 										<td width="35%" class="px-0"><img src= {img_don_canh_ty} class="img-fluid" alt="" /></td>
 										<td width="27%" class="px-0"></td>
-										<td width="20%" class="pl-2 pr-0 text-center text-nowrap"><span class="font-arial font-13">100.000</span> <br/> <img src= {logo_scoin} alt="Scoin" width="48" /></td>
-										<td width="18%" class="px-0 text-center"><img src= {btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(3)} /><br /><span class="text-danger font-arial font-11">Còn {luckySpinGifts[3] !==undefined ?  luckySpinGifts[3].quantity.toLocaleString() : 0} giải</span></td>
+										<td width="20%" class="pl-2 pr-0 text-center text-nowrap"><span class="font-arial font-13" style={{fontWeight:'bold'}}>100.000</span> <br/> <img src= {logo_scoin} alt="Scoin" width="48" /></td>
+										<td width="18%" class="px-0 text-center"><img src= {btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(3)} /><br /><span class="text-danger font-arial font-11">Còn {luckySpinGifts[3] !==undefined ?  this.numberWithCommas(luckySpinGifts[3].quantity) : 0} giải</span></td>
 									</tr>             
 									</tbody>
 								</table>
@@ -1171,8 +1175,8 @@ class Lucky_Rotation extends React.Component {
 										<tr>
 											<td width="48%" class="px-0"><img src= {img_chao_don_canh_ty} class="img-fluid" alt="" /></td>
 											<td width="14%" class="px-0"></td>
-											<td width="20%" class="pl-2 pr-0 text-center text-nowrap"><span class="font-arial font-13">200.000</span> <br/> <img src={logo_scoin} alt="Scoin" width="48" /></td>
-											<td width="18%" class="px-0 text-center"><img src={btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(4)} /><br /><span class="text-danger font-arial font-11">Còn {luckySpinGifts[4] !==undefined ?  luckySpinGifts[4].quantity.toLocaleString() : 0} giải</span></td>
+											<td width="20%" class="pl-2 pr-0 text-center text-nowrap"><span class="font-arial font-13" style={{fontWeight:'bold'}}>200.000</span> <br/> <img src={logo_scoin} alt="Scoin" width="48" /></td>
+											<td width="18%" class="px-0 text-center"><img src={btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(4)} /><br /><span class="text-danger font-arial font-11">Còn {luckySpinGifts[4] !==undefined ?  this.numberWithCommas(luckySpinGifts[4].quantity) : 0} giải</span></td>
 										</tr>             
 									</tbody>
 								</table>
@@ -1182,8 +1186,8 @@ class Lucky_Rotation extends React.Component {
 									<tbody>
 										<tr>
 											<td width="62%" class="px-0"><img src= {img_chao_don_tet_canh_ty} class="img-fluid" alt="" /></td>
-											<td width="20%" class="pl-2 pr-0 text-center text-nowrap"><span class="font-arial font-13">1 Chỉ vàng SJC</span> <br/> <img src= {icon_jsc} alt="Scoin" width="12" /></td>
-											<td width="18%" class="px-0 text-center"><img src= {btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(5)} /><br /><span class="text-danger font-arial font-11">Còn {luckySpinGifts[5] !==undefined ?  luckySpinGifts[5].quantity.toLocaleString() : 0} giải</span></td>
+											<td width="20%" class="pl-2 pr-0 text-center text-nowrap"><span class="font-arial font-13" style={{fontWeight:'bold'}}>1 Chỉ vàng SJC</span> <br/> <img src= {icon_jsc} alt="Scoin" width="12" /></td>
+											<td width="18%" class="px-0 text-center"><img src= {btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(5)} /><br /><span class="text-danger font-arial font-11">Còn {luckySpinGifts[5] !==undefined ?  this.numberWithCommas(luckySpinGifts[5].quantity) : 0} giải</span></td>
 										</tr>             
 									</tbody>
 								</table>
@@ -1198,8 +1202,8 @@ class Lucky_Rotation extends React.Component {
 								</tr>
 								<tr>
 									<td width="25%"></td>
-									<td width="25%" class="pl-2 pr-2 text-center text-nowrap"><span class="font-arial font-13">10.000</span> <br/> <img src={logo_scoin} alt="Scoin" width="48" /></td>
-									<td width="25%" class="px-0 text-center"><img src={btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(0)} /><br /><span class="text-danger font-arial font-11 text-center">Còn {luckySpinGifts[0] !==undefined ?  luckySpinGifts[0].quantity.toLocaleString() : 0} giải</span></td>    <td width="25%"></td>                
+									<td width="25%" class="pl-2 pr-2 text-center text-nowrap"><span class="font-arial font-13" style={{fontWeight:'bold'}}>10.000</span> <br/> <img src={logo_scoin} alt="Scoin" width="48" /></td>
+									<td width="25%" class="px-0 text-center"><img src={btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(0)} /><br /><span class="text-danger font-arial font-11 text-center">Còn {luckySpinGifts[0] !==undefined ?  this.numberWithCommas(luckySpinGifts[0].quantity) : 0} giải</span></td>    <td width="25%"></td>                
 								</tr>             
 								</tbody>
 							</table>
@@ -1212,8 +1216,8 @@ class Lucky_Rotation extends React.Component {
 								</tr>
 								<tr>
 									<td width="25%"></td>
-									<td width="25%" class="pl-2 pr-2 text-center text-nowrap"><span class="font-arial font-13">20.000</span> <br/> <img src={logo_scoin} alt="Scoin" width="48" /></td>
-									<td width="25%" class="px-0 text-center"><img src={btn_doingay} class="img-fluid"style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(1)} /><br /><span class="text-danger font-arial font-11 text-center">Còn {luckySpinGifts[1] !==undefined ?  luckySpinGifts[1].quantity.toLocaleString() : 0} giải</span></td>    <td width="25%"></td>                
+									<td width="25%" class="pl-2 pr-2 text-center text-nowrap"><span class="font-arial font-13" style={{fontWeight:'bold'}}>20.000</span> <br/> <img src={logo_scoin} alt="Scoin" width="48" /></td>
+									<td width="25%" class="px-0 text-center"><img src={btn_doingay} class="img-fluid"style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(1)} /><br /><span class="text-danger font-arial font-11 text-center">Còn {luckySpinGifts[1] !==undefined ?  this.numberWithCommas(luckySpinGifts[1].quantity) : 0} giải</span></td>    <td width="25%"></td>                
 								</tr>             
 								</tbody>
 							</table>
@@ -1226,8 +1230,8 @@ class Lucky_Rotation extends React.Component {
 								</tr>
 								<tr>
 									<td width="25%"></td>
-									<td width="25%" class="pl-2 pr-2 text-center text-nowrap"><span class="font-arial font-13">50.000</span> <br/> <img src={logo_scoin} alt="Scoin" width="48" /></td>
-									<td width="25%" class="px-0 text-center"><img src={btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(2)} /><br /><span class="text-danger font-arial font-11 text-center">Còn {luckySpinGifts[2] !==undefined ?  luckySpinGifts[2].quantity.toLocaleString() : 0} giải</span></td>    <td width="25%"></td>                
+									<td width="25%" class="pl-2 pr-2 text-center text-nowrap"><span class="font-arial font-13" style={{fontWeight:'bold'}}>50.000</span> <br/> <img src={logo_scoin} alt="Scoin" width="48" /></td>
+									<td width="25%" class="px-0 text-center"><img src={btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(2)} /><br /><span class="text-danger font-arial font-11 text-center">Còn {luckySpinGifts[2] !==undefined ?  this.numberWithCommas(luckySpinGifts[2].quantity) : 0} giải</span></td>    <td width="25%"></td>                
 								</tr>             
 								</tbody>
 							</table>
@@ -1240,8 +1244,8 @@ class Lucky_Rotation extends React.Component {
 								</tr>
 								<tr>
 									<td width="25%"></td>
-									<td width="25%" class="pl-2 pr-2 text-center text-nowrap"><span class="font-arial font-13">100.000</span> <br/> <img src={logo_scoin} alt="Scoin" width="48" /></td>
-									<td width="25%" class="px-0 text-center"><img src={btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(3)} /><br /><span class="text-danger font-arial font-11 text-center">Còn {luckySpinGifts[3] !==undefined ?  luckySpinGifts[3].quantity.toLocaleString() : 0} giải</span></td>    <td width="25%"></td>                
+									<td width="25%" class="pl-2 pr-2 text-center text-nowrap"><span class="font-arial font-13" style={{fontWeight:'bold'}}>100.000</span> <br/> <img src={logo_scoin} alt="Scoin" width="48" /></td>
+									<td width="25%" class="px-0 text-center"><img src={btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(3)} /><br /><span class="text-danger font-arial font-11 text-center">Còn {luckySpinGifts[3] !==undefined ?  this.numberWithCommas(luckySpinGifts[3].quantity) : 0} giải</span></td>    <td width="25%"></td>                
 								</tr>             
 								</tbody>
 							</table>
@@ -1254,8 +1258,8 @@ class Lucky_Rotation extends React.Component {
 								</tr>
 								<tr>
 									<td width="25%"></td>
-									<td width="25%" class="pl-2 pr-2 text-center text-nowrap"><span class="font-arial font-13">200.000</span> <br/> <img src={logo_scoin} alt="Scoin" width="48" /></td>
-									<td width="25%" class="px-0 text-center"><img src={btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(4)} /><br /><span class="text-danger font-arial font-11 text-center">Còn {luckySpinGifts[4] !==undefined ?  luckySpinGifts[4].quantity.toLocaleString() : 0} giải</span></td>    <td width="25%"></td>                
+									<td width="25%" class="pl-2 pr-2 text-center text-nowrap"><span class="font-arial font-13" style={{fontWeight:'bold'}}>200.000</span> <br/> <img src={logo_scoin} alt="Scoin" width="48" /></td>
+									<td width="25%" class="px-0 text-center"><img src={btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(4)} /><br /><span class="text-danger font-arial font-11 text-center">Còn {luckySpinGifts[4] !==undefined ?  this.numberWithCommas(luckySpinGifts[4].quantity) : 0} giải</span></td>    <td width="25%"></td>                
 								</tr>             
 								</tbody>
 							</table>
@@ -1267,9 +1271,9 @@ class Lucky_Rotation extends React.Component {
 									<td colspan="4" class="px-0 text-center"><img src= {img_chao_don_tet_canh_ty} class="img-fluid" alt="" /></td>                  
 								</tr>
 								<tr>
-									<td width="20%"></td>
-									<td width="25%" class="pl-2 pr-2 text-center text-nowrap"><span class="font-arial font-13">1 Chỉ vàng SJC</span> <br/> <img src= {icon_jsc} alt="Scoin" width="12" /></td>
-									<td width="30%" class="px-0 text-center"><img src={btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(5)} /><br /><span class="text-danger font-arial font-11 text-center">Còn {luckySpinGifts[5] !==undefined ?  luckySpinGifts[5].quantity.toLocaleString() : 0} giải</span></td>    <td width="25%"></td>                
+									<td width="17%"></td>
+									<td width="25%" class="pl-2 pr-2 text-center text-nowrap"><span class="font-arial font-13" style={{fontWeight:'bold'}}>1 Chỉ vàng SJC</span> <br/> <img src= {icon_jsc} alt="Scoin" width="12" /></td>
+									<td width="34%" class="px-0 text-center"><img src={btn_doingay} class="img-fluid" style={{cursor:"pointer"}} alt="" onClick={()=>this.openExchangeWord(5)} /><br /><span class="text-danger font-arial font-11 text-center">Còn {luckySpinGifts[5] !==undefined ?  this.numberWithCommas(luckySpinGifts[5].quantity) : 0} giải</span></td>    <td width="25%"></td>                
 								</tr>             
 								</tbody>
 							</table>
@@ -1584,14 +1588,14 @@ class Lucky_Rotation extends React.Component {
 						<div class="row mt-3">
 							<div class="col-sm-3 py-1"><h3 class="font-arial font-13 font-weight-bold">Số lượng giải thưởng cần đổi:</h3></div>
 							<div class="input-group col-sm-4 py-1" style={{justifyContent:'center'}}>
-							<input type="button" value="-" class="button-minus form-control-sm" data-field="quantity"  onClick={this.changeMinus} />
-							<span class="quantity-field form-control-sm" style={{width: 50}}>{numberWordChange}</span>
-							<input type="button" value="+" class="button-plus form-control-sm" data-field="quantity" onClick={this.changePlus} />
+							<input type="button" value="-" class="font-arial button-minus form-control-sm" data-field="quantity"  onClick={this.changeMinus} />
+							<span class="font-arial quantity-field form-control-sm" style={{width: 50, textAlign:'center'}}>{numberWordChange}</span>
+							<input type="button" value="+" class="font-arial button-plus form-control-sm" data-field="quantity" onClick={this.changePlus} />
 							</div>
 							<div class="col-sm-3 py-1" style={{textAlign:"center"}}><button type="button" class="font-arial btn btn-warning"  onClick={this.changeNumberWordMax}>Max</button></div>
 						</div>
 						{(vang_jsc)?(<p class="font-arial text-center py-3">Nhận được: 1 chỉ vàng JSC <img src= {icon_jsc} alt="jsc" width="12" /></p>):(
-						<p class="font-arial text-center py-3">Nhận được: {scoinPlus ? scoinPlus.toLocaleString() : 0} <img src= {logo_scoin} alt="Scoin" width="48" /></p>)}
+						<p class="font-arial text-center py-3">Nhận được: {scoinPlus ? this.numberWithCommas(scoinPlus) : 0} <img src= {logo_scoin} alt="Scoin" width="48" /></p>)}
 						{(numberWordChange >max)?(<p class="font-arial small text-danger text-center">Không đủ chữ để nhận giải thưởng này</p>):(<div></div>)}
 						<p class="text-center"><a title="Xác nhận đổi" onClick={this.exchangeWord}><img src= {btn_xacnhanduoithuong} class="img-fluid" style={{cursor:"pointer"}} alt="Xác nhận" /></a></p>
 						

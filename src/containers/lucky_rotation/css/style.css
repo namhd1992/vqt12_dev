@@ -11,7 +11,7 @@ font-style:normal;
 
 * {font-family: Nabila;}
 html {scroll-behavior: smooth;}
-body {background-image: url(../images/bg-page.png); background-size: cover; background-repeat: no-repeat; background-position: top center; max-height: 1000px; background-color: #ba1a31}
+body {background-image: url(../images/bg-page.png); background-size: cover; background-repeat: no-repeat; background-position: top center; max-height: 1000px; background-color: #ba1a31 !important;}
 .logo {margin: 0 auto; padding-top: 5%;}
 .col-left, .col-right {width: 20%;}
 .w-60 {width: 60% !important}
@@ -97,12 +97,17 @@ body {background-image: url(../images/bg-page.png); background-size: cover; back
   90% { transform: translate(1px, 2px) rotate(0deg); }
   100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
+@media (max-width: 1366px) {
+  body {background-image: url(../images/bg-page.png); background-size: contain; background-repeat: no-repeat; background-position: top center; max-height: 1000px; background-color: #ba1a31 !important;}
+}
 
 @media (min-width: 1024px) {
   .modal-dialog {max-width: 1024px !important;}
 }
 
+
 @media (max-width: 992px) {
+  body {background-image: url(../images/bg-page.png); background-size: cover; background-repeat: no-repeat; background-position: top center; max-height: 1000px; background-color: #ba1a31 !important;}
 .bg-acc.h6 {font-size: 1vw}
 .box-left {padding-left: 0;}
 .display-5 {font-size: 4vw;}
@@ -120,7 +125,7 @@ body {background-image: url(../images/bg-page.png); background-size: cover; back
 .d-pc-none-block {display: block;}
 .float-left {top:35%}
 .d-pc-none {display: inline-flex !important;}
-body {background-image: url(../images/bg-page-m.png); background-size: cover; background-repeat: no-repeat; background-position: top center; max-height: 1000px; background-color: #ba1a31 !important}
+body{background-image: url(../images/bg-page-m.png); background-size: cover; background-repeat: no-repeat; background-position: top center; max-height: 1000px; background-color: #ba1a31 !important}
 .img-doithuong {padding-top: 0}
 .float-bottom {position:fixed; bottom: 5%; background:url(../images/menu-float-bottom-m.png) no-repeat; width: 320px; height: 112px; font-size:11px}
 

@@ -138,6 +138,9 @@ body {background-image: url(../images/bg-page.png); background-size: cover; back
   margin-left:35%;
   margin-top:20px;
 }
+.div-img-word{
+  width: 50%;
+}
 }
 @media (max-width: 576px) {
 .logo {padding-top: 10%;}

@@ -800,21 +800,32 @@ class Lucky_Rotation extends React.Component {
 			this.setState({message_error:'Sự kiện chưa diễn ra.'})
 		}
 		if(live){
-			if(dataProfile.phoneNumber !==null){
-				this.props.exchangeItem(119,luckySpinGiftId, numberWordChange, user.access_token).then(()=>{
-					var data=this.props.dataExchangeItem;
-					if(data.status==='01'){
-						this.setState({scoinPlus:data.data.value, numberWordChange:0, scoinPlus:scoinPlus},()=>{
-							$('#doithuong').modal('hide');
-							$('#chucmung').modal('show');
-						})
-						this.getDetailData();
-					}
+			// if(dataProfile.phoneNumber !==null){
+			// 	this.props.exchangeItem(119,luckySpinGiftId, numberWordChange, user.access_token).then(()=>{
+			// 		var data=this.props.dataExchangeItem;
+			// 		if(data.status==='01'){
+			// 			this.setState({scoinPlus:data.data.value, numberWordChange:0, scoinPlus:scoinPlus},()=>{
+			// 				$('#doithuong').modal('hide');
+			// 				$('#chucmung').modal('show');
+			// 			})
+			// 			this.getDetailData();
+			// 		}
 					
-				})
-			}else{
-				$('#myModal8').modal('show');
-			}
+			// 	})
+			// }else{
+			// 	$('#myModal8').modal('show');
+			// }
+			this.props.exchangeItem(119,luckySpinGiftId, numberWordChange, user.access_token).then(()=>{
+				var data=this.props.dataExchangeItem;
+				if(data.status==='01'){
+					this.setState({scoinPlus:data.data.value, numberWordChange:0, scoinPlus:scoinPlus},()=>{
+						$('#doithuong').modal('hide');
+						$('#chucmung').modal('show');
+					})
+					this.getDetailData();
+				}
+				
+			})
 		}
 		if(finish){
 			$('#myModal11').modal('show');
